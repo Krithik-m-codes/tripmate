@@ -1,6 +1,9 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 // Saved Places Interface - Saved Places Model will implement this interface to have a strong type checking for Saved Places Model instance
+// Document is a mongoose interface that has _id, __v, and other properties
+// SavedPlaces extends Document means SavedPlaces interface will have all properties of Document interface
+
 export interface SavedPlaces extends Document {
   name: string;
   location: string;

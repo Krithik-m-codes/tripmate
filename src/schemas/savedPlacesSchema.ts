@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 // Define a schema for the saved places form with validation rules for the name, location, description and image fields
-
 export const SavedPlacesSchema = z.object({
   name: z.string().min(3, { message: "Place Name must be atleast 3 characters" }),
   location: z

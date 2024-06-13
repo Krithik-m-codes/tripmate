@@ -4,13 +4,13 @@ import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User.model";
 
-// to access data easily, we need to extend the User object in the next-auth module 
+// to access data easily, we need to extend the User object in the next-auth module
 // to include the new fields we added to the user object in the database.
-// helps in accessing the user object easily in the session and jwt callbacks 
+// helps in accessing the user object easily in the session and jwt callbacks
 
 // Authentication options configuration for next-auth module
 export const authOptions: NextAuthOptions = {
-  // Providers array containing the credentials provider for email/password login 
+  // Providers array containing the credentials provider for email/password login
   providers: [
     CredentialsProvider({
       id: "credentials",
@@ -56,10 +56,11 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
+  
   // Callbacks object containing JWT and session callbacks to add custom fields to token and session objects
   callbacks: {
-    // JWT callback to add custom fields to token object when user logs in or signs up 
-    async jwt({ token, user })  {
+    // JWT callback to add custom fields to token object when user logs in or signs up
+    async jwt({ token, user }) {
       if (user) {
         token._id = user._id?.toString();
         token.email = user.email;
@@ -68,7 +69,7 @@ export const authOptions: NextAuthOptions = {
       }
       return token;
     },
-    // Session callback to add custom fields to session object when user logs in or signs up 
+    // Session callback to add custom fields to session object when user logs in or signs up
     async session({ session, token }) {
       if (token) {
         session.user._id = token._id;
@@ -80,12 +81,12 @@ export const authOptions: NextAuthOptions = {
     },
   },
 
-  // Pages object containing the sign in page path 
+  // Pages object containing the sign in page path
   pages: {
-    signIn: "/auth/login",
+    signIn: "/sign-in",
   },
 
-  // JWT configuration object containing the JWT signing key and encryption algorithm 
+  // JWT configuration object containing the JWT signing key and encryption algorithm
   session: {
     strategy: "jwt",
   },

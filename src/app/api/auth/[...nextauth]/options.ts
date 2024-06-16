@@ -22,6 +22,7 @@ export const authOptions: NextAuthOptions = {
       // Authorize function to check if user exists in database and password is correct
       async authorize(credentials: any): Promise<any> {
         await dbConnect();
+        console.log("Credentials : ", credentials);
         try {
           // Find user by email address in database and return user object
           const user = await UserModel.findOne({
@@ -46,7 +47,18 @@ export const authOptions: NextAuthOptions = {
           );
           // If password is invalid, throw error
           if (isPasswordCorrect) {
-            return user;
+            console.log(
+              " [password is correct in [/api/auth/[...nextAuth/options] User : ",
+              user
+            );
+            return {
+              id: user?._id,
+              email: user?.email,
+              name: user?.name,
+              username: user?.username,
+              isVerified: user?.isVerified,
+              avatar: user?.avatar,
+            };
           } else {
             throw new Error("Invalid password");
           }
@@ -56,7 +68,7 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  
+
   // Callbacks object containing JWT and session callbacks to add custom fields to token and session objects
   callbacks: {
     // JWT callback to add custom fields to token object when user logs in or signs up

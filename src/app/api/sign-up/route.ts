@@ -2,7 +2,6 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User.model";
 import bcrypt from "bcryptjs";
 import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
-import { log } from "console";
 // import { upload } from "../../../middlewares/multer.middleware";
 // import { uploadOnCloudinary } from "@/utils/cloudinary.service";
 

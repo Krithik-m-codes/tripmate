@@ -8,6 +8,7 @@ import { User } from "next-auth";
 export async function GET(request: Request) {
   await dbConnect();
   try {
+    // console.log(authOptions);
     // get user session
     const session = await getServerSession(authOptions);
     console.log("Session : ", session);

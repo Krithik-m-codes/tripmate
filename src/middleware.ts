@@ -5,11 +5,11 @@ import { getToken } from "next-auth/jwt";
 // Middleware to check if a user is authenticated
 // and if not, redirect them to the sign-in page
 export async function middleware(request: NextRequest) {
-  console.log("Middleware request : ", request);
   const token = await getToken({
     req: request,
+    secret: process.env.NEXTAUTH_SECRET,
   });
-  console.log("Middleware token received : ", token);
+  console.log("Token : ", token);
   const url = request.nextUrl;
   console.log("URL access : ", url.pathname);
   if (
@@ -17,13 +17,14 @@ export async function middleware(request: NextRequest) {
     (url.pathname === "/sign-in" ||
       url.pathname === "/sign-up" ||
       url.pathname === "/verify" ||
-      url.pathname === "/dashboard" ||
       url.pathname === "/")
   ) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
-
   } else {
-    if (!token && url.pathname === "/dashboard") {
+    if (
+      (!token && url.pathname === "/dashboard") ||
+      url.pathname === "/api/profile"
+    ) {
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }
   }

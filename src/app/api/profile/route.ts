@@ -11,7 +11,7 @@ export async function GET(request: Request) {
     // console.log(authOptions);
     // get user session
     const session = await getServerSession(authOptions);
-    console.log("Session : ", session);
+    // console.log("Session : ", session);
     if (!session || !session?.user) {
       return Response.json(
         {
@@ -25,8 +25,8 @@ export async function GET(request: Request) {
     // get user data from database and return it
     const user: User = session?.user as User;
     const userData = await UserModel.findById(session?.user?._id).exec();
-    console.log("User : ", user);
-    console.log("User data : ", userData);
+    // console.log("\n \n User : ", user);
+    // console.log("User data : ", userData);
 
     if (!userData || !user) {
       return Response.json(

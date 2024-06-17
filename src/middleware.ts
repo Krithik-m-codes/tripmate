@@ -9,9 +9,9 @@ export async function middleware(request: NextRequest) {
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
   });
-  console.log("Token : ", token);
+  console.log("Token [middleware] : ", token);
   const url = request.nextUrl;
-  console.log("URL access : ", url.pathname);
+  console.log("URL access [middleware]: ", url.pathname);
   if (
     token &&
     (url.pathname === "/sign-in" ||

@@ -26,10 +26,12 @@ export const authOptions: NextAuthOptions = {
           // Find user by email address in database and return user object
           const user = await UserModel.findOne({
             $or: [
-              { email: credentials.identifier.toLowerCase() },
-              { username: credentials.identifier },
+              { email: credentials?.email.toLowerCase() },
+              { username: credentials?.username },
             ],
           });
+
+          // console.log("User [auth options authorize function] : ", user);
           // If no user found, throw error
           if (!user) {
             throw new Error("No user found with this email address");
@@ -38,15 +40,22 @@ export const authOptions: NextAuthOptions = {
           if (!user.isVerified) {
             throw new Error("Email not verified");
           }
-
           // Compare password
           const isPasswordCorrect = await bcrypt.compare(
             credentials.password,
             user.password
           );
-          // If password is invalid, throw error
+
+          // If user is correct, return user object else throw error
           if (isPasswordCorrect) {
-            return user;
+            return {
+              id: user?._id,
+              email: user?.email,
+              name: user?.name,
+              username: user?.username,
+              isVerified: user?.isVerified,
+              avatar: user?.avatar,
+            };
           } else {
             throw new Error("Invalid password");
           }
@@ -56,17 +65,20 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  
+
   // Callbacks object containing JWT and session callbacks to add custom fields to token and session objects
   callbacks: {
     // JWT callback to add custom fields to token object when user logs in or signs up
     async jwt({ token, user }) {
+      // console.log("User [auth options] : ", user);
       if (user) {
-        token._id = user._id?.toString();
+        token._id = user.id;
         token.email = user.email;
         token.username = user.username;
         token.isVerified = user.isVerified;
       }
+      // console.log("Token [auth options] : ", token);
+
       return token;
     },
     // Session callback to add custom fields to session object when user logs in or signs up
@@ -77,6 +89,8 @@ export const authOptions: NextAuthOptions = {
         session.user.username = token.username;
         session.user.isVerified = token.isVerified;
       }
+      // console.log("Session [auth options] : ", session);
+      // console.log("Token [auth options] session  : ", token);
       return session;
     },
   },

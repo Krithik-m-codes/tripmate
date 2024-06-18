@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 export { default } from "next-auth/middleware";
 import { getToken } from "next-auth/jwt";
-
 // Middleware for Authentication
 // Middleware to check if a user is authenticated
 // and if not, redirect them to the sign-in page
@@ -10,10 +9,9 @@ export async function middleware(request: NextRequest) {
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
   });
-  // console.log("Request : ", request);
-  console.log("Middleware token received : ", token);
+  console.log("Token [middleware] : ", token);
   const url = request.nextUrl;
-  console.log(url.pathname);
+  console.log("URL access [middleware]: ", url.pathname);
   if (
     token &&
     (url.pathname === "/sign-in" ||
@@ -22,14 +20,15 @@ export async function middleware(request: NextRequest) {
       url.pathname === "/")
   ) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
-    // return console.log(
-    //   `Redirection was successful from ${url.pathname} to : /dashboard if possible if the sign in page exists and takes me there`
-    // );
+  } else {
+    if (
+      (!token && url.pathname === "/dashboard") ||
+      url.pathname === "/api/profile"
+    ) {
+      return NextResponse.redirect(new URL("/sign-in", request.url));
+    }
   }
-  if (!token && url.pathname === "/dashboard") {
-    return NextResponse.redirect(new URL("/sign-in", request.url));
-  }
-  // console.log("redirecting to default from middleware : ", url.pathname);
+
   return NextResponse.next();
 }
 

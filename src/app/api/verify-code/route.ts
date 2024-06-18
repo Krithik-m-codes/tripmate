@@ -6,7 +6,8 @@ export async function POST(request: Request) {
 
   try {
     const { username, code } = await request.json();
-
+    // check if username and code are provided
+    // console.log(username, code);
     // decode the username and code to prevent URL encoding when they are passed in the query string
     const decodedUsername = decodeURIComponent(username);
     // check if user exists in database
@@ -26,7 +27,6 @@ export async function POST(request: Request) {
     // check if code is valid and expired or not
     const isCodeValid = user.verifyCode === code;
     const isCodeNotExpired = new Date(user.verifyCodeExpires) > new Date();
-
     // if code is valid and not expired, update isVerified to true in database
     // and return success message else return error message
     if (isCodeValid && isCodeNotExpired) {

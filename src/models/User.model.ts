@@ -1,43 +1,9 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Model, Document } from "mongoose";
+import { ISearchHistory, SearchHistorySchema } from "./SearchHistory.model";
+import { ISavedPlace, SavedPlacesSchema } from "./SavedPlace.model";
 
-// Saved Places Interface - Saved Places Model will implement this interface to have a strong type checking for Saved Places Model instance
-// Document is a mongoose interface that has _id, __v, and other properties
-// SavedPlaces extends Document means SavedPlaces interface will have all properties of Document interface
-
-export interface SavedPlaces extends Document {
-  name: string;
-  location: string;
-  description: string;
-  image: string;
-  createdAt?: Date;
-}
-
-// Saved Places Schema
-const SavedPlacesSchema: Schema<SavedPlaces> = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  location: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
-
-// User Interface - User Model will implement this interface to have a strong type checking for User Model instance
-export interface User extends Document {
+// User Interface for Schema and Model type definitions in TypeScript with Mongoose types
+export interface IUser extends Document {
   username: string;
   avatar: string;
   name: string;
@@ -45,14 +11,14 @@ export interface User extends Document {
   password: string;
   verifyCode: string;
   verifyCodeExpires: Date;
-  userCreatedAt: Date;
+  userCreatedAt?: Date;
   isVerified: boolean;
-  searchHistory: string[];
-  savedPlaces: SavedPlaces[];
+  searchHistory: mongoose.Types.DocumentArray<ISearchHistory>;
+  savedPlaces: mongoose.Types.DocumentArray<ISavedPlace>;
 }
 
 // User Schema
-const UserSchema: Schema<User> = new Schema({
+const UserSchema: Schema<IUser> = new Schema({
   username: {
     type: String,
     required: true,
@@ -94,16 +60,23 @@ const UserSchema: Schema<User> = new Schema({
     type: Boolean,
     default: false,
   },
-  searchHistory: {
-    type: [String],
-    required: true,
-  },
-  savedPlaces: [SavedPlacesSchema],
+  searchHistory: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "SearchHistory",
+    },
+  ],
+  savedPlaces: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "SavedPlace",
+    },
+  ],
 });
 
-//next js check if model is already defined or not if yes then use that model else create new model with name User
-const UserModel =
-  (mongoose.models.User as mongoose.Model<User>) ||
-  mongoose.model<User>("User", UserSchema);
+// Check if the model is already defined or not
+const UserModel: Model<IUser> =
+  mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
 
+// exporting the model so that it can be used in other files
 export default UserModel;

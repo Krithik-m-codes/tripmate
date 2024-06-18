@@ -70,14 +70,14 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     // JWT callback to add custom fields to token object when user logs in or signs up
     async jwt({ token, user }) {
-      console.log("User [auth options] : ", user);
+      // console.log("User [auth options] : ", user);
       if (user) {
         token._id = user.id;
         token.email = user.email;
         token.username = user.username;
         token.isVerified = user.isVerified;
       }
-      console.log("Token [auth options] : ", token);
+      // console.log("Token [auth options] : ", token);
 
       return token;
     },
@@ -89,8 +89,8 @@ export const authOptions: NextAuthOptions = {
         session.user.username = token.username;
         session.user.isVerified = token.isVerified;
       }
-      console.log("Session [auth options] : ", session);
-      console.log("Token [auth options] session  : ", token);
+      // console.log("Session [auth options] : ", session);
+      // console.log("Token [auth options] session  : ", token);
       return session;
     },
   },

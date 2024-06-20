@@ -1,7 +1,6 @@
 // pages/dashboard.tsx
 "use client";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
 import Sidebar from "@/components/Sidebar";
@@ -27,8 +26,9 @@ function DashboardPage() {
 
   const fetchSearchHistory = async () => {
     try {
-      const response = await axios.get("/api/search-history");
-      setSearchHistory(response.data);
+      const response = await fetch("/api/search-history");
+      const data = await response.json();
+      setSearchHistory(data);
     } catch (error) {
       console.error(error);
     }
@@ -36,10 +36,11 @@ function DashboardPage() {
 
   const fetchPlaceRecommendations = async (term: string) => {
     try {
-      const response = await axios.get(
+      const response = await fetch(
         `https://external-api.com/places?q=${term}`
       );
-      setPlaceRecommendations(response.data);
+      const responseData = await response.json();
+      setPlaceRecommendations(responseData);
     } catch (error) {
       console.error(error);
     }

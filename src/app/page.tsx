@@ -133,9 +133,9 @@ export default function Home() {
                 Adventure with <span className="text-[#166f5b] ">TripMate</span>
               </h1>
               <p className="mt-3 text-gray-700 md:text-lg lg:text-xl">
-                TripMate is the ultimate travel companion, Our intiuitive <br />
+                TripMate is the ultimate travel companion, Our intuitive <br />
                 web app provides a seamless experience for discovering top
-                destiantions, palnning you rtrip , and getting directions
+                destinations, planning your trip , and getting directions
               </p>
             </div>
           </div>
@@ -204,6 +204,150 @@ export default function Home() {
         </div>
       </section>
       {/* featured section ends here  */}
+
+      {/* Services section starts here  */}
+      <section className="bg-[#F3F7F6] h-auto flex justify-center mt-10 items-center flex-col ">
+        {/* Container for header and button */}
+        <div className="container md:px-[9.5rem] px-10 sm:text-sm md:text-lg py-10 mx-auto flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl sm:text-4xl font-semibold text-left text-black underline decoration-[#166f5b] ">
+              Our Services
+            </h1>
+          </div>
+          <div>
+            <button className="bg-[#166f5b] text-white px-3 py-1 md:px-6 md:py-3 rounded">
+              Get Started
+            </button>
+          </div>
+        </div>
+
+        {/* Container for sections with images  and text */}
+        <div className="bg-white sm:w-[95%] my-10 rounded-md">
+          <div className="container flex flex-col-reverse px-6 gap-8 md:gap-0 py-4 mx-auto space-y-6 lg:h-[32rem] lg:py-16 lg:flex-row-reverse lg:items-center">
+            <div className="flex flex-col items-center w-full lg:flex-row lg:w-1/2">
+              <div className="max-w-lg lg:mx-12 lg:order-2">
+                <h1 className="text-3xl font-semibold tracking-wide text-black  lg:text-4xl">
+                  Directions Assistance
+                </h1>
+                <p className="mt-4 text-gray-900">
+                  Get to your destination with ease and <br />
+                  confidence with our directions assistance service
+                </p>
+                <div className="mt-6">
+                  <a
+                    href="#"
+                    className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-blue-600 rounded-lg hover:bg-blue-500 lg:mx-0 lg:w-auto focus:outline-none"
+                  >
+                    Read more
+                  </a>
+                </div>
+              </div>
+            </div>
+            {/* image container */}
+            <div className="flex items-center shadow-md md:shadow-none rounded-md justify-center w-full h-96 lg:w-1/2">
+              <Image
+                src="/assets/direction-asst-img.png"
+                alt="directions image"
+                width={500}
+                height={500}
+                className="object-cover w-full h-full max-w-2xl rounded-md"
+              />
+            </div>
+          </div>
+
+          {/* Container for sections with images  and text */}
+          <div className="container flex flex-col-reverse gap-8 md:gap-0 px-6 py-4 mx-auto space-y-6 lg:h-[32rem] lg:py-16 lg:flex-row lg:items-center">
+            <div className="flex flex-col items-center  w-full lg:flex-row lg:w-1/2">
+              <div className="max-w-lg lg:mx-12 lg:order-2">
+                <h1 className="text-3xl font-semibold tracking-wide text-black lg:text-4xl">
+                  Travel Planning
+                </h1>
+                <p className="mt-4 text-gray-900">
+                  Leave the stress of travel planning behind and <br />
+                  let us create a seamless itinerary for your next adventure
+                </p>
+                <div className="mt-6">
+                  <a
+                    href="#"
+                    className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-blue-600 rounded-lg hover:bg-blue-500 lg:mx-0 lg:w-auto focus:outline-none"
+                  >
+                    Read more{" "}
+                  </a>
+                </div>
+              </div>
+            </div>
+            {/* image container */}
+            <div className="flex items-center shadow-md md:shadow-none rounded-md justify-center w-full h-96 lg:w-1/2">
+              <Image
+                src="/assets/travel-planning-img.webp"
+                alt="travel planning image"
+                width={500}
+                height={500}
+                className="object-cover w-full h-full max-w-2xl rounded-md"
+              />
+            </div>
+          </div>
+
+          {/* Container for sections with images  and text */}
+          <div className="container flex flex-col-reverse gap-8 md:gap-0 px-6 py-4 mx-auto space-y-6 lg:h-[32rem] lg:py-16 lg:flex-row-reverse lg:items-center">
+            <div className="flex flex-col items-center w-full lg:flex-row lg:w-1/2">
+              <div className="max-w-lg lg:mx-12 lg:order-2">
+                <h1 className="text-3xl font-semibold tracking-wide text-black  lg:text-4xl">
+                  Find Hidden Attractions{" "}
+                </h1>
+                <p className="mt-4 text-gray-900">
+                  Discover hidden gems with our search engine and <br />
+                  find the perfect spot for your next adventure
+                </p>
+                <div className="mt-6">
+                  <a
+                    href="#"
+                    className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-blue-600 rounded-lg hover:bg-blue-500 lg:mx-0 lg:w-auto focus:outline-none"
+                  >
+                    Read more{" "}
+                  </a>
+                </div>
+              </div>
+            </div>
+            {/* image container */}
+            <div className="flex items-center shadow-md md:shadow-none rounded-md justify-center w-full h-96 lg:w-1/2">
+              <Image
+                src="/assets/find-attraction-img.png"
+                alt="direction discovery image"
+                width={500}
+                height={500}
+                className="object-cover w-full h-full max-w-2xl rounded-md"
+              />
+            </div>
+          </div>
+        </div>
+        {/* Container for section features and benefits */}
+        <div>
+          <div>
+            <h1>Features and Benefits</h1>
+          </div>
+        </div>
+      </section>
+      {/* Services section ends here  */}
+
+      {/* Footer section */}
+      <footer className="bg-black text-white">
+        <div className="flex gap-6 my-3 items-center justify-center">
+          <Image
+            src="/tripmate-logo.png"
+            alt="tripmate logo"
+            width={50}
+            height={50}
+            className="rounded-full"
+          />
+          <h2>TripMate</h2>
+        </div>
+        <p>Copyright &copy; 2023 TripMate. All rights reserved.</p>
+        <div className="flex justify-center gap-4">
+          <p>Powered by Next js</p>
+          <p>Developed by Krithik M</p>
+        </div>
+      </footer>
     </main>
   );
 }

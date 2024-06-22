@@ -10,17 +10,27 @@ export async function sendVerificationEmail(
 ): Promise<ApiResponse> {
   // try to send the email
   try {
-    await resend.emails.send({
-      from: "onboarding@resend.dev",
+    const { data, error } = await resend.emails.send({
+      from: "Acme <onboarding@resend.dev>",
       to: email,
       subject: "TripMate Verification Email 🚀 ",
       react: VerificationEmail({ username, verifyCode }),
     });
+
+    if (error) {
+      console.error("Error sending verification email:");
+      console.error(error);
+      return {
+        success: false,
+        message: "Failed to send verification email. Please try again later.",
+        data: null,
+      };
+    }
     // return a success response if the email is sent successfully
     return {
       success: true,
       message: "Verification email sent successfully.",
-      data: null,
+      data: data,
     };
   } catch (emailError) {
     console.error("Error sending verification email:");

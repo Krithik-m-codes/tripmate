@@ -80,6 +80,7 @@ export async function POST(request: Request) {
       username,
       verifyCode
     );
+    console.log(`Email successfully send to ${email} emailResponse:`, emailResponse)
     // Check if the email was sent successfully or not
     if (!emailResponse.success) {
       return Response.json(

@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import TeamMember from "../components/TeamMember";
+
 // import { logo } from "../assets/index"
 
 export default function Home() {
@@ -27,7 +29,7 @@ export default function Home() {
   const handleSignupClick = () => {
     handleClose();
     // redirect to signup
-    window.location.href = "/signup";
+    window.location.href = "/sign-up";
   };
 
   return (
@@ -322,13 +324,93 @@ export default function Home() {
           </div>
         </div>
         {/* Container for section features and benefits */}
-        <div>
-          <div>
-            <h1>Features and Benefits</h1>
+        <div className="container mx-auto py-8 text-black">
+          <h2 className="text-center text-xl font-bold mb-4">
+            Features & Benefits
+          </h2>
+          <div className="border-b-2 border-black mb-8"></div>
+          <div className="flex flex-col sm:flex-row justify-between items-center">
+            <div className="flex-1 p-4">
+              <h3 className="font-bold text-lg">Features</h3>
+              <ul className="mt-2 space-y-2">
+                <li>👉 Intuitive Destination Discovery</li>
+                <li>👉 Customized Travel planning</li>
+                <li>👉 Effortless Directions Assistance</li>
+                <li>👉 Real-Time Traffic Updates</li>
+                <li>👉 Integrated Travel Reservations</li>
+              </ul>
+            </div>
+            <div className="flex-1 p-4">
+              <h3 className="font-bold text-lg">Benefits</h3>
+              <ul className="mt-2 space-y-2">
+                <li>👉 Stress-Free Travel Planning</li>
+                <li>👉 Efficient travel management</li>
+                <li>👉 Customized travel experiences</li>
+                <li>👉 Seamless navigation</li>
+                <li>👉 Unforgettable adventures</li>
+              </ul>
+            </div>
+            <div className="flex-1 p-4">
+              <Image
+                src="/assets/hero-img.png"
+                width={500}
+                height={500}
+                alt="Scenic view"
+                className="w-full h-auto rounded-lg"
+              />
+            </div>
           </div>
         </div>
       </section>
       {/* Services section ends here  */}
+
+      {/* Team section starts here  */}
+      <div className="bg-gray-50 text-black py-8">
+        <div className="container mx-auto text-center">
+          <h2 className="text-xl font-bold mb-4">Our Team</h2>
+          <p className="text-gray-700 mb-8">
+            Meet the Experts, The passionate Tripmate Team Dedicated to
+            Enhancing Your travel experience
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <TeamMember
+              name="Josiah Messi"
+              title="Founder & CEO"
+              vision="Vision for tripmate has been to create seamless hassle free travel experiences for customers, expertise in travel made him a respected leader in the industry"
+              imageSrc="/assets/team_member_1.jpeg"
+            />
+            <TeamMember
+              name="Amanda Scrutiny"
+              title="Co-Founder & CTO"
+              vision="Vision for tripmate has been to create seamless hassle free travel experiences for customers, expertise in travel made him a respected leader in the industry"
+              imageSrc="/assets/team_member_2.jpeg"
+            />
+          </div>
+        </div>
+      </div>
+      {/* Team section ends here  */}
+
+      {/* Newsletter Section will be here */}
+      <div className="bg-gray-100 py-8">
+        <div className="container mx-auto text-center">
+          <h2 className="text-xl font-bold mb-4 text-black">
+            Subscribe to our Newsletter
+          </h2>
+          <div className="flex justify-center">
+            <input
+              type="email"
+              placeholder="Enter your email"
+              className="p-2 rounded-l border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
+            />
+            <button
+              className="px-4 rounded-r bg-teal-500  text-white font-bold p-2"
+              onClick={() => alert("Thank you for subscribing")}
+            >
+              Subscribe
+            </button>
+          </div>
+        </div>
+      </div>
 
       {/* Footer section */}
       <footer className="bg-black text-white">

@@ -1,38 +1,37 @@
 "use client";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function SignInPage() {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+
+  const router = useRouter();
 
   // handle form submission
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     // Handle form submission
     console.log("Form submitted");
-    signIn("credentials", {
+    const response = signIn("credentials", {
       redirect: false,
       email: formData.email,
       password: formData.password,
-    })
-      .then((response) => {
-        if (response?.ok) {
-          console.log("Sign in successful");
-        } else {
-          console.log("Sign in failed");
-        }
-      })
-      .catch((error) => {
-        console.log("Sign in error", error);
-      });
+    });
+    if (response) {
+      console.log(response);
+      console.log("User signed in successfully");
+    } else {
+      console.log("Failed to sign in");
+    }
 
     // redirect to dashboard
-    // window.location.href = "/dashboard";
+    router.push("/dashboard");
   };
 
   return (
@@ -107,7 +106,6 @@ export default function SignInPage() {
             </button>
           </div>
         </form>
-      
       </div>
     </div>
   );

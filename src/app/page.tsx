@@ -1,12 +1,15 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
+import {useRouter} from "next/navigation";
 import TeamMember from "../components/TeamMember";
 
 // import { logo } from "../assets/index"
 
 export default function Home() {
   const [open, setOpen] = useState(false);
+
+  const router = useRouter();
 
   const handleClick = () => {
     setOpen(!open);
@@ -23,13 +26,13 @@ export default function Home() {
   const handleLoginClick = () => {
     handleClose();
     // redirect to login
-    window.location.href = "/sign-in";
+    router.push("/sign-in");
   };
 
   const handleSignupClick = () => {
     handleClose();
     // redirect to signup
-    window.location.href = "/sign-up";
+    router.push("/sign-up");
   };
 
   return (
@@ -59,13 +62,13 @@ export default function Home() {
             </li>
           </ul>
           <button
-            className="bg-[#166F5B] px-4 py-1 rounded-md text-white"
+            className="bg-[#166F5B] px-4 py-1 rounded-md text-white hover:bg-black "
             onClick={handleSignupClick}
           >
             Sign Up
           </button>
           <button
-            className="bg-[#166f5b] px-4 py-1 rounded-md text-white"
+            className="bg-[#166f5b] px-4 py-1 rounded-md text-white hover:bg-black  "
             onClick={handleLoginClick}
           >
             Login
@@ -372,16 +375,16 @@ export default function Home() {
             Meet the Experts, The passionate Tripmate Team Dedicated to
             Enhancing Your travel experience
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-4">
             <TeamMember
-              name="Josiah Messi"
-              title="Founder & CEO"
+              name="Krithik M"
+              title="Full Stack Developer"
               vision="Vision for tripmate has been to create seamless hassle free travel experiences for customers, expertise in travel made him a respected leader in the industry"
               imageSrc="/assets/team_member_1.jpeg"
             />
             <TeamMember
-              name="Amanda Scrutiny"
-              title="Co-Founder & CTO"
+              name="Ravi Kumar S"
+              title="UI / UX Designer"
               vision="Vision for tripmate has been to create seamless hassle free travel experiences for customers, expertise in travel made him a respected leader in the industry"
               imageSrc="/assets/team_member_2.jpeg"
             />

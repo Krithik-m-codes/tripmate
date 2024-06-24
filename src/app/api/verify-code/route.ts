@@ -7,11 +7,13 @@ export async function POST(request: Request) {
   try {
     const { username, code } = await request.json();
     // check if username and code are provided
-    // console.log(username, code);
+    console.log(username, code);
     // decode the username and code to prevent URL encoding when they are passed in the query string
     const decodedUsername = decodeURIComponent(username);
     // check if user exists in database
-    const user = await UserModel.findOne({ username: decodedUsername });
+    const user = await UserModel.findOne({
+      username: decodedUsername,
+    });
     if (!user) {
       return Response.json(
         {

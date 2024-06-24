@@ -1,8 +1,7 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User.model";
 import bcrypt from "bcryptjs";
-import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
-
+import { sendVerificationEmail } from "@/utils/sendVerificationEmail";
 
 // sign in route handler function  POST /api/sign-in
 export async function POST(request: Request) {

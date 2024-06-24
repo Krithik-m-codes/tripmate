@@ -1,7 +1,7 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User.model";
 import bcrypt from "bcryptjs";
-import { sendVerificationEmail } from "@/helpers/sendVerificationEmail";
+
 // import { upload } from "../../../middlewares/multer.middleware";
 // import { uploadOnCloudinary } from "@/utils/cloudinary.service";
 
@@ -74,38 +74,19 @@ export async function POST(request: Request) {
       // Save the user to the database
       await newUser.save();
     }
-    // Send the verification email
-    const emailResponse = await sendVerificationEmail(
-      email,
-      username,
-      verifyCode
-    );
-    console.log(`Email successfully send to ${email} emailResponse:`, emailResponse)
-    // Check if the email was sent successfully or not
-    if (!emailResponse.success) {
-      return Response.json(
-        {
-          success: false,
-          message: emailResponse.message || "Error while sending email",
-        },
-        {
-          status: 500,
-        }
-      );
-    }
 
     // Return a success response
     return Response.json(
       {
         success: true,
-        message: "User registered successfully . Please verify your email ! ",
+        message: "User registered successfully . Please verify your email !",
+        verifyCode: verifyCode,
       },
       {
         status: 201,
-      }
+      },
     );
   } catch (error) {
-    console.error("Error in sign-up route: ", error);
     return Response.json(
       {
         success: false,

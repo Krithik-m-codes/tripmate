@@ -27,7 +27,7 @@ export default function SideNavbar({}: Props) {
   }
 
   return (
-    <div className="relative min-w-auto md:min-w-[90px] border-r px-2 md:px-4 pb-10 pt-24 ">
+    <div className="relative min-w-auto md:min-w-[90px] max-w-auto border-r px-2 md:px-4 pb-10 pt-24 ">
       <Button
         variant="secondary"
         className="absolute z-10 top-7 right-[-29px] rounded-full w-12 h-12 shadow-xl flex justify-center items-center"

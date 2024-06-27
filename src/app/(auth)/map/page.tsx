@@ -1,10 +1,7 @@
 // page.js
 "use client";
 import { useState, useRef } from "react";
-import Map, {
-  NavigationControl,
-  GeolocateControl,
-} from "react-map-gl";
+import Map, { NavigationControl, GeolocateControl } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 
 export default function Home() {
@@ -16,17 +13,19 @@ export default function Home() {
   });
 
   // get user location
-  navigator.geolocation.getCurrentPosition(
-    (position) => {
-      setUserLocation({
-        lat: position.coords.latitude,
-        long: position.coords.longitude,
-      });
-    },
-    (error) => {
-      console.error("Error getting user location:", error);
-    }
-  );
+  if (typeof navigator !== "undefined") {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        setUserLocation({
+          lat: position.coords.latitude,
+          long: position.coords.longitude,
+        });
+      },
+      (error) => {
+        console.error("Error getting user location:", error);
+      }
+    );
+  }
 
   return (
     <main className="w-full h-screen">
@@ -36,8 +35,8 @@ export default function Home() {
         mapStyle="mapbox://styles/mapbox/streets-v12"
         style={{ width: "100%", height: "100%" }}
         initialViewState={{
-          latitude: userLocation.lat || 12.9716,
-          longitude: userLocation.long || 45,
+          latitude: userLocation.lat || 12.971599,
+          longitude: userLocation.long || 77.594566,
           zoom: 10,
         }}
         maxZoom={20}

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Image from "next/image";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import TeamMember from "../components/TeamMember";
 
 // import { logo } from "../assets/index"
@@ -55,7 +55,7 @@ export default function Home() {
               <a href="/">Home</a>
             </li>
             <li>
-              <a href="/about">About</a>
+              <a href="#MainContent">About</a>
             </li>
             <li>
               <a href="/contact">Contact</a>
@@ -128,7 +128,10 @@ export default function Home() {
       {/* header section */}
 
       {/* Hero section content */}
-      <div className="container px-6 py-16 mx-auto lg:px-10 max-h-screen min-h-auto">
+      <div
+        className="container px-6 py-16 mx-auto lg:px-10 max-h-screen min-h-auto"
+        id="MainContent"
+      >
         <div className="items-center md:gap-20 lg:flex">
           <div className="w-full lg:w-1/2 lg:flex lg:justify-center lg:items-center lg:flex-col ">
             {/* Hero content */}
@@ -211,7 +214,10 @@ export default function Home() {
       {/* featured section ends here  */}
 
       {/* Services section starts here  */}
-      <section className="bg-[#F3F7F6] h-auto flex justify-center mt-10 items-center flex-col ">
+      <section
+        className="bg-[#F3F7F6] h-auto flex justify-center mt-10 items-center flex-col"
+        id="Services"
+      >
         {/* Container for header and button */}
         <div className="container md:px-[9.5rem] px-10 sm:text-sm md:text-lg py-10 mx-auto flex justify-between items-center">
           <div>
@@ -241,7 +247,7 @@ export default function Home() {
                 <div className="mt-6">
                   <a
                     href="#"
-                    className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-blue-600 rounded-lg hover:bg-blue-500 lg:mx-0 lg:w-auto focus:outline-none"
+                    className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-[#166F5B] rounded-lg hover:bg-[#46ff77] lg:mx-0 lg:w-auto focus:outline-none"
                   >
                     Read more
                   </a>
@@ -274,7 +280,7 @@ export default function Home() {
                 <div className="mt-6">
                   <a
                     href="#"
-                    className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-blue-600 rounded-lg hover:bg-blue-500 lg:mx-0 lg:w-auto focus:outline-none"
+                    className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-[#166F5B] rounded-lg hover:bg-[#46ff77] lg:mx-0 lg:w-auto focus:outline-none"
                   >
                     Read more{" "}
                   </a>
@@ -307,7 +313,7 @@ export default function Home() {
                 <div className="mt-6">
                   <a
                     href="#"
-                    className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-blue-600 rounded-lg hover:bg-blue-500 lg:mx-0 lg:w-auto focus:outline-none"
+                    className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-[#166F5B] rounded-lg hover:bg-[#46ff77] lg:mx-0 lg:w-auto focus:outline-none"
                   >
                     Read more{" "}
                   </a>
@@ -368,14 +374,14 @@ export default function Home() {
       {/* Services section ends here  */}
 
       {/* Team section starts here  */}
-      <div className="bg-gray-50 text-black py-8">
+      <div className="bg-gray-50 text-black py-8" id="OurTeam">
         <div className="container mx-auto text-center">
           <h2 className="text-xl font-bold mb-4">Our Team</h2>
           <p className="text-gray-700 mb-8">
             Meet the Experts, The passionate Tripmate Team Dedicated to
             Enhancing Your travel experience
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-0">
             <TeamMember
               name="Krithik M"
               title="Full Stack Developer"
@@ -393,44 +399,102 @@ export default function Home() {
       </div>
       {/* Team section ends here  */}
 
-      {/* Newsletter Section will be here */}
-      <div className="bg-gray-100 py-8">
-        <div className="container mx-auto text-center">
-          <h2 className="text-xl font-bold mb-4 text-black">
-            Subscribe to our Newsletter
-          </h2>
-          <div className="flex justify-center">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="p-2 rounded-l border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white"
-            />
-            <button
-              className="px-4 rounded-r bg-teal-500  text-white font-bold p-2"
-              onClick={() => alert("Thank you for subscribing")}
+      {/* Footer Section will be here */}
+      <footer className="bg-[#F3F7F6]">
+        <div className="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24">
+          <div className="absolute end-4 top-4 sm:end-6 sm:top-6 lg:end-8 lg:top-8">
+            <a
+              className="inline-block rounded-full bg-teal-600 p-2 text-white shadow transition hover:bg-teal-500 sm:p-3 lg:p-4"
+              href="#MainContent"
             >
-              Subscribe
-            </button>
-          </div>
-        </div>
-      </div>
+              <span className="sr-only">Back to top</span>
 
-      {/* Footer section */}
-      <footer className="bg-black text-white">
-        <div className="flex gap-6 my-3 items-center justify-center">
-          <Image
-            src="/tripmate-logo.png"
-            alt="tripmate logo"
-            width={50}
-            height={50}
-            className="rounded-full"
-          />
-          <h2>TripMate</h2>
-        </div>
-        <p>Copyright &copy; 2023 TripMate. All rights reserved.</p>
-        <div className="flex justify-center gap-4">
-          <p>Powered by Next js</p>
-          <p>Developed by Krithik M</p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </a>
+          </div>
+
+          <div className="lg:flex lg:items-end lg:justify-between">
+            <div>
+              <div className="flex justify-center items-center space-x-4  text-teal-600 lg:justify-start">
+                <Image
+                  src="/tripmate-logo.png"
+                  alt="tripmate logo"
+                  width={100}
+                  height={100}
+                  className="w-24 h-24 rounded-full"
+                />
+                <h2 className="ml-3 text-xl md:text-3xl font-bold ">
+                  Tripmate
+                </h2>
+              </div>
+
+              <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500 lg:text-left">
+                TripMate is a travel app that helps you plan your trips, save
+                your favorite places and share them with your friends. and much
+                more !
+              </p>
+            </div>
+
+            <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:mt-0 lg:justify-end lg:gap-12">
+              <li>
+                <a
+                  className="text-gray-700 transition hover:text-gray-700/75"
+                  href="#MainContent"
+                >
+                  {" "}
+                  About{" "}
+                </a>
+              </li>
+
+              <li>
+                <a
+                  className="text-gray-700 transition hover:text-gray-700/75"
+                  href="#Services"
+                >
+                  {" "}
+                  Services{" "}
+                </a>
+              </li>
+
+              <li>
+                <a
+                  className="text-gray-700 transition hover:text-gray-700/75"
+                  href="#OurTeam"
+                >
+                  {" "}
+                  Meet the team{" "}
+                </a>
+              </li>
+
+              <li>
+                <a
+                  className="text-gray-700 transition hover:text-gray-700/75"
+                  href="#MainContent"
+                >
+                  {" "}
+                  Get started{" "}
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <p className="mt-12 text-center text-sm text-gray-500 lg:text-right">
+            Copyright &copy; 2024. All rights reserved. By {"  "}
+            <a href="#" className="text-[#166F5B] hover:text-[#46ff77]">
+              Krithik M
+            </a>
+          </p>
         </div>
       </footer>
     </main>

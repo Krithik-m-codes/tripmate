@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
-import Sidebar from "@/components/Sidebar";
+// import Sidebar from "@/components/Sidebar";
 
 interface SearchHistoryItem {
   term: string;
@@ -98,7 +98,7 @@ function DashboardPage() {
       </header>
 
       {/* Sidebar */}
-      <Sidebar />
+      {/* <Sidebar /> */}
 
       {/* Main content */}
       <main className="flex flex-col flex-grow px-4 py-4">

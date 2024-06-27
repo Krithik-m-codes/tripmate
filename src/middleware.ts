@@ -9,21 +9,33 @@ export async function middleware(request: NextRequest) {
     req: request,
     secret: process.env.NEXTAUTH_SECRET,
   });
-  console.log("Token [middleware] : ", token);
+  // console.log("Token [middleware] : ", token);
   const url = request.nextUrl;
   console.log("URL access [middleware]: ", url.pathname);
   if (
     token &&
     (url.pathname === "/sign-in" ||
       url.pathname === "/sign-up" ||
-      url.pathname === "/verify" ||
+      url.pathname === "/verify-email" ||
       url.pathname === "/")
   ) {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/map", request.url));
   } else {
     if (
-      (!token && url.pathname === "/dashboard") ||
-      url.pathname === "/api/profile"
+      !token &&
+      (url.pathname === "/dashboard" ||
+        url.pathname === "/api/profile" ||
+        url.pathname === "/api/check-username-unique" ||
+        url.pathname === "/api/weather-report" ||
+        url.pathname === "/api/verify-code" ||
+        url.pathname === "/api/resend-verify-code" ||
+        url.pathname === "/api/saved-places" ||
+        url.pathname === "/api/logout" ||
+        url.pathname === "/api/search-history" ||
+        url.pathname === "/api/search-history/[userId]" ||
+        url.pathname === "/api/search-history/add" ||
+        url.pathname === "/api/saved-places/[userId]" ||
+        url.pathname === "/api/saved-places/add")
     ) {
       return NextResponse.redirect(new URL("/sign-in", request.url));
     }

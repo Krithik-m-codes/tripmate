@@ -4,12 +4,15 @@
         "atleast",
         "Cloudinary",
         "CLOUDINARY",
+        "clsx",
         "didn",
         "logoipsum",
+        "lucide",
         "Mapbox",
         "Messi",
         "NEXTAUTH",
         "Signup",
-        "tripmate"
+        "tripmate",
+        "webp"
     ]
 }

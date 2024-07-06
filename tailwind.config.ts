@@ -58,6 +58,7 @@ const config = {
         "bg-dashboard": "url('/assets/dashboard-bg.jpg')",
         "bg-verify-code-bg-mobile": "url('/assets/mobile-verify-bg.jpg')",
         "bg-verify-code-bg": "url('/assets/desktop-verify-bg.jpg')",
+        "bg-sign-up" : "url('/bg-image.jpg')",
       },
       borderRadius: {
         lg: "var(--radius)",

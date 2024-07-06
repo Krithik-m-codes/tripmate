@@ -23,7 +23,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       {/* Side navigation bar */}
       {session && <SideNavbar />}
       {/* Main content */}
-      <div className="md:pl-3 w-full h-screen">
+      <div
+        className={
+          cn("w-full h-screen", session ? "pl-3" : "pl-0") + " transition-all"
+        }
+      >
         {loading ? <LoadingSpinner /> : children}
       </div>
     </div>

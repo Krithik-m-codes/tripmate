@@ -18,7 +18,8 @@ const SignUpPage: React.FC = () => {
     event.preventDefault();
 
     // Handle form submission
-    const { fullName, username, email, password, avatar } = formData;
+    const { fullName, username, email, password } = formData;
+    const avatar = `https://eu.ui-avatars.com/api/?name=${username}`;
 
     const response = await fetch("/api/sign-up", {
       method: "POST",
@@ -62,7 +63,7 @@ const SignUpPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100 text-black">
+    <div className="min-h-screen bg-gray-100 bg-bg-sign-up bg-cover bg-center flex justify-center items-center text-black shadow">
       <div className="bg-white shadow-md rounded p-10 max-w-md w-full">
         <h1 className="text-4xl font-bold text-center mb-6">TripMate</h1>
         <form onSubmit={handleSignUp}>
@@ -112,17 +113,6 @@ const SignUpPage: React.FC = () => {
               value={formData.password}
               onChange={(e) =>
                 setFormData({ ...formData, password: e.target.value })
-              }
-            />
-          </div>
-          <div className="flex justify-center mb-6">
-            <input
-              type="text"
-              placeholder="Upload your profile picture url"
-              className="w-full px-3 py-2 border rounded focus:outline-none focus:border-black"
-              value={formData.avatar}
-              onChange={(e) =>
-                setFormData({ ...formData, avatar: e.target.value })
               }
             />
           </div>

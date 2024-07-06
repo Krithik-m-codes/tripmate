@@ -1,18 +1,31 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SideNavbar from "../../components/SideNavBar";
 import { cn } from "@/lib/utils";
+import LoadingSpinner from "@/components/loadingSpinner";
 import { useSession } from "next-auth/react";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (status === "loading") {
+      setLoading(true);
+    } else {
+      setLoading(false);
+    }
+  }, [status]);
+
   return (
-    <div className={cn("flex min-h-screen w-full bg-white text-black ")}>
-      {/* Side navigation bar  */}
+    <div className={cn("flex min-h-screen w-full bg-white text-black")}>
+      {/* Side navigation bar */}
       {session && <SideNavbar />}
       {/* Main content */}
-      <div className="md:pl-3 w-full">{children}</div>
+      <div className="md:pl-3 w-full h-screen">
+        {loading ? <LoadingSpinner /> : children}
+      </div>
     </div>
   );
 };

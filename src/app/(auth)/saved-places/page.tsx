@@ -2,10 +2,14 @@
 import dbConnect from "@/lib/dbConnect";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
+import { ScrollArea } from "@/components/ui/scroll-area";
+
+import FavoritePlaceCard from "@/components/FavoritePlaceCard";
 
 export default function SavedPlacesPage() {
   const { data: session } = useSession();
   //   console.log("Session : ", session?.user);
+  const [Loading, setLoading] = useState(true);
   const [savedPlaces, setSavedPlaces] = useState([
     {
       name: "",
@@ -25,34 +29,37 @@ export default function SavedPlacesPage() {
         },
       });
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       if (data.success) {
         setSavedPlaces(data.data);
+        setLoading(false);
       }
     };
     fetchSavedPlaces();
   }, [session?.user._id, setSavedPlaces]);
 
   return (
-    <div>
-      <h1 
-      className="text-2xl w-full bg-slate-800 text-center text-white py-4 "
-       >Saved Places</h1>
-      <ul className="list flex justify-center items-start gap-10 flex-col ">
-        {session?.user ? (
-          <p className="text-4xl font-bold mb-4">Hello {session?.user.name}</p>
+    <div className="bg-[#F3F7F6] w-full min-h-screen">
+      <h1 className="text-2xl w-full bg-[#166F5B] text-center text-white py-4 ">
+        Saved Places
+      </h1>
+
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 gap-4 p-4 place-items-center overflow-y-auto ">
+        {Loading ? (
+          <div className="text-center text-2xl">Loading...</div>
         ) : (
-          <p className="text-4xl font-bold mb-4">Loading Places ..</p>
+          <ScrollArea className="h-screen w-full flex flex-col items-center">
+            {savedPlaces.map((place, index) => (
+              <FavoritePlaceCard
+                key={index}
+                name={place.name}
+                location={place.location}
+                message={place.description}
+              />
+            ))}
+          </ScrollArea>
         )}
-        {/* Display saved places here */}
-        {savedPlaces.map((place) => (
-          <li key={place.name}>
-            <p>{place.name}</p>
-            <p>{place.location}</p>
-            <p>{place.description}</p>
-          </li>
-        ))}
-      </ul>
+      </div>
     </div>
   );
 }

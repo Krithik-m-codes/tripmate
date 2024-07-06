@@ -244,14 +244,14 @@ export default function Home() {
                   Get to your destination with ease and <br />
                   confidence with our directions assistance service
                 </p>
-                <div className="mt-6">
+                {/* <div className="mt-6">
                   <a
                     href="#"
                     className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-[#166F5B] rounded-lg hover:bg-[#46ff77] lg:mx-0 lg:w-auto focus:outline-none"
                   >
                     Read more
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
             {/* image container */}
@@ -261,7 +261,7 @@ export default function Home() {
                 alt="directions image"
                 width={500}
                 height={500}
-                className="object-cover w-full h-full max-w-2xl rounded-md"
+                className="object-cover w-full h-full max-w-2xl rounded-md md:shadow-2xl"
               />
             </div>
           </div>
@@ -277,14 +277,14 @@ export default function Home() {
                   Leave the stress of travel planning behind and <br />
                   let us create a seamless itinerary for your next adventure
                 </p>
-                <div className="mt-6">
+                {/* <div className="mt-6">
                   <a
                     href="#"
                     className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-[#166F5B] rounded-lg hover:bg-[#46ff77] lg:mx-0 lg:w-auto focus:outline-none"
                   >
                     Read more{" "}
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
             {/* image container */}
@@ -294,7 +294,7 @@ export default function Home() {
                 alt="travel planning image"
                 width={500}
                 height={500}
-                className="object-cover w-full h-full max-w-2xl rounded-md"
+                className="object-cover w-full h-full max-w-2xl rounded-md md:shadow-2xl"
               />
             </div>
           </div>
@@ -310,24 +310,24 @@ export default function Home() {
                   Discover hidden gems with our search engine and <br />
                   find the perfect spot for your next adventure
                 </p>
-                <div className="mt-6">
+                {/* <div className="mt-6">
                   <a
                     href="#"
                     className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-[#166F5B] rounded-lg hover:bg-[#46ff77] lg:mx-0 lg:w-auto focus:outline-none"
                   >
                     Read more{" "}
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
             {/* image container */}
             <div className="flex items-center shadow-md md:shadow-none rounded-md justify-center w-full h-96 lg:w-1/2">
               <Image
                 src="/assets/find-attraction-img.png"
-                alt="direction discovery image"
+                alt="Find attractions image"
                 width={500}
                 height={500}
-                className="object-cover w-full h-full max-w-2xl rounded-md"
+                className="object-cover w-full h-full max-w-2xl rounded-md md:shadow-2xl"
               />
             </div>
           </div>
@@ -381,7 +381,7 @@ export default function Home() {
             Meet the Experts, The passionate Tripmate Team Dedicated to
             Enhancing Your travel experience
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-0">
+          <div className="grid grid-cols-1 m-auto md:grid-cols-2 gap-6 lg:gap-0">
             <TeamMember
               name="Krithik M"
               title="Full Stack Developer"

@@ -1,55 +1,52 @@
-// src/components/Card.tsx
+"use client";
 import React from "react";
 import Image from "next/image";
-import StarRating from "./StarRating";
-
-type CardProps = {
+// import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
+interface PlaceCardProps {
   title: string;
-  address: string;
-  imageSrc: string;
-  rating?: number;
-};
+  imageUrl: string;
+  placeHistory: string;
+}
 
-const Card: React.FC<CardProps> = ({
+const PlaceCard: React.FC<PlaceCardProps> = ({
   title,
-  address,
-  imageSrc,
-  rating = 0,
+  imageUrl,
+  placeHistory,
 }) => {
+  const router = useRouter();
+
+  const handleClick = (e: any) => {
+    // on handle clickl it should open map page zoomed into that location
+    // console.log("clicked : ", e.target);
+    const imageBtn = e.target;
+    // redirect to map page with the location
+
+    const destinationName = imageBtn.alt;
+
+    const url = `/map/${imageBtn.alt}`;
+
+    // router
+    router.push(url);
+  };
   return (
-    <a href="#" className="block rounded-lg p-4 shadow-sm shadow-indigo-100">
-      {/* for showing image in card */}
+    <div
+      className="bg-[#f4fff9] rounded-lg shadow-md overflow-hidden"
+      onClick={handleClick}
+    >
       <Image
-        alt=""
-        src={imageSrc}
-        width={640}
-        height={320}
-        className="h-56 w-full rounded-md object-cover"
+        src={imageUrl}
+        alt={title}
+        width={400}
+        height={200}
+        className="w-full h-32 sm:h-48 object-cover"
       />
-      {/* for showing details in card */}
-      <div className="mt-2">
-        <dl>
-          <div>
-            <dt className="sr-only">Name</dt>
-
-            <dd className="text-sm text-gray-500">{title}</dd>
-          </div>
-
-          <div>
-            <dt className="sr-only">Address</dt>
-
-            <dd className="font-medium">{address}</dd>
-          </div>
-        </dl>
-        {/* For rating display in card */}
-        <div className="mt-4">
-          <div className="flex items-center">
-            <StarRating rating={rating} />
-          </div>
-        </div>
+      <div className="p-4">
+        <h3 className="text-black text-lg font-semibold">{title}</h3>
+        <p className="text-gray-900 ">{placeHistory}</p>
       </div>
-    </a>
+    </div>
   );
 };
 
-export default Card;
+export default PlaceCard;

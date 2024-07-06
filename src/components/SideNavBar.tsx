@@ -7,7 +7,8 @@ import {
   ChevronRight,
   LayoutDashboard,
   LogOut,
-  Settings,
+  History,
+  Compass,
   Map,
   ChevronLeft,
   CircleUser,
@@ -65,6 +66,13 @@ export default function SideNavbar({}: Props) {
             variant: "default",
           },
           {
+            title: "Directions",
+            href: "/directions",
+            icon: Compass,
+            variant: "default",
+          },
+
+          {
             title: "Dashboard",
             href: "/dashboard",
             icon: LayoutDashboard,
@@ -83,9 +91,9 @@ export default function SideNavbar({}: Props) {
             variant: "ghost",
           },
           {
-            title: "Settings",
-            href: "/settings",
-            icon: Settings,
+            title: "Recent Trips",
+            href: "/recents-history",
+            icon: History,
             variant: "ghost",
           },
         ]}

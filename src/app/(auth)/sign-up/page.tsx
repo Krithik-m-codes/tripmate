@@ -36,7 +36,7 @@ const SignUpPage: React.FC = () => {
     });
 
     const data = await response.json();
-    console.log("Data from server sign up : ", data);
+    // console.log("Data from server sign up : ", data);
     // Handle response
     if (response) {
       console.log("User signed up successfully");

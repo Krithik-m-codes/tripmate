@@ -20,13 +20,10 @@ export default function SignInPage() {
       email: formData.email,
       password: formData.password,
     });
-    if (response) {
-      console.log(":: response from sign in ::", response);
-      console.log("User signed in successfully");
-    } else {
-      console.log("Failed to sign in");
+    if (!response) {
+      // console.log(":: response from sign in ::", response);
+      console.log("User sign in was not successfully");
     }
-
     // redirect to dashboard
     // router.push("/dashboard");
   };

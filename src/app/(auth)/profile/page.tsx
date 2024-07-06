@@ -21,7 +21,7 @@ export default function ProfilePage() {
       });
 
       setResponse(await response.json());
-      console.log("Response : ", response);
+      // console.log("Response : ", response);
     };
     getProfile();
   }, []);

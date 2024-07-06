@@ -10,7 +10,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import Search from "@/components/SearchBar";
 import SlideInResults from "@/components/SlideInPanelRight";
 import Image from "next/image";
-import { useSession } from "next-auth/react"; // Add this import
+import { useSession } from "next-auth/react"; 
 
 export default function Home() {
   const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
@@ -26,7 +26,7 @@ export default function Home() {
   const [panelVisible, setPanelVisible] = useState<boolean>(false);
   const [places, setPlaces] = useState<any[]>([]);
   const [selectedPlace, setSelectedPlace] = useState<any>(null);
-  const { data: session } = useSession(); // Add this line to get the session
+  const { data: session } = useSession(); 
 
   useEffect(() => {
     if (typeof navigator !== "undefined") {

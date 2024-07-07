@@ -11,7 +11,9 @@
   "dependencies": {
     "@emailjs/browser": "^4.3.3",
     "@mapbox/mapbox-gl-geocoder": "^5.0.2",
+    "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-scroll-area": "^1.1.0",
+    "@radix-ui/react-separator": "^1.1.0",
     "@react-email/components": "^0.0.19",
     "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",

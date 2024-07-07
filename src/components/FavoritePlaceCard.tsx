@@ -33,7 +33,7 @@ const FavoritePlaceCard: React.FC<FavoritePlace> = ({
   }, [name]);
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-4 h-auto w-1/2 ">
+    <div className="bg-white rounded-lg shadow-md p-4 h-auto w-1/2 my-2">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold">{name}</h2>
         <p className="text-gray-500">{location}</p>

@@ -92,16 +92,6 @@ const SlideInResults: React.FC<SlideInResultsProps> = ({
               >
                 Attractions
               </button>
-              <button
-                onClick={() => setType("hotels")}
-                className={`px-4 py-2 rounded ${
-                  type === "hotels"
-                    ? "bg-[#166F5B] text-white"
-                    : "bg-gray-200 text-gray-700"
-                }`}
-              >
-                Hotels
-              </button>
             </div>
             {error && <p className="text-red-500">{error}</p>}
             {data.length === 0 && !error && (

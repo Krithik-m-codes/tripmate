@@ -58,7 +58,7 @@ export default function Home() {
               <a href="#MainContent">About</a>
             </li>
             <li>
-              <a href="/contact">Contact</a>
+              <a href="#Services">Services</a>
             </li>
           </ul>
           <button
@@ -113,13 +113,13 @@ export default function Home() {
               </a>
             </li>
             <li className="py-4">
-              <a href="/about" onClick={handleLinkClick}>
+              <a href="#MainContent" onClick={handleLinkClick}>
                 About
               </a>
             </li>
             <li className="py-4">
-              <a href="/contact" onClick={handleLinkClick}>
-                Contact
+              <a href="#Services" onClick={handleLinkClick}>
+                Services
               </a>
             </li>
           </ul>

@@ -388,12 +388,6 @@ export default function Home() {
               vision="Vision for tripmate has been to create seamless hassle free travel experiences for customers, expertise in travel made him a respected leader in the industry"
               imageSrc="/assets/team_member_1.jpeg"
             />
-            <TeamMember
-              name="Ravi Kumar S"
-              title="UI / UX Designer"
-              vision="Vision for tripmate has been to create seamless hassle free travel experiences for customers, expertise in travel made him a respected leader in the industry"
-              imageSrc="/assets/team_member_2.jpeg"
-            />
           </div>
         </div>
       </div>

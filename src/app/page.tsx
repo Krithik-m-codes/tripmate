@@ -244,14 +244,14 @@ export default function Home() {
                   Get to your destination with ease and <br />
                   confidence with our directions assistance service
                 </p>
-                {/* <div className="mt-6">
+                <div className="mt-6">
                   <a
                     href="#"
                     className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-[#166F5B] rounded-lg hover:bg-[#46ff77] lg:mx-0 lg:w-auto focus:outline-none"
                   >
                     Read more
                   </a>
-                </div> */}
+                </div>
               </div>
             </div>
             {/* image container */}
@@ -277,14 +277,14 @@ export default function Home() {
                   Leave the stress of travel planning behind and <br />
                   let us create a seamless itinerary for your next adventure
                 </p>
-                {/* <div className="mt-6">
+                <div className="mt-6">
                   <a
                     href="#"
                     className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-[#166F5B] rounded-lg hover:bg-[#46ff77] lg:mx-0 lg:w-auto focus:outline-none"
                   >
                     Read more{" "}
                   </a>
-                </div> */}
+                </div>
               </div>
             </div>
             {/* image container */}
@@ -310,14 +310,14 @@ export default function Home() {
                   Discover hidden gems with our search engine and <br />
                   find the perfect spot for your next adventure
                 </p>
-                {/* <div className="mt-6">
+                <div className="mt-6">
                   <a
                     href="#"
                     className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-[#166F5B] rounded-lg hover:bg-[#46ff77] lg:mx-0 lg:w-auto focus:outline-none"
                   >
                     Read more{" "}
                   </a>
-                </div> */}
+                </div>
               </div>
             </div>
             {/* image container */}
@@ -374,14 +374,15 @@ export default function Home() {
       {/* Services section ends here  */}
 
       {/* Team section starts here  */}
-      <div className="bg-gray-50 text-black py-8" id="OurTeam">
-        <div className="container mx-auto text-center">
+      <div className="bg-gray-50 text-black py-8 border-y-4 " id="OurTeam">
+        <div className="container mx-auto text-center ">
           <h2 className="text-xl font-bold mb-4">Our Team</h2>
           <p className="text-gray-700 mb-8">
             Meet the Experts, The passionate Tripmate Team Dedicated to
             Enhancing Your travel experience
           </p>
-          <div className="grid grid-cols-1 m-auto md:grid-cols-2 gap-6 lg:gap-0">
+          <br />
+          <div className="grid grid-cols-1 m-auto md:grid-cols-1 gap-6 lg:gap-0 place-items-center ">
             <TeamMember
               name="Krithik M"
               title="Full Stack Developer"

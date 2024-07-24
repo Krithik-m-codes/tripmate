@@ -196,10 +196,10 @@ const DirectionsPage: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen">
-      <div className="bg-[#166F5B] p-4 shadow-md flex flex-row gap-4 relative">
+      <div className="bg-gradient-to-r from-teal-400 to-gray-800 p-3 md:p-6 shadow-md flex flex-col md:flex-row gap-2 md:gap-4 relative">
         <div className="relative flex-grow">
           <input
-            className="border p-2 rounded w-full pl-10"
+            className="border p-1 md:p-2 rounded w-full pl-10"
             type="text"
             placeholder="From (e.g. San Francisco)"
             value={from}
@@ -227,7 +227,7 @@ const DirectionsPage: React.FC = () => {
         </div>
         <div className="relative flex-grow">
           <input
-            className="border p-2 rounded w-full pl-10"
+            className="border p-1 md:p-2 rounded w-full pl-10"
             type="text"
             placeholder="To (e.g. Washington, D.C.)"
             value={to}
@@ -254,7 +254,7 @@ const DirectionsPage: React.FC = () => {
           )}
         </div>
         <button
-          className="bg-[#F3F7F6] hover:bg-[#88ffe1] text-black font-bold py-2 px-4 rounded"
+          className="bg-[#000000] text-white hover:bg-slate-900 hover:text-white transition-all font-bold py-2 px-4 rounded"
           onClick={fetchDirections}
         >
           Get Directions

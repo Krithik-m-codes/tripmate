@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Nav } from "./ui/nav";
 import {
   BookHeart,
@@ -22,6 +22,10 @@ type Props = {};
 
 export default function SideNavbar({}: Props) {
   const [isCollapsed, setIsCollapsed] = useState(false);
+
+  useEffect(() => {
+    setIsCollapsed(window.innerWidth < 768);
+  } , []);
 
   function toggleCollapse() {
     setIsCollapsed(!isCollapsed);

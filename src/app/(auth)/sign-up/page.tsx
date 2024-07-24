@@ -93,6 +93,7 @@ const SignUpPage: React.FC = () => {
           </div>
           <div className="mb-6">
             <label className="block text-gray-700">Email</label>
+            <label className=" block text-xs text-red-700">Please enter a valid email id, use the OTP to verify</label>
             <input
               type="email"
               placeholder="Eg. 0UqoK@example.com"

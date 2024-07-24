@@ -62,13 +62,13 @@ export default function Home() {
             </li>
           </ul>
           <button
-            className="bg-[#166F5B] px-4 py-1 rounded-md text-white hover:bg-black "
+            className="bg-[#166F5B] px-2 py-1 md:px-4 md:py-1 rounded-md text-white hover:bg-black "
             onClick={handleSignupClick}
           >
             Sign Up
           </button>
           <button
-            className="bg-[#166f5b] px-4 py-1 rounded-md text-white hover:bg-black  "
+            className="bg-[#166f5b] px-2 py-1 mr-2 md:mr-0 md:px-4 md:py-1 rounded-md text-white hover:bg-black  "
             onClick={handleLoginClick}
           >
             Login
@@ -96,7 +96,7 @@ export default function Home() {
         </div>
         {/* small screen nav menu */}
         <div
-          className={`md:hidden absolute top-0 left-0 w-full h-full bg-[#FFFFFF] text-[#000000] ${
+          className={`md:hidden absolute top-0 left-0 w-full h-full bg-gradient-to-b from-emerald-500 to-emerald-900 text-[#ffff] ${
             open ? "block" : "hidden"
           }`}
         >
@@ -107,18 +107,43 @@ export default function Home() {
             x
           </button>
           <ul className="flex flex-col items-center justify-center h-full">
+            <li className="py-1 flex items-center justify-center gap-2">
+              <Image
+                src="/tripmate-logo.png"
+                alt="alt"
+                width={60}
+                height={80}
+                className=" rounded-full"
+              />
+              <h2 className="text-3xl font-bold text-black">TripMate</h2>
+            </li>
+            <li className="pb-10 text-center">
+              <p>Travel begins within oneself</p>
+            </li>
             <li className="py-4">
-              <a href="/" onClick={handleLinkClick}>
+              <a
+                href="/"
+                onClick={handleLinkClick}
+                className="border-b-4 border-yellow-400 p-2 rounded-md hover:bg-yellow-200 hover:text-black"
+              >
                 Home
               </a>
             </li>
             <li className="py-4">
-              <a href="#MainContent" onClick={handleLinkClick}>
+              <a
+                href="#MainContent"
+                onClick={handleLinkClick}
+                className=" border-b-4 border-yellow-400 p-2 rounded-md hover:bg-yellow-200 hover:text-black"
+              >
                 About
               </a>
             </li>
             <li className="py-4">
-              <a href="#Services" onClick={handleLinkClick}>
+              <a
+                href="#Services"
+                onClick={handleLinkClick}
+                className=" border-b-4 border-yellow-400 p-2 rounded-md hover:bg-yellow-200 hover:text-black"
+              >
                 Services
               </a>
             </li>
@@ -244,7 +269,7 @@ export default function Home() {
                   Get to your destination with ease and <br />
                   confidence with our directions assistance service
                 </p>
-                <div className="mt-6">
+                <div className="mt-6 hidden mb-3 md:mb-0 md:block ">
                   <a
                     href="#"
                     className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-[#166F5B] rounded-lg hover:bg-[#46ff77] lg:mx-0 lg:w-auto focus:outline-none"
@@ -274,10 +299,10 @@ export default function Home() {
                   Travel Planning
                 </h1>
                 <p className="mt-4 text-gray-900">
-                  Leave the stress of travel planning behind and <br />
-                  let us create a seamless itinerary for your next adventure
+                  Leave the stress of travel planning behind <br />
+                  , let us create a seamless itinerary for your next adventure
                 </p>
-                <div className="mt-6">
+                <div className="mt-6 hidden mb-3 md:mb-0 md:block ">
                   <a
                     href="#"
                     className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-[#166F5B] rounded-lg hover:bg-[#46ff77] lg:mx-0 lg:w-auto focus:outline-none"
@@ -303,14 +328,14 @@ export default function Home() {
           <div className="container flex flex-col-reverse gap-8 md:gap-0 px-6 py-4 mx-auto space-y-6 lg:h-[32rem] lg:py-16 lg:flex-row-reverse lg:items-center">
             <div className="flex flex-col items-center w-full lg:flex-row lg:w-1/2">
               <div className="max-w-lg lg:mx-12 lg:order-2">
-                <h1 className="text-3xl font-semibold tracking-wide text-black  lg:text-4xl">
+                <h1 className=" text-3xl font-semibold tracking-wide text-black lg:text-4xl">
                   Find Hidden Attractions{" "}
                 </h1>
                 <p className="mt-4 text-gray-900">
-                  Discover hidden gems with our search engine and <br />
-                  find the perfect spot for your next adventure
+                  Discover hidden gems with our search engine <br />, find the
+                  perfect spot for your next adventure
                 </p>
-                <div className="mt-6">
+                <div className="mt-6 hidden mb-3 md:mb-0 md:block ">
                   <a
                     href="#"
                     className="px-6 py-2.5 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-[#166F5B] rounded-lg hover:bg-[#46ff77] lg:mx-0 lg:w-auto focus:outline-none"
@@ -338,10 +363,12 @@ export default function Home() {
             Features & Benefits
           </h2>
           <div className="border-b-2 border-black mb-8"></div>
-          <div className="flex flex-col sm:flex-row justify-between items-center">
-            <div className="flex-1 p-4">
-              <h3 className="font-bold text-lg">Features</h3>
-              <ul className="mt-2 space-y-2">
+          <div className="flex flex-col sm:flex-row justify-between items-center ">
+            <div className="flex-1 p-4 border-b-2 border-yellow-500 md:border-none">
+              <h3 className="text-left md:text-center font-bold text-lg">
+                Features
+              </h3>
+              <ul className="text-left md:text-center mt-2 space-y-2">
                 <li>👉 Intuitive Destination Discovery</li>
                 <li>👉 Customized Travel planning</li>
                 <li>👉 Effortless Directions Assistance</li>
@@ -350,13 +377,15 @@ export default function Home() {
               </ul>
             </div>
             <div className="flex-1 p-4">
-              <h3 className="font-bold text-lg">Benefits</h3>
-              <ul className="mt-2 space-y-2">
-                <li>👉 Stress-Free Travel Planning</li>
-                <li>👉 Efficient travel management</li>
-                <li>👉 Customized travel experiences</li>
-                <li>👉 Seamless navigation</li>
-                <li>👉 Unforgettable adventures</li>
+              <h3 className="text-right md:text-center font-bold text-lg">
+                Benefits
+              </h3>
+              <ul className="text-right md:text-center mt-2 space-y-2">
+                <li>Stress-Free Travel Planning 👈 </li>
+                <li>Efficient travel management 👈 </li>
+                <li>Customized travel experiences 👈 </li>
+                <li>Seamless navigation 👈 </li>
+                <li>Unforgettable adventures 👈 </li>
               </ul>
             </div>
             <div className="flex-1 p-4">

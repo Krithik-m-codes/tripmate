@@ -39,7 +39,7 @@ const VerifyCodePage: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-[#081b16] bg-bg-verify-code-bg-mobile md:bg-bg-verify-code-bg">
+    <div className="flex justify-center items-center h-screen bg-[#081b16] bg-bg-verify-code-bg-mobile md:bg-bg-verify-code-bg bg-cover bg-center bg-opacity-95 bg-no-repeat">
       <div className="flex justify-center items-center flex-col gap-5 w-[90%] h-[80%] bg-no-repeat md:rounded-lg bg-verify-code-bg-mobile bg-center bg-cover md:bg-verify-code-bg md:bg-center md:bg-cover shadow-inner">
         <h2 className="text-3xl font-bold text-white shadow-lg md:hidden">
           Verify Email with OTP

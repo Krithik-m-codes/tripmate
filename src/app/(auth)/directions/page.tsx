@@ -8,18 +8,22 @@ import Suggestions from "@/components/SuggestionsList";
 import { fetchSuggestions } from "@/lib/fetchSuggestions";
 import { MapPin } from "lucide-react";
 
-
 const DirectionsPage: React.FC = () => {
   const [map, setMap] = useState<mapboxgl.Map | null>(null);
   const [directions, setDirections] = useState<any>(null);
+
+  // 'from' and 'to' location states
   const [from, setFrom] = useState<string>("");
   const [to, setTo] = useState<string>("");
+  // Suggestions for 'from' and 'to' locations
   const [fromSuggestions, setFromSuggestions] = useState<any[]>([]);
   const [toSuggestions, setToSuggestions] = useState<any[]>([]);
+  // Coordinates for 'from' and 'to' locations
   const [fromCoords, setFromCoords] = useState<[number, number] | null>(null);
   const [toCoords, setToCoords] = useState<[number, number] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
+  // reference to markers for 'from' and 'to' locations
   const fromMarkerRef = useRef<mapboxgl.Marker | null>(null);
   const toMarkerRef = useRef<mapboxgl.Marker | null>(null);
 
@@ -29,7 +33,7 @@ const DirectionsPage: React.FC = () => {
       const mapInstance = new mapboxgl.Map({
         container: "map",
         style: "mapbox://styles/mapbox/streets-v11",
-        center: [12.971599, 77.594566],
+        center: [12.9542802, 77.4661302],
         zoom: 3,
       });
       setMap(mapInstance);
@@ -199,7 +203,7 @@ const DirectionsPage: React.FC = () => {
       <div className="bg-gradient-to-r from-teal-400 to-gray-800 p-3 md:p-6 shadow-md flex flex-col md:flex-row gap-2 md:gap-4 relative">
         <div className="relative flex-grow">
           <input
-            className="border p-1 md:p-2 rounded w-full pl-10"
+            className="border p-1 md:p-2 rounded w-full pl-10 md:pl-14"
             type="text"
             placeholder="From (e.g. San Francisco)"
             value={from}
@@ -227,7 +231,7 @@ const DirectionsPage: React.FC = () => {
         </div>
         <div className="relative flex-grow">
           <input
-            className="border p-1 md:p-2 rounded w-full pl-10"
+            className="border p-1 md:p-2 rounded w-full pl-10 md:pl-14"
             type="text"
             placeholder="To (e.g. Washington, D.C.)"
             value={to}

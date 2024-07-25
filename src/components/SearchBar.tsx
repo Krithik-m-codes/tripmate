@@ -66,7 +66,7 @@ const Search: React.FC<SearchProps> = ({ handleLocationSelect }) => {
   );
 
   return (
-    <div ref={searchContainerRef} className="absolute top-4 left-4 z-10 w-64">
+    <div ref={searchContainerRef} className="absolute top-4 left-16 z-10 w-72 h-20">
       <div className="relative">
         <input
           type="text"
@@ -74,7 +74,7 @@ const Search: React.FC<SearchProps> = ({ handleLocationSelect }) => {
           onChange={(e) => setSearchQuery(e.target.value)}
           onKeyPress={(e) => e.key === "Enter" && handleSearch()}
           placeholder="Search for a location"
-          className="w-full px-4 py-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 rounded-md border border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-700"
         />
         <button
           onClick={handleSearch}

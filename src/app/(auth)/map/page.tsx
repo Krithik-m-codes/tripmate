@@ -44,6 +44,7 @@ export default function Home() {
     }
   }, []);
 
+  
   useEffect(() => {
     console.log("Places updated:", places);
   }, [places]);

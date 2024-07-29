@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/tooltip";
 import { usePathname } from "next/navigation";
 
-
 interface NavProps {
   isCollapsed: boolean;
   links: {
@@ -26,8 +25,7 @@ interface NavProps {
 }
 
 export function Nav({ links, isCollapsed }: NavProps) {
-
-  const pathName = usePathname()
+  const pathName = usePathname();
   return (
     <TooltipProvider>
       <div
@@ -42,8 +40,11 @@ export function Nav({ links, isCollapsed }: NavProps) {
                   <Link
                     href={link.href}
                     className={cn(
-                      buttonVariants({ variant: link.href === pathName ? "default" : "ghost", size: "icon" }),
-                      "h-9 w-9",
+                      buttonVariants({
+                        variant: link.href === pathName ? "default" : "ghost",
+                        size: "icon",
+                      }),
+                      "h-9 w-10",
                       link.variant === "default" &&
                         "dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white"
                     )}
@@ -69,7 +70,10 @@ export function Nav({ links, isCollapsed }: NavProps) {
                 key={index}
                 href={link.href}
                 className={cn(
-                  buttonVariants({ variant: link.href === pathName ? "default" : "ghost", size: "sm" }),
+                  buttonVariants({
+                    variant: link.href === pathName ? "default" : "ghost",
+                    size: "sm",
+                  }),
                   link.variant === "default" &&
                     "dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
                   "justify-start"

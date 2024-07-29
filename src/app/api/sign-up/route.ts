@@ -27,6 +27,10 @@ export async function POST(request: Request) {
         }
       );
     }
+    // //email to lowercase to check if it's existing or not
+    // const dummy = email.z.string().toLowerCase()
+    // console.log("check email : " , dummy)
+
     // Check if the email already exists in the database
     const existingUserByEmail = await UserModel.findOne({ email });
     // Generate a random 6 digit verification code

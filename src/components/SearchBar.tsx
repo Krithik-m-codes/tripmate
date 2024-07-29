@@ -66,7 +66,7 @@ const Search: React.FC<SearchProps> = ({ handleLocationSelect }) => {
   );
 
   return (
-    <div ref={searchContainerRef} className="absolute top-4 left-16 z-10 w-72 h-20">
+    <div ref={searchContainerRef} className="absolute top-4 left-16 z-10 w-72 h-24">
       <div className="relative">
         <input
           type="text"

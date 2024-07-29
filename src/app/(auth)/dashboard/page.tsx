@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import PlaceCard from "@/components/Card";
 import TrendingLocationData from "@/lib/TrendingLocationData.json";
 import { ScrollArea } from "@/components/ui/scroll-area";

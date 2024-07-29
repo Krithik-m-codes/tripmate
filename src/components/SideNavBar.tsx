@@ -25,14 +25,14 @@ export default function SideNavbar({}: Props) {
 
   useEffect(() => {
     setIsCollapsed(window.innerWidth < 768);
-  } , []);
+  }, []);
 
   function toggleCollapse() {
     setIsCollapsed(!isCollapsed);
   }
 
   return (
-    <div className="relative min-w-auto md:min-w-[90px] max-w-auto border-r px-2 md:px-4 pb-10 pt-24 ">
+    <div className="relative min-w-auto md:min-w-[96px] max-w-auto border-r px-2 md:px-6 pb-10 pt-24 ">
       <Button
         variant="secondary"
         className="absolute z-10 top-7 right-[-29px] rounded-full w-12 h-12 shadow-xl flex justify-center items-center"
@@ -64,8 +64,20 @@ export default function SideNavbar({}: Props) {
         isCollapsed={isCollapsed}
         links={[
           {
+            title: "Dashboard",
+            href: "/dashboard",
+            icon: LayoutDashboard,
+            variant: "default",
+          },
+          {
             title: "Home",
             href: "/map",
+            icon: Map,
+            variant: "default",
+          },
+          {
+            title :"AI TripMate",
+            href: "/ai-trip-planner",
             icon: Map,
             variant: "default",
           },
@@ -76,12 +88,6 @@ export default function SideNavbar({}: Props) {
             variant: "default",
           },
 
-          {
-            title: "Dashboard",
-            href: "/dashboard",
-            icon: LayoutDashboard,
-            variant: "default",
-          },
           {
             title: "Profile",
             href: "/profile",
@@ -105,7 +111,7 @@ export default function SideNavbar({}: Props) {
       <div>
         <Button
           variant="default"
-          className="absolute bottom-5 left-3 right-3"
+          className="absolute bottom-5 left-3 right-3 text-white capitalize bg-[#166F5B]"
           onClick={() => signOut({ callbackUrl: "/" })}
         >
           <LogOut />

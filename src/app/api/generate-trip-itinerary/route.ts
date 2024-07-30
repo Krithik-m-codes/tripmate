@@ -44,14 +44,20 @@ export async function POST(request: Request) {
     // Call the Gemini API
     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
     const result = await model.generateContent(prompt);
-    console.log("Itinerary generated successfully ", result.response.text());
+    // console.log("Itinerary generated successfully ", result.response.text());
+
     const itinerary = result.response.text();
+
+    // formatting the response
+    // const formattedItinerary = itinerary.replace(/(?:\r\n|\r|\n)/g, "<br>");
+
+    const formattedItinerary = itinerary.replace(/\*/g, "");
 
     return Response.json(
       {
         success: true,
         message: "Itinerary generated successfully",
-        data: itinerary,
+        data: formattedItinerary,
       },
       {
         status: 200,
@@ -70,4 +76,3 @@ export async function POST(request: Request) {
     );
   }
 }
-// Compare this snippet from src/app/api/verify-code/route.ts:

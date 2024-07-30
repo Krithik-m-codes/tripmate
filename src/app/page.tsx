@@ -3,8 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import TeamMember from "../components/TeamMember";
-
-// import { logo } from "../assets/index"
+import { motion } from "framer-motion";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
@@ -62,13 +61,13 @@ export default function Home() {
             </li>
           </ul>
           <button
-            className="bg-[#166F5B] px-2 py-1 md:px-4 md:py-1 rounded-md text-white hover:bg-black "
+            className="bg-[#166F5B] px-2 py-1 hidden md:block md:px-4 md:py-1 rounded-md text-white hover:bg-black "
             onClick={handleSignupClick}
           >
             Sign Up
           </button>
           <button
-            className="bg-[#166f5b] px-2 py-1 mr-2 md:mr-0 md:px-4 md:py-1 rounded-md text-white hover:bg-black  "
+            className="bg-[#166f5b] px-2 py-1 hidden md:block  mr-2 md:mr-0 md:px-4 md:py-1 rounded-md text-white hover:bg-black  "
             onClick={handleLoginClick}
           >
             Login
@@ -95,8 +94,11 @@ export default function Home() {
           </button>
         </div>
         {/* small screen nav menu */}
-        <div
-          className={`md:hidden absolute top-0 left-0 w-full h-full bg-gradient-to-b from-emerald-500 to-emerald-900 text-[#ffff] ${
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: open ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+          className={`md:hidden absolute top-0 left-0 w-full h-full bg-gray-700 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-30 text-[#000000] ${
             open ? "block" : "hidden"
           }`}
         >
@@ -106,7 +108,7 @@ export default function Home() {
           >
             x
           </button>
-          <ul className="flex flex-col items-center justify-center h-full">
+          <ul className="flex flex-col items-center justify-center h-full text-black">
             <li className="py-1 flex items-center justify-center gap-2">
               <Image
                 src="/tripmate-logo.png"
@@ -120,35 +122,49 @@ export default function Home() {
             <li className="pb-10 text-center">
               <p>Travel begins within oneself</p>
             </li>
-            <li className="py-4">
+            <li className="py-4 rounded-sm">
               <a
                 href="/"
                 onClick={handleLinkClick}
-                className="border-b-4 border-yellow-400 p-2 rounded-md hover:bg-yellow-200 hover:text-black"
+                className="border-b-4 font-bold border-yellow-400 p-2 rounded-md hover:bg-yellow-200 hover:text-black"
               >
                 Home
               </a>
             </li>
-            <li className="py-4">
+            <li className="py-4 rounded-sm">
               <a
                 href="#MainContent"
                 onClick={handleLinkClick}
-                className=" border-b-4 border-yellow-400 p-2 rounded-md hover:bg-yellow-200 hover:text-black"
+                className=" border-b-4 font-bold border-yellow-400 p-2 rounded-md hover:bg-yellow-200 hover:text-black"
               >
                 About
               </a>
             </li>
-            <li className="py-4">
+            <li className="py-4 rounded-sm">
               <a
                 href="#Services"
                 onClick={handleLinkClick}
-                className=" border-b-4 border-yellow-400 p-2 rounded-md hover:bg-yellow-200 hover:text-black"
+                className=" border-b-4 font-bold border-yellow-400 p-2 rounded-md hover:bg-yellow-200 hover:text-black"
               >
                 Services
               </a>
             </li>
+            <li className="py-4 w-full flex gap-4 justify-center items-center m-3">
+              <button
+                className="bg-[#166f5b] px-2 py-1 w-[85px] rounded-md text-white hover:bg-black"
+                onClick={handleSignupClick}
+              >
+                Sign Up
+              </button>
+              <button
+                className="bg-[#166f5b] px-2 py-1 w-[85px] rounded-md text-white hover:bg-black"
+                onClick={handleLoginClick}
+              >
+                Login
+              </button>
+            </li>
           </ul>
-        </div>
+        </motion.div>
       </header>
       {/* header section */}
 
@@ -299,8 +315,8 @@ export default function Home() {
                   Travel Planning
                 </h1>
                 <p className="mt-4 text-gray-900">
-                  Leave the stress of travel planning behind <br />
-                  , let us create a seamless itinerary for your next adventure
+                  Leave the stress of travel planning behind <br />, let us
+                  create a seamless itinerary for your next adventure
                 </p>
                 <div className="mt-6 hidden mb-3 md:mb-0 md:block ">
                   <a

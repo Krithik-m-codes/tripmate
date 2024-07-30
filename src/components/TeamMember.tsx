@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface TeamMemberProps {
   name: string;
@@ -15,7 +16,12 @@ const TeamMember: React.FC<TeamMemberProps> = ({
   imageSrc,
 }) => {
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center text-center ">
+    <motion.div
+      className="flex flex-col md:flex-row items-center justify-center text-center"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <Image
         src={imageSrc}
         alt={name}
@@ -29,7 +35,7 @@ const TeamMember: React.FC<TeamMemberProps> = ({
         <p className="text-teal-500 text-sm mb-2 text-left ">{title}</p>
         <p className="text-gray-700 max-w-xs">{vision}</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -55,6 +55,7 @@ const TripPlanner = () => {
 
   return (
     <div className="flex gap-4 p-4">
+      {/* Input form */}
       <Card className="w-1/2">
         <CardHeader>
           <CardTitle>Generate Itinerary</CardTitle>
@@ -102,12 +103,13 @@ const TripPlanner = () => {
           </div>
         </CardContent>
       </Card>
+      {/* Generated Itinerary */}
       <Card className="w-1/2">
         <CardHeader>
           <CardTitle>Generated Itinerary</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="whitespace-pre-wrap text-black h-screen overflow-scroll">
+          <div className="whitespace-pre-wrap text-black h-[60%] overflow-scroll">
             {generatedItinerary || "No itinerary generated yet."}
           </div>
         </CardContent>

@@ -68,7 +68,7 @@ const SignUpPage: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 bg-bg-sign-up bg-cover bg-center flex justify-center items-center text-black shadow">
-      <div className="flex justify-center items-center max-h-[50%] bg-white px-6 py-4 rounded-md ">
+      <div className="flex justify-center items-center max-h-[69%] bg-white px-6 py-4 rounded-md ">
         <div className="bg-transparent rounded p-10 max-w-md w-full">
           <div className="flex justify-center items-center mb-8 gap-2">
           <Image src="/tripmate-logo.png" alt="alt" width={60} height={60} className="rounded-full"/>

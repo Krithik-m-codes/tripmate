@@ -24,6 +24,10 @@ export async function middleware(request: NextRequest) {
     if (
       !token &&
       (url.pathname === "/dashboard" ||
+        url.pathname === "/map" ||
+        url.pathname === "/verify-email" ||
+        url.pathname === "/saved-places" ||
+        url.pathname === "/search-history" ||
         url.pathname === "/api/profile" ||
         url.pathname === "/api/check-username-unique" ||
         url.pathname === "/api/weather-report" ||

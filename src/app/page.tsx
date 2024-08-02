@@ -35,7 +35,7 @@ export default function Home() {
   };
 
   return (
-    <main className="bg-[#F3F7F6] h-auto text-center">
+    <main className="bg-[#F3F7F6] h-auto text-center scroll-smooth ">
       {/* Header */}
       <header className="flex justify-between p-5 items-center bg-[#FFFFFF] text-[#000000] text-md md:text-xl md:px-[4rem]  lg:px-[12rem] ">
         <div className="flex items-center flex-grow-1 gap-3 ">
@@ -61,13 +61,13 @@ export default function Home() {
             </li>
           </ul>
           <button
-            className="bg-[#166F5B] px-2 py-1 hidden md:block md:px-4 md:py-1 rounded-md text-white hover:bg-black "
+            className="bg-[#166F5B] px-2 py-1 hidden md:block md:px-4 md:py-1 rounded-md text-white hover:bg-black transition delay-150 duration-300 ease-in-out "
             onClick={handleSignupClick}
           >
             Sign Up
           </button>
           <button
-            className="bg-[#166f5b] px-2 py-1 hidden md:block  mr-2 md:mr-0 md:px-4 md:py-1 rounded-md text-white hover:bg-black  "
+            className="bg-[#166f5b] px-2 py-1 hidden md:block  mr-2 md:mr-0 md:px-4 md:py-1 rounded-md text-white hover:bg-black transition delay-150 duration-300 ease-in-out "
             onClick={handleLoginClick}
           >
             Login

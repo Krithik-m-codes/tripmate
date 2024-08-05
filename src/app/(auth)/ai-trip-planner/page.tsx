@@ -11,15 +11,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import DatePickerWithRange from "@/components/DateRangePicker";
+import { DateRange } from "react-day-picker";
 
 const TripPlanner = () => {
   const [destination, setDestination] = useState("");
-  const [duration, setDuration] = useState("");
+  // const [duration, setDuration] = useState("");
   const [preferences, setPreferences] = useState("");
   const [budget, setBudget] = useState("");
   const [travelStyle, setTravelStyle] = useState("");
   const [generatedItinerary, setGeneratedItinerary] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const [date, setDate] = useState<DateRange | undefined>();
+  console.log("date", date);
 
   const handleGenerateItinerary = async () => {
     setIsLoading(true);
@@ -31,7 +36,7 @@ const TripPlanner = () => {
         },
         body: JSON.stringify({
           destination,
-          duration,
+          duration: date,
           preferences,
           budget,
           travelStyle,
@@ -54,29 +59,34 @@ const TripPlanner = () => {
   };
 
   return (
-    <div className="flex gap-4 p-4">
+    <div className=" w-full h-screen flex gap-4 p-4 text-lg">
       {/* Input form */}
       <Card className="w-1/2">
         <CardHeader>
-          <CardTitle>Generate Itinerary</CardTitle>
+          <CardTitle className="text-center bg-yellow-50 p-2">
+            Generate Itinerary
+          </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
+            <label className=" block text-base ml-2 ">
+              Destination name :{" "}
+            </label>
             <Input
-              placeholder="Destination"
+              placeholder="Europe"
               value={destination}
               onChange={(e) => setDestination(e.target.value)}
+              className="w-[300px] ml-2 "
             />
-            <Input
-              placeholder="Duration (e.g., 5 days)"
-              value={duration}
-              onChange={(e) => setDuration(e.target.value)}
-            />
+            <label className=" block text-base mt-2 ml-2">Duration : </label>
+            <DatePickerWithRange date={date} setDate={setDate} />
+            <label className=" block text-base mt-2 ml-2">Preferences : </label>
             <Textarea
-              placeholder="Preferences (e.g., museums, outdoor activities)"
+              placeholder="(e.g., museums, outdoor activities)"
               value={preferences}
               onChange={(e) => setPreferences(e.target.value)}
             />
+            <label className=" block text-base mt-2 ml-2">Budget : </label>
             <Select value={budget} onValueChange={setBudget}>
               <SelectTrigger>
                 <SelectValue placeholder="Select budget" />
@@ -87,6 +97,9 @@ const TripPlanner = () => {
                 <SelectItem value="luxury">Luxury</SelectItem>
               </SelectContent>
             </Select>
+            <label className=" block text-base mt-2 ml-2">
+              Travel Style :{" "}
+            </label>
             <Select value={travelStyle} onValueChange={setTravelStyle}>
               <SelectTrigger>
                 <SelectValue placeholder="Select travel style" />
@@ -97,7 +110,11 @@ const TripPlanner = () => {
                 <SelectItem value="active">Active</SelectItem>
               </SelectContent>
             </Select>
-            <Button onClick={handleGenerateItinerary} disabled={isLoading}>
+            <Button
+              onClick={handleGenerateItinerary}
+              disabled={isLoading}
+              className="bg-[#166F5B]"
+            >
               {isLoading ? "Generating..." : "Generate Itinerary"}
             </Button>
           </div>
@@ -109,7 +126,7 @@ const TripPlanner = () => {
           <CardTitle>Generated Itinerary</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="whitespace-pre-wrap text-black h-[60%] overflow-scroll">
+          <div className="whitespace-pre-wrap text-black overflow-y-scroll">
             {generatedItinerary || "No itinerary generated yet."}
           </div>
         </CardContent>

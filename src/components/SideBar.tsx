@@ -34,6 +34,13 @@ export function MainSideBar({ children }: React.PropsWithChildren<{}>) {
       ),
     },
     {
+      label : "Directions",
+      href : "/directions",
+      icon : (
+        <IconMap2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      )
+    },
+    {
       label: "AI Planner",
       href: "/ai-trip-planner",
       icon: (

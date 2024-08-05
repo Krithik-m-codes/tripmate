@@ -25,6 +25,9 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        white: "hsl(var(--white))",
+        black: "hsl(var(--black))",
+
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -58,7 +61,8 @@ const config = {
         "bg-dashboard": "url('/assets/dashboard-bg.jpg')",
         "bg-verify-code-bg-mobile": "url('/assets/mobile-verify-bg.jpg')",
         "bg-verify-code-bg": "url('/assets/desktop-verify-bg.jpg')",
-        "bg-sign-up" : "url('/bg-image.jpg')",
+        "bg-sign-up": "url('/bg-image.jpg')",
+        "bg-sign-in": "url('/bg-sign-in.jpg')",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -83,16 +87,21 @@ const config = {
           to: { height: "0" },
         },
         wiggle: {
-          '0%, 100%': { transform: 'rotate(-3deg)' },
-          '50%': { transform: 'rotate(3deg)' },
-        }
+          "0%, 100%": { transform: "rotate(-3deg)" },
+          "50%": { transform: "rotate(3deg)" },
+        },
+        marquee: {
+          "0%": { transform: "translateX(100%)" },
+          "100%": { transform: "translateX(-100%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        marquee: "marquee 20s linear infinite",
         bounce: "bounce 0.5s infinite",
         bounce2: "bounce2 0.5s infinite",
-        wiggle: 'wiggle 1s ease-in-out infinite',
+        wiggle: "wiggle 1s ease-in-out infinite",
       },
     },
   },

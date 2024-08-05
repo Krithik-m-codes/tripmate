@@ -12,7 +12,6 @@ const RecentHistoryCard: React.FC<RecentHistoryCardProps> = ({
   return (
     <div className="bg-white rounded-lg w-full scroll-auto shadow-md p-4 flex justify-normal items-center my-3">
       <div className="grow-0 mx-6">
-        {/* <Eclipse  /> */}
         <History size={32} color="black" />
       </div>
       <div className="grow w-full">

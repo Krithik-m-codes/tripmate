@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 
 import { cn } from "@/lib/utils";
 import LoadingSpinner from "@/components/loadingSpinner";
 import { useSession } from "next-auth/react";
 import { MainSideBar } from "@/components/SideBar";
+import SkeletonDashboard from "@/components/SkeletonDashboard";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { data: session, status } = useSession();
@@ -26,7 +27,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       ) : (
         <>
           {session ? (
-            <MainSideBar>{children}</MainSideBar>
+            <Suspense fallback={<LoadingSpinner />}>
+              <MainSideBar>
+                <Suspense fallback={<SkeletonDashboard />}>{children}</Suspense>
+              </MainSideBar>
+            </Suspense>
           ) : (
             <div className="flex flex-col w-full">{children}</div>
           )}

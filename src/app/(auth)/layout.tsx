@@ -33,7 +33,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
               </MainSideBar>
             </Suspense>
           ) : (
-            <div className="flex flex-col w-full">{children}</div>
+            <div className="flex flex-col w-full min-h-screen max-h-max">{children}</div>
           )}
         </>
       )}

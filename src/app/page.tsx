@@ -1,6 +1,8 @@
 "use client";
 
 import {
+  Header,
+  Footer,
   HeroSection,
   FeaturedIn,
   ServicesAndFeatures,
@@ -12,6 +14,10 @@ import {
 export default function Home() {
   return (
     <main className=" bg-primary-foreground h-auto text-center scroll-smooth ">
+      {/* Header section starts here  */}
+      <Header />
+      {/* Header section ends here  */}
+
       {/* Hero section content */}
       <HeroSection />
       {/* Hero section ends here  */}
@@ -35,6 +41,10 @@ export default function Home() {
       {/* Request Feature starts here  */}
       <RequestFeature />
       {/* Request Feature ends here  */}
+
+      {/* Footer section starts here  */}
+      <Footer />
+      {/* Footer section ends here  */}
     </main>
   );
 }

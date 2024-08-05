@@ -1,24 +1,28 @@
-# Here's a comprehensive README file for your Next.js project
+# TripMate
 
 ---
 
-## Tourist Planner Web Application
+## More About tripmate
 
-This project is a Tourist Planner Web Application built with Next.js, MongoDB, and various APIs to provide users with information about weather, maps, and attractions. Users can sign up, log in, and store their favorite places. The application also allows users to access and interact with a web-based platform.
+This project is a Trip advisory and utility Web Application built with Next.js, MongoDB, Gemini and various APIs to provide users with information about weather, maps, itinerary , restaurants and attractions. Users can sign up, log in, and store their favorite places. The application also allows users to access and interact with a web-based platform.
 
 ### Table of Contents
 
-01. [Project Overview](#project-overview)
-02. [Features](#features)
-03. [Technologies Used](#technologies-used)
-04. [Project Structure](#project-structure)
-05. [Installation and Setup](#installation-and-setup)
-06. [Database Schema](#database-schema)
-07. [Environment Variables](#environment-variables)
-08. [Routes and API Endpoints](#routes-and-api-endpoints)
-09. [Future Improvements](#future-improvements)
-10. [Contributing](#contributing)
-11. [License](#license)
+* [TripMate](#tripmate)
+  + [More About tripmate](#more-about-tripmate)
+    - [Table of Contents](#table-of-contents)
+  + [Project Overview](#project-overview)
+  + [Features](#features)
+  + [Technologies Used](#technologies-used)
+  + [Project Structure](#project-structure)
+  + [Installation and Setup](#installation-and-setup)
+  + [Database Schema](#database-schema)
+    - [User Model](#user-model)
+  + [Environment Variables](#environment-variables)
+  + [Routes and API Endpoints](#routes-and-api-endpoints)
+  + [Future Improvements](#future-improvements)
+  + [Contributing](#contributing)
+  + [License](#license)
 
 ## Project Overview
 
@@ -36,10 +40,10 @@ The Tourist Planner Web Application provides users with a platform to explore to
 ## Technologies Used
 
 * **Frontend**: Next.js, React
-* **Backend**: Node.js, Express.js (if used)
+* **Backend**: Typescript
 * **Database**: MongoDB
-* **Authentication**: NextAuth.js
-* **APIs**: OpenWeatherMap API, Google Maps API, Attractions API (example)
+* **Authentication**: NextAuth 
+* **APIs**: GEMINI API, MapBox API, Trip Advisory API, Attractions , Pixaby API
 * **Styling**: Tailwind CSS or CSS Modules
 
 ## Project Structure
@@ -53,32 +57,39 @@ The Tourist Planner Web Application provides users with a platform to explore to
 │   │   │   │   ├── page.tsx
 │   │   │   ├── sign-up/
 │   │   │   │   ├── page.tsx
+│   │   │   ├── dashboard/
+│   │   │   │   ├── page.tsx
+│   │   │   ├── profile/
+│   │   │   │   ├── page.tsx
+│   │   │   ├── map/
+│   │   │   │   ├── page.tsx
+│   │   ├── (auth)/
 │   │   │   ├── verify/
 │   │   │   │   ├── [token]/
-│   │   │   │       ├── page.tsx
-│   │   ├── dashboard/
+│   │   │   │       ├── route.ts
+│   │   ├── about/
 │   │   │   ├── page.tsx
-│   │   ├── home/
+│   │   ├── services/
 │   │   │   ├── page.tsx
-│   │   ├── layout.js
+│   │   ├── request-feature/
+│   │   │   ├── page.tsx
+│   │   ├── layout.ts
 │   │   ├── page.tsx
 │   ├── components/
 │   │   ├── Navbar.tsx
 │   │   ├── Footer.tsx
-│   ├── helpers/
-│   │   ├── sendVerificationEmail.js
 │   ├── lib/
-│   │   ├── dbConnect.js
+│   │   ├── dbConnect.ts
 │   ├── models/
-│   │   ├── User.model.js
+│   │   ├── User.model.ts
 │   ├── pages/
 │   │   ├── api/
-│   │   │   ├── sign-up.js
-│   │   │   ├── login.js
+│   │   │   ├── sign-up.ts
+│   │   │   ├── login.ts
 │   ├── styles/
 │   │   ├── globals.css
 │   ├── utils/
-│   │   ├── supabase.js
+│   │   ├── sendVerificationEmail.ts
 ├── .env.local
 ├── README.md
 ```
@@ -88,8 +99,8 @@ The Tourist Planner Web Application provides users with a platform to explore to
 01. **Clone the repository:**
 
 ```bash
-   git clone https://github.com/your-username/tourist-planner.git
-   cd tourist-planner
+   git clone https://github.com/Krithik-m-codes/tripmate.git
+   cd tripmate
    ```
 
 02.**Install dependencies:**
@@ -110,6 +121,7 @@ The Tourist Planner Web Application provides users with a platform to explore to
    MONGODB_URI=your_mongodb_connection_string
    OPENWEATHER_API_KEY=your_openweather_api_key
    GOOGLE_MAPS_API_KEY=your_google_maps_api_key
+   GEMINI_API_KEY=your_gemini_api_key
    ```
 
 04.**Run the development server:**
@@ -158,7 +170,7 @@ export default UserModel
 ## Environment Variables
 
 * `NEXTAUTH_URL`: The base URL of your application.
-* `NEXTAUTH_SECRET`: Secret key for NextAuth.js.
+* `NEXTAUTH_SECRET`: Secret key for NextAuth.ts.
 * `MONGODB_URI`: Connection string for MongoDB.
 * `OPENWEATHER_API_KEY`: API key for OpenWeatherMap.
 * `GOOGLE_MAPS_API_KEY`: API key for Google Maps.
@@ -174,7 +186,7 @@ export default UserModel
 
 * **API Endpoints:**
   + `POST /api/sign-up`: Sign-up API
-  + `POST /api/login`: Login API
+  + `POST /api/login` : Login API
 
 ## Future Improvements
 
@@ -182,6 +194,7 @@ export default UserModel
 * Integrate more APIs for additional data (e.g., news, events).
 * Implement better error handling and user feedback.
 * Add unit and integration tests.
+  
 
 ## Contributing
 

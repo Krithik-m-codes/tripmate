@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import AuthProvider from "../context/AuthProvider";
-import { Footer, Header } from "@/components/website";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +17,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // conditionally render header and footer components
+  // to not render on login and register pages
   return (
     <html lang="en">
       <AuthProvider>
@@ -26,9 +27,7 @@ export default function RootLayout({
             "debug-screens": process.env.NODE_ENV === "development",
           })}
         >
-          <Header />
           {children}
-          <Footer />
         </body>
       </AuthProvider>
     </html>

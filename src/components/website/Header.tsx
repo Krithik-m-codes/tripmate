@@ -57,7 +57,7 @@ export default function Header() {
             <a href="/about">About</a>
           </li>
           <li>
-            <a href="#Services">Services</a>
+            <a href="/services">Services</a>
           </li>
         </ul>
         <button
@@ -142,7 +142,7 @@ export default function Header() {
           </li>
           <li className="py-4 rounded-sm">
             <a
-              href="#Services"
+              href="/services"
               onClick={handleLinkClick}
               className=" border-b-4 font-bold border-yellow-400 p-2 rounded-md hover:bg-yellow-200 hover:text-black"
             >

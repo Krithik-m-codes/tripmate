@@ -49,7 +49,7 @@ const Footer = () => {
             <li>
               <a
                 className="text-gray-700 transition hover:text-gray-700/75"
-                href="#MainContent"
+                href="/about"
               >
                 {" "}
                 About{" "}
@@ -59,7 +59,7 @@ const Footer = () => {
             <li>
               <a
                 className="text-gray-700 transition hover:text-gray-700/75"
-                href="#Services"
+                href="/services"
               >
                 {" "}
                 Services{" "}
@@ -69,17 +69,17 @@ const Footer = () => {
             <li>
               <a
                 className="text-gray-700 transition hover:text-gray-700/75"
-                href="#OurTeam"
+                href="/request-feature"
               >
                 {" "}
-                Meet the team{" "}
+                Feature request{" "}
               </a>
             </li>
 
             <li>
               <a
                 className="text-gray-700 transition hover:text-gray-700/75"
-                href="#MainContent"
+                href="/sign-in"
               >
                 {" "}
                 Get started{" "}

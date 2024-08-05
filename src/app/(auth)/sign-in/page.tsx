@@ -25,21 +25,16 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-around  md:justify-center min-h-screen md:gap-8 lg:gap-12  bg-white text-black md:px-20 bg-bg-sign-in bg-cover bg-no-repeat bg-center bg-opacity-80 ">
-      <div className="flex items-center justify-center h-[50%] md:h-[40%] md:w-1/2 lg:h-[70%] lg:w-[60%]">
-        <Image
-          src="/sign-in-image.png"
-          alt="Sign In"
-          width={1000}
-          height={900}
-          className="w-[90%] h-[80%] md:w-full shadow-xl md:h-full md:object-cover object-center lg:w-[800px] lg:m-0 lg:shadow-none rounded-lg lg:rounded-xl"
-        />
-      </div>
-      <div
-        className="flex flex-col gap-2 md:gap-8 lg:gap-10 text-left w-auto h-auto md:h-[60%] md:w-1/2 lg:w-[40%] lg:h-[52%] bg-white items-center justify-center  bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100
-"
-      >
-        <h1 className="text-4xl md:text-5xl mt-4 font-bold">Sign In</h1>
+    <div className="flex flex-col md:flex-row items-center justify-around  md:justify-center min-h-screen md:gap-8 lg:gap-12 bg-white text-black md:px-20 bg-bg-sign-in bg-cover bg-no-repeat bg-center bg-opacity-70">
+      <div className="flex flex-col gap-2 md:gap-8 lg:gap-10 text-left w-auto h-auto md:h-[60%] md:w-1/2 lg:w-[35%] lg:h-[52%] items-center justify-center bg-gray-500 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100">
+        <h1 className="text-2xl md:text-5xl mt-4 font-bold">
+          Unlock
+          <span className="text-orange-400"> Your </span>
+          <span className="text-green-400"> Potential </span>
+        </h1>
+        <p className="text-sm -mt-5 md:text-lg text-gray-700">
+          Sign in to your account to continue
+        </p>
         <form
           onSubmit={handleFormSubmit}
           className="flex flex-col justify-center m-auto items-center w-full h-1/2 md:py-4 md:px-10 lg:p-0 lg:m-0 "
@@ -81,15 +76,6 @@ export default function SignInPage() {
             />
           </div>
           <div>
-            <button
-              type="submit"
-              className="bg-green-400 px-3 py-1 m-4 rounded "
-              onClick={() => {
-                return (window.location.href = "/sign-up");
-              }}
-            >
-              Sign up
-            </button>
             <button
               type="submit"
               className="bg-orange-400 px-3 py-1 m-4 rounded "

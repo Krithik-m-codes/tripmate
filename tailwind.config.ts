@@ -61,7 +61,7 @@ const config = {
         "bg-dashboard": "url('/assets/dashboard-bg.jpg')",
         "bg-verify-code-bg-mobile": "url('/assets/mobile-verify-bg.jpg')",
         "bg-verify-code-bg": "url('/assets/desktop-verify-bg.jpg')",
-        "bg-sign-up": "url('/bg-image.jpg')",
+        "bg-sign-up": "url('/bg-sign-up.jpg')",
         "bg-sign-in": "url('/bg-sign-in.jpg')",
       },
       borderRadius: {

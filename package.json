@@ -20,6 +20,7 @@
     "@radix-ui/react-separator": "^1.1.0",
     "@react-email/components": "^0.0.19",
     "@tabler/icons-react": "^3.11.0",
+    "@types/react-toastify": "^4.0.2",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
@@ -42,6 +43,7 @@
     "react-email": "^2.1.4",
     "react-map-gl": "^7.1.7",
     "react-spring": "^9.7.3",
+    "react-toastify": "^10.0.5",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"

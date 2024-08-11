@@ -1,88 +1,109 @@
 "use client";
 import { useState } from "react";
-// import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const VerifyCodePage: React.FC = () => {
-  //   const { data: session } = useSession();
   const [otp, setOtp] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Get userId from the query params
+    setLoading(true);
+
     const username = new URLSearchParams(window.location.search).get(
       "username"
     );
 
-    // Perform OTP verification logic here
-    const response = await fetch("/api/verify-code/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, code: otp }),
-    });
+    try {
+      const response = await fetch("/api/verify-code/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, code: otp }),
+      });
 
-    // Handle response
-    if (response.status === 200) {
-      console.log("OTP verified successfully : ", response);
-      // Redirect to login page
-      router.push("/sign-in");
-    } else {
-      console.log("OTP verification failed : ", response);
-      // Show error message
-      alert("Invalid OTP. Please try again. otp received ");
-      router.push("/sign-up");
+      if (response.ok) {
+        toast.success("Email verified successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        setTimeout(() => router.push("/sign-in"), 3000);
+      } else {
+        toast.error("Invalid OTP. Please try again.", {
+          position: "top-right",
+          autoClose: 5000,
+        });
+      }
+    } catch (error) {
+      console.error("Verification error:", error);
+      toast.error("An unexpected error occurred. Please try again later.", {
+        position: "top-right",
+        autoClose: 5000,
+      });
+    } finally {
+      setLoading(false);
     }
-    // Redirect to login page
   };
 
   return (
-    <div className="flex justify-center items-center h-screen bg-[#081b16] bg-bg-verify-code-bg-mobile md:bg-bg-verify-code-bg bg-cover bg-center bg-opacity-90 bg-fixed bg-no-repeat">
-      <div className="flex justify-center items-center flex-col gap-5 w-[90%] h-[80%] bg-no-repeat md:rounded-lg bg-verify-code-bg-mobile bg-center bg-cover md:bg-verify-code-bg md:bg-center md:bg-cover shadow-inner">
-        <h2 className="text-2xl font-bold text-white px-6 py-2 rounded-md bg-gray-900 shadow-lg md:hidden">
-          Verify Email with OTP
-        </h2>
-        <form
-          className="bg-[#ffffffea] shadow-lg h-40% w-60%  md:h-[15rem] md:w-[28rem] rounded px-8 pt-6 pb-8 mb-4 "
-          onSubmit={handleSubmit}
+    <>
+      <ToastContainer />
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-teal-500 via-green-500 to-emerald-500">
+        <motion.div
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white bg-opacity-90 p-8 rounded-lg shadow-2xl w-full max-w-md"
         >
-          <div className="mb-4">
-            <label
-              className="block text-gray-700 text-lg font-bold mb-6"
-              htmlFor="otp"
-            >
-              Enter Email Verification Code :
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="otp"
-              type="text"
-              placeholder="Enter OTP"
-              value={otp}
-              onChange={(e) => setOtp(e.target.value)}
-            />
-          </div>
-          <div className="flex items-center justify-between mt-8">
-            <button
-              className="bg-[#166f5b] hover:bg-[#153831] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-              type="submit"
-            >
-              Verify
-            </button>
-            <button>
-              <a
-                className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
-                href="/sign-in"
+          <h2 className="text-3xl font-bold text-teal-700 mb-6 text-center">
+            Verify Your Email
+          </h2>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label
+                htmlFor="otp"
+                className="block text-sm font-medium text-gray-700 mb-2"
               >
-                Sign In
-              </a>
-            </button>
+                Enter Email Verification Code
+              </label>
+              <input
+                id="otp"
+                type="text"
+                placeholder="Enter OTP"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                required
+              />
+            </div>
+            <div className="flex items-center justify-between">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full"
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? "Verifying..." : "Verify"}
+              </motion.button>
+            </div>
+          </form>
+          <div className="mt-6 text-center">
+            <a
+              href="/sign-in"
+              className="text-sm text-teal-600 hover:text-teal-800 transition-colors duration-300"
+            >
+              Already verified? Sign In
+            </a>
           </div>
-        </form>
+        </motion.div>
       </div>
-    </div>
+    </>
   );
 };
 

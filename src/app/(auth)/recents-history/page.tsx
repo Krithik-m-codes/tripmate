@@ -1,64 +1,100 @@
 "use client";
-import dbConnect from "@/lib/dbConnect";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import RecentHistoryCard from "@/components/RecentHistoryCard";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { motion } from "framer-motion";
+import dbConnect from "@/lib/dbConnect";
 
 function RecentHistory() {
   const { data: session } = useSession();
-  //   console.log("Session : ", session?.user);
-  const [Loading, setLoading] = useState(true);
-  const [recentHistory, setRecentHistory] = useState([
+  const [loading, setLoading] = useState(true);
+  const [recentHistory, setRecentHistory] = useState<
     {
-      search: "",
-      createdAt: "",
-    },
-  ]);
+      search: string;
+      createdAt: string;
+    }[]
+  >([]);
 
-  //fetch search history from database
   useEffect(() => {
     dbConnect();
     const fetchRecentHistory = async () => {
-      const response = await fetch(`/api/search-history/${session?.user._id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await response.json();
-      console.log(data);
-      if (data.success) {
-        setRecentHistory(data.data);
+      try {
+        const response = await fetch(
+          `/api/search-history/${session?.user._id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+        const data = await response.json();
+        if (data.success) {
+          setRecentHistory(data.data);
+        } else {
+          console.error("Failed to fetch recent history");
+        }
+      } catch (error) {
+        console.error("Error fetching recent history:", error);
+      } finally {
         setLoading(false);
       }
     };
-    fetchRecentHistory();
-  }, [session?.user._id, setRecentHistory]);
+
+    if (session?.user._id) {
+      fetchRecentHistory();
+    }
+  }, [session?.user._id]);
 
   return (
-    <>
-      <h1 className="text-2xl w-full bg-[#166F5B] text-center text-white py-4 ">
+    <div className="min-h-screen ">
+      <motion.h1
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-3xl md:text-4xl font-bold text-white text-center py-6 px-4 bg-teal-700 shadow-lg"
+      >
         Recent History
-      </h1>
-      <div className="bg-[#F3F7F6] text-black w-full h-screen flex flex-col justify-center items-center ">
-        <div className="flex flex-col h-[95%] items-center w-60 gap-5 mt-10">
-          {Loading ? (
-            <div className="text-center text-2xl">Loading...</div>
-          ) : (
-            <ScrollArea className="h-screen w-[55rem] flex flex-col gap-2">
-              {recentHistory.map((history, index) => (
-                <RecentHistoryCard
-                  key={index}
-                  destination={history.search}
-                  date={history.createdAt.slice(0, 10)}
-                />
-              ))}
+      </motion.h1>
+      <div className="container mx-auto px-4 py-8">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-white rounded-lg shadow-xl p-6"
+        >
+          {loading ? (
+            <div className="flex justify-center items-center h-64">
+              <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-teal-500"></div>
+            </div>
+          ) : recentHistory.length > 0 ? (
+            <ScrollArea className="h-[calc(100vh-12rem)] pr-4">
+              <div className="space-y-4">
+                {recentHistory.map((history, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                  >
+                    <RecentHistoryCard
+                      key={index}
+                      destination={history.search}
+                      date={new Date(history.createdAt).toLocaleDateString()}
+                    />
+                  </motion.div>
+                ))}
+              </div>
             </ScrollArea>
+          ) : (
+            <p className="text-center text-gray-500 py-8">
+              No recent history found.
+            </p>
           )}
-        </div>
+        </motion.div>
       </div>
-    </>
+    </div>
   );
 }
 

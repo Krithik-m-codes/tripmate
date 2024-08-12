@@ -1,11 +1,9 @@
-import React from "react";
+"use client";
+import { useState, useEffect } from "react";
 import {
   TrendingUp as Trending,
   Compass,
   Calendar,
-  Bell,
-  Settings,
-  User,
   Map,
   PlaneTakeoff,
   Hotel,
@@ -84,9 +82,39 @@ const UpcomingTrip = () => (
   </div>
 );
 
+type WeatherData = {
+  main: { temp: number };
+  weather: { description: string }[];
+  name: string;
+  sys: { country: string };
+};
+
 const Dashboard = () => {
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [imageUrl, setImageUrl] = useState("");
+
+  useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          const response = await fetch(
+            `/api/weather-report?lat=${latitude}&lon=${longitude}`
+          );
+          const data = await response.json();
+          console.log("data : ", data);
+          setWeather(data);
+        },
+        (error) => {
+          console.error("Error getting location:", error);
+        }
+      );
+    }
+  }, []);
+
+  if (!weather) return <p>Loading weather...</p>;
   return (
-    <div className="min-h-screen max-h-max bg-gradient-to-br from-gray-100 to-gray-200 p-8 overflow-y-scroll">
+    <div className="min-h-screen max-auto bg-gradient-to-br from-gray-100 to-gray-200 p-8 overflow-y-scroll">
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-bold text-gray-800">
@@ -113,6 +141,25 @@ const Dashboard = () => {
             height={380}
             className="w-full h-52 object-cover rounded-lg"
           />
+        </div>
+
+        <div className="bg-white rounded-lg shadow p-6">
+          <h2 className="text-2xl font-semibold mb-4">Weather Report</h2>
+          {weather && weather.weather && weather.weather.length > 0 ? (
+            <div className="flex flex-col items-center space-y-4">
+              <p className="text-4xl font-bold">
+                {Math.round(weather.main.temp - 273.15)}°C
+              </p>
+              <p className="text-lg text-muted-foreground">
+                {weather.weather[0].description}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {weather.name}, {weather.sys.country}
+              </p>
+            </div>
+          ) : (
+            <p>Loading weather...</p>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

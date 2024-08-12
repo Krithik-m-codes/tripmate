@@ -22,10 +22,10 @@ const FavoritePlaceCard: React.FC<FavoritePlace> = ({
       console.log(response[0]);
       if (response) {
         setImageUrl(response[0].largeImageURL);
-        console.log(
-          "response in FavoritePlaceCard : ",
-          response[0].largeImageURL
-        );
+        // console.log(
+        //   "response in FavoritePlaceCard : ",
+        //   response[0].largeImageURL
+        // );
       }
     };
 

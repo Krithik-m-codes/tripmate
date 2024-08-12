@@ -56,7 +56,7 @@ const TripPlanner = () => {
   };
 
   return (
-    <div className="w-full min-h-screen flex flex-col md:flex-row gap-4 p-4 text-lg">
+    <div className="w-full min-h-screen h-full flex flex-col md:flex-row gap-4 p-4 text-lg overflow-y-auto pb-10">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -123,7 +123,7 @@ const TripPlanner = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="w-full md:w-1/2 mt-4 md:mt-0"
+        className="w-full md:w-1/2 mt-4 md:mt-0 h-full"
       >
         <Card className="h-full">
           <CardHeader>

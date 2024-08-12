@@ -25,17 +25,17 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       {loading ? (
         <LoadingSpinner />
       ) : (
-        <>
-          {session ? (
-            <Suspense fallback={<LoadingSpinner />}>
-              <MainSideBar>
-                <Suspense fallback={<SkeletonDashboard />}>{children}</Suspense>
-              </MainSideBar>
-            </Suspense>
-          ) : (
-            <div className="flex flex-col w-full min-h-screen max-h-max">{children}</div>
-          )}
-        </>
+        session && (
+          <Suspense fallback={<LoadingSpinner />}>
+            <MainSideBar>
+              <Suspense fallback={<SkeletonDashboard />}>
+                <div className="flex flex-col w-full min-h-screen h-full">
+                  {children}
+                </div>
+              </Suspense>
+            </MainSideBar>
+          </Suspense>
+        )
       )}
     </div>
   );

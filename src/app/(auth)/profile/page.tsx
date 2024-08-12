@@ -88,7 +88,7 @@ export default function ProfilePage() {
   const isVerified = session?.user?.isVerified ?? false;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-100 to-green-100">
+    <div className="h-full sm:min-h-screen bg-gradient-to-br from-teal-100 to-green-100">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}

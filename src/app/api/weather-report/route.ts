@@ -3,7 +3,7 @@ import { getWeather } from "@/lib/weatherService";
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    console.log("searchParams : ", searchParams);
+    // console.log("searchParams : ", searchParams);
     const lat = Number(searchParams.get("lat"));
     const lon = Number(searchParams.get("lon"));
 

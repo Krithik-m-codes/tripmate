@@ -7,7 +7,7 @@ export const fetchImages = async (search: string) => {
       `https://pixabay.com/api/?key=${process.env.NEXT_PUBLIC_PIXABAY_API_KEY}&q=${search}&image_type=photo`
     );
     const data = await response.json();
-    // console.log("data in index.ts for fetch iamge : ", data);
+    // console.log("data in index.ts for fetch image : ", data);
     return data.hits;
   } catch (error) {
     return [];
@@ -44,7 +44,18 @@ export const fetchDirections = async (origin: string, destination: string) => {
   }
 };
 
-
 // fetch trending places from api
 
-
+// fetch lat and lon from locationiq api
+// export const fetchLatLon = async (search: string) => {
+//   try {
+//     const response = await fetch(
+//       `https://us1.locationiq.com/v1/search.php?key=${process.env.NEXT_PUBLIC_LOCATIONIQ_API_KEY}&q=${search}&format=json`
+//     );
+//     const data = await response.json();
+//     console.log("data in index.ts for fetch lat lon : ", data);
+//     return data[0];
+//   } catch (error) {
+//     return {};
+//   }
+// };

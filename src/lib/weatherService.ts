@@ -17,7 +17,6 @@ export async function getWeather(
   if (!response.ok) {
     throw new Error(`Error fetching weather data: ${response.statusText}`);
   }
-
   const data = await response.json();
   return data;
 }

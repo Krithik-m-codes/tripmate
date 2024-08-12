@@ -34,11 +34,11 @@ export function MainSideBar({ children }: React.PropsWithChildren<{}>) {
       ),
     },
     {
-      label : "Directions",
-      href : "/directions",
-      icon : (
+      label: "Directions",
+      href: "/directions",
+      icon: (
         <IconMap2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      )
+      ),
     },
     {
       label: "AI Planner",
@@ -90,7 +90,10 @@ export function MainSideBar({ children }: React.PropsWithChildren<{}>) {
         <SidebarBody className="justify-between gap-10">
           <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
             {open ? <Logo /> : <LogoIcon />}
-            <div className="mt-8 flex flex-col gap-2">
+            <div
+              className="mt-8 flex flex-col gap-2"
+              onClick={() => setOpen(false)}
+            >
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
               ))}

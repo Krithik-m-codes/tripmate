@@ -123,7 +123,7 @@ export default function Home() {
                   <Image
                     src="/assets/map-pin.svg"
                     alt="Marker"
-                    className="text-black w-auto h-auto"
+                    className="text-black"
                     width={30}
                     height={30}
                   />

@@ -50,7 +50,7 @@ export default function SignInPage() {
   return (
     <>
       <ToastContainer />
-      <div className="flex items-center justify-around md:justify-center min-h-screen bg-bg-sign-in bg-cover bg-no-repeat bg-center bg-opacity-70 ">
+      <div className="flex items-center justify-around md:justify-center min-h-screen bg-bg-sign-in bg-cover bg-no-repeat bg-center bg-opacity-70 backdrop-blur-sm ">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -70,7 +70,7 @@ export default function SignInPage() {
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="flex flex-col gap-4 md:gap-6 lg:gap-8 text-left w-full md:w-1/2 h-full items-center justify-center p-6 md:p-8 bg-gray-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100"
+            className="flex flex-col gap-4 md:gap-6 lg:gap-8 text-left w-full md:w-1/2 h-full md:max-h-full items-center justify-center p-6 md:p-8 bg-gray-600 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100"
           >
             <motion.div
               initial={{ y: -20, opacity: 0 }}

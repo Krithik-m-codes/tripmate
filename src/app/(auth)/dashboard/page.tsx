@@ -4,14 +4,20 @@ import {
   TrendingUp as Trending,
   Compass,
   Calendar,
+  Bot,
+  Heart,
+  CookingPot,
   Map,
-  PlaneTakeoff,
-  Hotel,
-  Utensils,
+  FerrisWheel,
+  SignpostBig,
+  History,
+  User,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import loc from "@/lib/TrendingLocationData.json"
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const DashboardCard = ({
   title,
@@ -32,38 +38,40 @@ const DashboardCard = ({
 );
 
 const TrendingPlaces = () => (
-  <div className="space-y-4">
-    {["Paris, France", "Bali, Indonesia", "Tokyo, Japan", "New York, USA"].map(
-      (place, index) => (
-        <div key={index} className="flex items-center">
+  <ScrollArea className=" h-[360px]">
+    <div className="grid grid-cols-1 gap-4">
+      {loc.loc.map((location, index) => (
+        <div key={index} className="flex flex-row items-center space-x-4">
           <Image
-            src={`/api/placeholder/50/50?text=${place}`}
-            alt={place}
-            width={50}
-            height={50}
-            className="w-12 h-12 rounded-full mr-4"
+            src={location.placeImage}
+            alt={location.placeImage}
+            width={100}
+            height={100}
+            className="w-16 h-16 object-cover rounded-lg"
           />
           <div>
-            <p className="font-semibold">{place}</p>
-            <p className="text-sm text-muted-foreground">
-              Trending #{index + 1}
-            </p>
+            <h4 className="font-semibold">{location.placeName}</h4>
+            <p className="text-muted-foreground">Trending #{index + 1}</p>
           </div>
         </div>
-      )
-    )}
-  </div>
+      ))}
+    </div>
+  </ScrollArea>
 );
 
 const QuickActions = () => (
   <div className="grid grid-cols-2 gap-4">
     {[
-      { icon: PlaneTakeoff, label: "Book Flight" },
-      { icon: Hotel, label: "Find Hotel" },
-      { icon: Utensils, label: "Restaurants" },
-      { icon: Map, label: "Attractions" },
+      { icon: Bot, label: "AI Trip Planner" },
+      { icon: User, label: "Profile" },
+      { icon: Map, label: "Map" },
+      { icon: SignpostBig, label: "Directions" },
+      { icon: Heart, label: "Favorites" },
+      { icon: CookingPot, label: "Restaurants" },
+      { icon: FerrisWheel, label: "Attractions" },
+      { icon: History, label: "History" },
     ].map(({ icon: Icon, label }, index) => (
-      <Button key={index} variant="outline" className="h-20 flex-col">
+      <Button key={index} variant="outline" className="h-20 flex-col" disabled={true}>
         <Icon className="h-6 w-6 mb-2" />
         {label}
       </Button>
@@ -72,15 +80,28 @@ const QuickActions = () => (
 );
 
 const UpcomingTrip = () => (
-  <div className="bg-gradient-to-r from-teal-500 to-emerald-600 rounded-lg p-4 text-white">
-    <h3 className="font-bold text-lg mb-2">Your Next Adventure</h3>
-    <p className="mb-2">Santorini, Greece</p>
-    <p className="text-sm">Departure: August 15, 2024</p>
-    <Button variant="secondary" className="mt-4">
-      View Itinerary
-    </Button>
-  </div>
+  <>
+    <div className="bg-gradient-to-r from-teal-500 to-emerald-600 rounded-lg p-6 text-white shadow-lg transform transition-transform hover:scale-105">
+      <h3 className="font-extrabold text-xl mb-3">Your Next Adventure</h3>
+      <p className="text-lg mb-2">Santorini, Greece</p>
+      <p className="text-sm mb-4">Departure: August 15, 2024</p>
+      <Button variant="secondary" className="mt-4 bg-white text-teal-500 hover:bg-gray-100">
+        View Itinerary
+      </Button>
+    </div>
+    <div className="mt-6 bg-white p-4 rounded-lg shadow-sm">
+      <h3 className="font-bold text-lg mb-3 text-teal-600">Feature Upgrade</h3>
+      <ul className="list-disc list-inside text-sm text-gray-700">
+        <li className="mb-1">Passport Ticketing</li>
+        <li className="mb-1">Flight Ticketing</li>
+        <li className="mb-1">Hotel Reservation</li>
+        <li className="mb-1">Travel Insurance</li>
+        <li>And More!</li>
+      </ul>
+    </div>
+  </>
 );
+
 
 type WeatherData = {
   main: { temp: number };
@@ -112,9 +133,8 @@ const Dashboard = () => {
     }
   }, []);
 
-  if (!weather) return <p>Loading weather...</p>;
   return (
-    <div className="min-h-screen max-auto bg-gradient-to-br from-gray-100 to-gray-200 p-8 overflow-y-scroll">
+    <div className="min-h-screen max-auto bg-gradient-to-br from-teal-100 to-green-100 p-8 overflow-y-scroll">
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-bold text-gray-800">
@@ -127,7 +147,6 @@ const Dashboard = () => {
           bg-white
           rounded-lg
           shadow
-          p-2
           flex
           flex-row
           items-center
@@ -138,8 +157,8 @@ const Dashboard = () => {
             src="/assets/dashboard-bg.jpg"
             alt="alt"
             width={1200}
-            height={380}
-            className="w-full h-52 object-cover rounded-lg"
+            height={680}
+            className="w-full h-60 object-cover rounded-lg"
           />
         </div>
 
@@ -180,7 +199,7 @@ const Dashboard = () => {
           />
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        {/* <div className="bg-white rounded-lg shadow p-6">
           <h2 className="text-2xl font-semibold mb-4">
             Personalized Recommendations
           </h2>
@@ -208,7 +227,7 @@ const Dashboard = () => {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

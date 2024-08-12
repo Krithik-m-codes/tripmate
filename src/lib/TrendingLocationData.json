@@ -3,95 +3,80 @@
     {
       "id": 1,
       "placeName": "Andhra Pradesh",
-      "placeImage": "https://i.pinimg.com/564x/be/0d/d5/be0dd5b83c46d2cabc614d872d5633d7.jpg",
-      "placeHistory": "Andhra Pradesh is known for its rich cultural heritage and historical significance."
+      "placeImage": "https://i.pinimg.com/564x/be/0d/d5/be0dd5b83c46d2cabc614d872d5633d7.jpg"
     },
     {
       "id": 2,
       "placeName": "Arunachal Pradesh",
-      "placeImage": "https://i.pinimg.com/236x/40/76/9f/40769f02ae04c82671351a98e7e71cec.jpg",
-      "placeHistory": "Arunachal Pradesh is a beautiful state located in the northeastern part of India."
+      "placeImage": "https://i.pinimg.com/236x/40/76/9f/40769f02ae04c82671351a98e7e71cec.jpg"
     },
     {
       "id": 3,
       "placeName": "Assam",
-      "placeImage": "https://i.pinimg.com/236x/84/bb/26/84bb262bb67da2a057811cde84a821d6.jpg",
-      "placeHistory": "Assam is famous for its tea gardens and wildlife sanctuaries."
+      "placeImage": "https://i.pinimg.com/236x/84/bb/26/84bb262bb67da2a057811cde84a821d6.jpg"
     },
 
     {
       "id": 4,
       "placeName": "West Bengal",
-      "placeImage": "https://i.pinimg.com/236x/43/d0/55/43d05527fe738b2c4d607969d0ac6865.jpg",
-      "placeHistory": "West Bengal is known for its rich cultural heritage and delicious cuisine."
+      "placeImage": "https://i.pinimg.com/236x/43/d0/55/43d05527fe738b2c4d607969d0ac6865.jpg"
     },
     {
       "id": 5,
       "placeName": "Bihar",
-      "placeImage": "https://i.pinimg.com/236x/ae/91/1b/ae911b6c0697eab8c5789f784678b54c.jpg",
-      "placeHistory": "Bihar is known for its rich history and ancient monuments."
+      "placeImage": "https://i.pinimg.com/236x/ae/91/1b/ae911b6c0697eab8c5789f784678b54c.jpg"
     },
     {
       "id": 6,
       "placeName": "Chhattisgarh",
-      "placeImage": "https://i.pinimg.com/236x/6a/9f/d0/6a9fd0b26fa19271951bd91a2c5afe44.jpg",
-      "placeHistory": "Chhattisgarh is known for its tribal culture and natural beauty."
+      "placeImage": "https://i.pinimg.com/236x/6a/9f/d0/6a9fd0b26fa19271951bd91a2c5afe44.jpg"
     },
     {
       "id": 7,
       "placeName": "Goa",
-      "placeImage": "https://i.pinimg.com/236x/78/fb/8b/78fb8b7d5765f379ddf7340bfa0aad09.jpg",
-      "placeHistory": "Goa is famous for its beautiful beaches and vibrant nightlife."
+      "placeImage": "https://i.pinimg.com/236x/78/fb/8b/78fb8b7d5765f379ddf7340bfa0aad09.jpg"
     },
     {
       "id": 8,
       "placeName": "Gujarat",
-      "placeImage": "https://i.pinimg.com/236x/f8/1f/ff/f81fff438e2bdd7e33d6ba5459d30be6.jpg",
-      "placeHistory": "Gujarat is known for its rich cultural heritage and historical significance."
+      "placeImage": "https://i.pinimg.com/236x/f8/1f/ff/f81fff438e2bdd7e33d6ba5459d30be6.jpg"
     },
     {
       "id": 9,
       "placeName": "Haryana",
-      "placeImage": "https://i.pinimg.com/236x/df/b4/dc/dfb4dcf4e791ddb79e9407773c3f6f7e.jpg",
-      "placeHistory": "Haryana is known for its rich history and ancient monuments."
+      "placeImage": "https://i.pinimg.com/236x/df/b4/dc/dfb4dcf4e791ddb79e9407773c3f6f7e.jpg"
     },
     {
       "id": 10,
       "placeName": "Himachal Pradesh",
-      "placeImage": "https://i.pinimg.com/236x/f8/f6/8d/f8f68d87abcefe8c702d6a8fb890e62a.jpg",
-      "placeHistory": "Himachal Pradesh is known for its scenic beauty and adventure sports."
+      "placeImage": "https://i.pinimg.com/236x/f8/f6/8d/f8f68d87abcefe8c702d6a8fb890e62a.jpg"
     },
     {
       "id": 11,
 
       "placeName": "Jharkhand",
-      "placeImage": "https://i.pinimg.com/236x/e9/42/30/e942306d20a84b1a12bd3ab1848c8e7d.jpg",
-      "placeHistory": "Jharkhand is known for its rich mineral resources and tribal culture."
+      "placeImage": "https://i.pinimg.com/236x/e9/42/30/e942306d20a84b1a12bd3ab1848c8e7d.jpg"
     },
     {
       "id": 12,
 
       "placeName": "Karnataka",
-      "placeImage": "https://i.pinimg.com/236x/aa/48/ae/aa48aee39a7a9e2b8456c7f909a93149.jpg",
-      "placeHistory": "Karnataka is known for its rich cultural heritage and historical significance."
+      "placeImage": "https://i.pinimg.com/236x/aa/48/ae/aa48aee39a7a9e2b8456c7f909a93149.jpg"
     },
     {
       "id": 13,
       "placeImage": "https://i.pinimg.com/236x/08/13/37/0813375d01f236662171b9ba24fec605.jpg",
-      "placeName": "Kerala",
-      "placeHistory": "Kerala is known for its scenic beauty and backwaters."
+      "placeName": "Kerala"
     },
     {
       "id": 14,
       "placeImage": "https://i.pinimg.com/236x/f7/30/15/f730154c8cb1b194fa817d1ef5dd4159.jpg",
-      "placeName": "Madhya Pradesh",
-      "placeHistory": "Madhya Pradesh is known for its rich history and ancient monuments."
+      "placeName": "Madhya Pradesh"
     },
     {
       "id": 15,
       "placeImage": "https://i.pinimg.com/474x/4d/88/57/4d88574f77d180eca3e767b868736010.jpg",
-      "placeName": "Maharashtra",
-      "placeHistory": "Maharashtra is known for its rich cultural heritage and historical significance."
+      "placeName": "Maharashtra"
     }
   ]
 }

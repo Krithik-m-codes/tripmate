@@ -56,7 +56,7 @@ const TripPlanner = () => {
   };
 
   return (
-    <div className="w-full min-h-screen h-full flex flex-col md:flex-row gap-4 p-4 text-lg overflow-y-auto pb-10">
+    <div className="w-full min-h-screen h-full flex flex-col md:flex-row gap-4 p-4 text-lg overflow-y-auto pb-10 bg-gradient-to-br from-teal-100 to-green-100">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

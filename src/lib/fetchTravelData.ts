@@ -5,7 +5,7 @@ export const fetchTravelData = async (
 ) => {
   const apiKey = process.env.NEXT_PUBLIC_RAPIDAPI_API_KEY;
 
-  console.log(`Fetching ${type} data for lat: ${lat}, lon: ${lon}`);
+  // console.log(`Fetching ${type} data for lat: ${lat}, lon: ${lon}`);
 
   if (!apiKey) {
     console.error("Error: No API key found");
@@ -13,7 +13,7 @@ export const fetchTravelData = async (
   }
 
   const url = `https://travel-advisor.p.rapidapi.com/${type}/list-by-latlng?latitude=${lat}&longitude=${lon}`;
-  console.log(`API URL: ${url}`);
+  // console.log(`API URL: ${url}`);
 
   const options = {
     method: "GET",

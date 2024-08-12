@@ -1,3 +1,4 @@
+
 "use client";
 import { useState, useEffect } from "react";
 import Map, {
@@ -9,8 +10,22 @@ import Map, {
 import "mapbox-gl/dist/mapbox-gl.css";
 import Search from "@/components/SearchBar";
 import SlideInResults from "@/components/SlideInPanelRight";
+import MapMarker from "@/components/MarkerComponentCard";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+
+// interace for the place object
+interface Place {
+  location_id: string;
+  name: string;
+  latitude: string;
+  longitude: string;
+  [key: string]: any; // Include any other fields that might be present in the API data
+}
+
+interface PlacesMapProps {
+  places: Place[];
+}
 
 export default function Home() {
   const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN;
@@ -44,10 +59,6 @@ export default function Home() {
       );
     }
   }, []);
-
-  useEffect(() => {
-    console.log("Places updated:", places);
-  }, [places]);
 
   const handleLocationSelect = async (
     lat: number,
@@ -115,47 +126,22 @@ export default function Home() {
         {places.map((place, index) => {
           const latitude = parseFloat(place.latitude);
           const longitude = parseFloat(place.longitude);
-
           if (isValidCoordinates(latitude, longitude)) {
             return (
-              <Marker key={index} latitude={latitude} longitude={longitude}>
-                <button onClick={() => setSelectedPlace(place)}>
-                  <Image
-                    src="/assets/map-pin.svg"
-                    alt="Marker"
-                    className="text-black"
-                    width={30}
-                    height={30}
-                  />
-                </button>
-              </Marker>
+              <MapMarker
+                key={index}
+                place={place}
+                onClick={() => setSelectedPlace(place)}
+              />
             );
           } else {
             console.error(
               `Invalid coordinates for place: ${place.name}, lat: ${place.latitude}, lon: ${place.longitude}`
             );
-            return null; // Or handle invalid coordinates in another way
+            return null; 
           }
         })}
 
-        {selectedPlace &&
-          isValidCoordinates(
-            selectedPlace.latitude,
-            selectedPlace.longitude
-          ) && (
-            <Popup
-              latitude={selectedPlace.latitude}
-              longitude={selectedPlace.longitude}
-              onClose={() => setSelectedPlace(null)}
-              closeOnClick={false}
-              anchor="top"
-            >
-              <div className="p-2">
-                <h3 className="font-bold">{selectedPlace.name}</h3>
-                <p>{selectedPlace.address}</p>
-              </div>
-            </Popup>
-          )}
       </Map>
 
       {destination && (

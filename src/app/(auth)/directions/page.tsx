@@ -1,9 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import debounce from "debounce";
+import debounce from "lodash/debounce";
 import Suggestions from "@/components/SuggestionsList";
 import { fetchSuggestions } from "@/lib/fetchSuggestions";
 import { MapPin } from "lucide-react";
@@ -11,48 +10,49 @@ import { MapPin } from "lucide-react";
 const DirectionsPage: React.FC = () => {
   const [map, setMap] = useState<mapboxgl.Map | null>(null);
   const [directions, setDirections] = useState<any>(null);
-
-  // 'from' and 'to' location states
   const [from, setFrom] = useState<string>("");
   const [to, setTo] = useState<string>("");
-  // Suggestions for 'from' and 'to' locations
   const [fromSuggestions, setFromSuggestions] = useState<any[]>([]);
   const [toSuggestions, setToSuggestions] = useState<any[]>([]);
-  // Coordinates for 'from' and 'to' locations
   const [fromCoords, setFromCoords] = useState<[number, number] | null>(null);
   const [toCoords, setToCoords] = useState<[number, number] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // reference to markers for 'from' and 'to' locations
+  const mapContainerRef = useRef<HTMLDivElement>(null);
   const fromMarkerRef = useRef<mapboxgl.Marker | null>(null);
   const toMarkerRef = useRef<mapboxgl.Marker | null>(null);
 
   useEffect(() => {
     mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN || "";
-    const initializeMap = () => {
-      const mapInstance = new mapboxgl.Map({
-        container: "map",
+
+    let mapInstance: mapboxgl.Map | null = null;
+
+    if (mapContainerRef.current) {
+      mapInstance = new mapboxgl.Map({
+        container: mapContainerRef.current,
         style: "mapbox://styles/mapbox/streets-v11",
         center: [12.9542802, 77.4661302],
         zoom: 3,
       });
       setMap(mapInstance);
-    };
+    }
 
-    if (!map) initializeMap();
+    // Store current marker references
+    const currentFromMarker = fromMarkerRef.current;
+    const currentToMarker = toMarkerRef.current;
 
     return () => {
-      map?.remove();
-      fromMarkerRef.current?.remove();
-      toMarkerRef.current?.remove();
+      mapInstance?.remove();
+      currentFromMarker?.remove();
+      currentToMarker?.remove();
     };
-  }, [map]);
+  }, []);
 
-  const createMarkerElement = (color: string) => {
+  const createMarkerElement = useCallback((color: string) => {
     const el = document.createElement("div");
     el.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>`;
     return el;
-  };
+  }, []);
 
   const addOrUpdateMarker = useCallback(
     (
@@ -73,29 +73,34 @@ const DirectionsPage: React.FC = () => {
         }
       }
     },
-    [map]
+    [map, createMarkerElement]
   );
-
   const handleInputChange = useCallback(
-    async (
+    (
       query: string,
       setQuery: React.Dispatch<React.SetStateAction<string>>,
       setSuggestions: React.Dispatch<React.SetStateAction<any[]>>
     ) => {
       setQuery(query);
       if (query) {
-        const debouncedFetchAndSetSuggestions = debounce(async () => {
+        debounce(async () => {
           try {
             const data = await fetchSuggestions(query);
             setSuggestions(data);
+            if (data.length === 0) {
+              setError("No suggestions found. Please try a different query.");
+            } else {
+              setError(null);
+            }
           } catch (error) {
             console.error("Error fetching suggestions:", error);
             setError("Failed to fetch suggestions. Please try again.");
+            setSuggestions([]);
           }
-        }, 500);
-        debouncedFetchAndSetSuggestions();
+        }, 1500)();
       } else {
         setSuggestions([]);
+        setError(null);
       }
     },
     []
@@ -138,9 +143,8 @@ const DirectionsPage: React.FC = () => {
       setDirections(data);
       setError(null);
 
-      // Add markers for 'from' and 'to' locations
-      addOrUpdateMarker(fromCoords, fromMarkerRef, "#3b82f6"); // Blue for 'from'
-      addOrUpdateMarker(toCoords, toMarkerRef, "#ef4444"); // Red for 'to'
+      addOrUpdateMarker(fromCoords, fromMarkerRef, "#3b82f6");
+      addOrUpdateMarker(toCoords, toMarkerRef, "#ef4444");
     } catch (error) {
       console.error("Error fetching directions:", error);
       setError("Failed to fetch directions. Please try again.");
@@ -269,10 +273,24 @@ const DirectionsPage: React.FC = () => {
           className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
           role="alert"
         >
-          {error}
+          <span className="block sm:inline">{error}</span>
+          <span
+            className="absolute top-0 bottom-0 right-0 px-4 py-3 cursor-pointer"
+            onClick={() => setError(null)}
+          >
+            <svg
+              className="fill-current h-6 w-6 text-red-500"
+              role="button"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <title>Close</title>
+              <path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+            </svg>
+          </span>
         </div>
       )}
-      <div id="map" className="flex-grow"></div>
+      <div ref={mapContainerRef} className="flex-grow w-auto"></div>
     </div>
   );
 };

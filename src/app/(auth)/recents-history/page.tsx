@@ -48,12 +48,12 @@ function RecentHistory() {
   }, [session?.user._id]);
 
   return (
-    <div className="min-h-screen ">
+    <div className="min-h-screen bg-gradient-to-br from-teal-100 to-green-100 ">
       <motion.h1
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="text-3xl md:text-4xl font-bold text-white text-center py-6 px-4 bg-teal-700 shadow-lg"
+        className="text-3xl md:text-4xl font-bold text-white text-center py-6 px-4 bg-[#166F5B] shadow-lg font-sans"
       >
         Recent History
       </motion.h1>
@@ -62,7 +62,7 @@ function RecentHistory() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="bg-white rounded-lg shadow-xl p-6"
+          className="bg-gray-50 rounded-lg shadow-xl p-6"
         >
           {loading ? (
             <div className="flex justify-center items-center h-64">

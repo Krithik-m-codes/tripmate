@@ -88,19 +88,29 @@ export default function SavedPlacesPage() {
       <motion.h1
         initial={{ y: -50 }}
         animate={{ y: 0 }}
-        className="text-3xl w-full bg-primary text-center text-white py-6 shadow-md"
+        className="text-3xl w-full bg-primary font-semibold text-center text-white py-6 shadow-md font-sans "
       >
-        Your Saved Places
+        Favorites
       </motion.h1>
       <div className="p-4 max-w-7xl mx-auto">
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => setShowAddForm(!showAddForm)}
-          className="mb-6 bg-[#166F5B] text-white px-6 py-3 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:bg-[#0D5C4D]"
+        <motion.h2
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center  text-lg text-gray-800 flex items-center justify-between"
         >
-          {showAddForm ? "Hide Add Form" : "Add New Place"}
-        </motion.button>
+          Here are the places you have saved for later.
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setShowAddForm(!showAddForm)}
+            className="mb-6 bg-[#166F5B] text-white px-6 py-3 rounded-full shadow-lg transition duration-300 self-end ease-in-out transform hover:bg-[#0D5C4D]"
+          >
+            {showAddForm ? "Hide Add Form" : "Add New Place"}
+          </motion.button>
+        </motion.h2>
+
+
         <AnimatePresence>
           {showAddForm && (
             <motion.div
@@ -114,7 +124,7 @@ export default function SavedPlacesPage() {
           )}
         </AnimatePresence>
       </div>
-      <div className="p-4 max-w-7xl mx-auto">
+      <div className="p-4 max-w-7xl mx-auto border rounded-lg">
         {loading ? (
           <motion.div
             initial={{ opacity: 0 }}
@@ -125,7 +135,7 @@ export default function SavedPlacesPage() {
             Loading saved places...
           </motion.div>
         ) : (
-          <ScrollArea className="h-[calc(100vh-250px)] w-full">
+          <ScrollArea className="h-[calc(100vh-250px)] w-full px-4">
             <motion.div
               layout
               className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"

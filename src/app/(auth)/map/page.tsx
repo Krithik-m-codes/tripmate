@@ -4,17 +4,18 @@ import { useState, useEffect } from "react";
 import Map, {
   NavigationControl,
   GeolocateControl,
-  Marker,
-  Popup,
 } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Search from "@/components/SearchBar";
 import SlideInResults from "@/components/SlideInPanelRight";
 import MapMarker from "@/components/MarkerComponentCard";
-import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { motion } from "framer-motion";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
-// interace for the place object
+// interface for the place object
 interface Place {
   location_id: string;
   name: string;
@@ -41,7 +42,8 @@ export default function Home() {
   const [panelVisible, setPanelVisible] = useState<boolean>(false);
   const [places, setPlaces] = useState<any[]>([]);
   const [selectedPlace, setSelectedPlace] = useState<any>(null);
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
   // Get user location on load
   useEffect(() => {
@@ -60,6 +62,37 @@ export default function Home() {
     }
   }, []);
 
+  if (status === "unauthenticated") {
+    return (
+      <div className="flex flex-col items-center bg-bg-sign-up bg-center bg-cover justify-center min-h-screen bg-gray-100">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Card className="w-[350px] shadow-lg">
+            <CardContent className="pt-6">
+              <h2 className="text-2xl font-bold text-center mb-4">
+                Not Signed In
+              </h2>
+              <p className="text-center mb-6 text-gray-600">
+                You need to be signed in to access this page
+              </p>
+              <Button
+                className="w-full bg-[#166F5B] text-white hover:bg-[#0d4d3d] transition-colors duration-300"
+                onClick={() => router.push("/sign-in")}
+              >
+                Sign In
+              </Button>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </div>
+    );
+  }
+
+
+  // Handle location select from search
   const handleLocationSelect = async (
     lat: number,
     lon: number,
@@ -94,6 +127,7 @@ export default function Home() {
     }
   };
 
+  // Check if coordinates are valid
   const isValidCoordinates = (lat: number, lon: number) => {
     return (
       typeof lat === "number" &&
@@ -138,7 +172,7 @@ export default function Home() {
             console.error(
               `Invalid coordinates for place: ${place.name}, lat: ${place.latitude}, lon: ${place.longitude}`
             );
-            return null; 
+            return null;
           }
         })}
 

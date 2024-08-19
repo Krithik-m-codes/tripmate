@@ -1,12 +1,10 @@
 "use client";
-
 import React, { useState, useEffect, Suspense } from "react";
-
 import { cn } from "@/lib/utils";
 import LoadingSpinner from "@/components/loadingSpinner";
 import { useSession } from "next-auth/react";
 import { MainSideBar } from "@/components/SideBar";
-import SkeletonDashboard from "@/components/SkeletonDashboard";
+import SkeletonDashboard from "@/components/skeleton/Dashboard";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { data: session, status } = useSession();

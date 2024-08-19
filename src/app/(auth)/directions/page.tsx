@@ -31,7 +31,7 @@ const DirectionsPage: React.FC = () => {
       mapInstance = new mapboxgl.Map({
         container: mapContainerRef.current,
         style: "mapbox://styles/mapbox/streets-v11",
-        center: [12.9542802, 77.4661302],
+        center: [17.9542802, 87.4661302],
         zoom: 3,
       });
       setMap(mapInstance);
@@ -75,6 +75,8 @@ const DirectionsPage: React.FC = () => {
     },
     [map, createMarkerElement]
   );
+
+  // Handle input change and fetch suggestions
   const handleInputChange = useCallback(
     (
       query: string,
@@ -97,7 +99,7 @@ const DirectionsPage: React.FC = () => {
             setError("Failed to fetch suggestions. Please try again.");
             setSuggestions([]);
           }
-        }, 1500)();
+        }, 2000)();
       } else {
         setSuggestions([]);
         setError(null);
@@ -106,6 +108,7 @@ const DirectionsPage: React.FC = () => {
     []
   );
 
+  // Handle suggestion select
   const handleSuggestionSelect = useCallback(
     (
       suggestion: { display_name: string; lat: string; lon: string },
@@ -124,6 +127,7 @@ const DirectionsPage: React.FC = () => {
     []
   );
 
+  // Fetch directions when 'from' and 'to' locations are selected
   const fetchDirections = useCallback(async () => {
     if (!fromCoords || !toCoords) {
       setError("Please select both 'from' and 'to' locations.");
@@ -151,6 +155,7 @@ const DirectionsPage: React.FC = () => {
     }
   }, [fromCoords, toCoords, addOrUpdateMarker]);
 
+  // Update map bounds and draw route on map when directions are fetched or map is loaded
   useEffect(() => {
     if (map && directions?.routes?.[0]) {
       const coordinates = directions.routes[0].geometry.coordinates;
@@ -203,8 +208,9 @@ const DirectionsPage: React.FC = () => {
   }, [map, directions]);
 
   return (
-    <div className="flex flex-col h-screen">
-      <div className="bg-gradient-to-r from-teal-400 to-gray-800 p-3 md:p-6 shadow-md flex flex-col md:flex-row gap-2 md:gap-4 relative">
+    <div className="flex flex-col h-screen overflow-hidden">
+      {/* Search form */}
+      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-4 md:p-8 shadow-lg rounded-b-lg flex flex-col md:flex-row gap-4 md:gap-6 relative">
         <div className="relative flex-grow">
           <input
             className="border p-1 md:p-2 rounded w-full pl-10 md:pl-14"
@@ -268,6 +274,7 @@ const DirectionsPage: React.FC = () => {
           Get Directions
         </button>
       </div>
+      {/* Error message */}
       {error && (
         <div
           className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
@@ -290,7 +297,7 @@ const DirectionsPage: React.FC = () => {
           </span>
         </div>
       )}
-      <div ref={mapContainerRef} className="flex-grow w-auto"></div>
+      <div ref={mapContainerRef} className="flex-grow w-full bg-gray-200 rounded-lg mt-4"></div>
     </div>
   );
 };

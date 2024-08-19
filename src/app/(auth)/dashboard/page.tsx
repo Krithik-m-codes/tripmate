@@ -11,6 +11,7 @@ import {
   FerrisWheel,
   SignpostBig,
   History,
+  Archive,
   User,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,16 +19,9 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import loc from "@/lib/TrendingLocationData.json"
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { useRouter } from "next/navigation";
 
-const DashboardCard = ({
-  title,
-  icon: Icon,
-  content,
-}: {
-  title: string;
-  icon: React.ElementType;
-  content: React.ReactNode;
-}) => (
+const DashboardCard = ({ title, icon: Icon, content, }: { title: string; icon: React.ElementType; content: React.ReactNode; }) => (
   <Card className="h-full">
     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
       <CardTitle className="text-sm font-medium">{title}</CardTitle>
@@ -59,31 +53,43 @@ const TrendingPlaces = () => (
   </ScrollArea>
 );
 
-const QuickActions = () => (
-  <div className="grid grid-cols-2 gap-4">
-    {[
-      { icon: Bot, label: "AI Trip Planner" },
-      { icon: User, label: "Profile" },
-      { icon: Map, label: "Map" },
-      { icon: SignpostBig, label: "Directions" },
-      { icon: Heart, label: "Favorites" },
-      { icon: CookingPot, label: "Restaurants" },
-      { icon: FerrisWheel, label: "Attractions" },
-      { icon: History, label: "History" },
-    ].map(({ icon: Icon, label }, index) => (
-      <Button key={index} variant="outline" className="h-20 flex-col" disabled={true}>
-        <Icon className="h-6 w-6 mb-2" />
-        {label}
-      </Button>
-    ))}
-  </div>
-);
+const QuickActions = () => {
+  const router = useRouter();
+  const ActionList = [
+    { icon: Bot, label: "AI Trip", path: "/trip-planner" },
+    { icon: Archive, label: "Itineraries", path: "/recent-itinerary" },
+    { icon: User, label: "Profile", path: "/profile" },
+    { icon: Map, label: "Map", path: "/map" },
+    { icon: SignpostBig, label: "Directions", path: "/directions" },
+    { icon: Heart, label: "Favorites", path: "/saved-places" },
+    { icon: CookingPot, label: "Restaurants", path: "/map" },
+    { icon: FerrisWheel, label: "Attractions", path: "/map" },
+    { icon: History, label: "History", path: "/recents-history" },
+    { icon: Compass, label: "Explore", path: "/" },
+  ];
+
+  return (
+    <div className="grid grid-cols-2 gap-4">
+      {ActionList.map((action, index) => (
+        <Button
+          key={index}
+          variant="secondary"
+          className="bg-white text-left text-teal-500 hover:bg-gray-100 flex h-16 border gap-2 flex-row items-center space-x-2"
+          onClick={() => router.push(action.path)}
+        >
+          <action.icon className="h-6 w-6 text-muted-foreground" />
+          {action.label}
+        </Button>
+      ))}
+    </div>
+  )
+};
 
 const UpcomingTrip = () => (
   <>
     <div className="bg-gradient-to-r from-teal-500 to-emerald-600 rounded-lg p-6 text-white shadow-lg transform transition-transform hover:scale-105">
       <h3 className="font-extrabold text-xl mb-3">Your Next Adventure</h3>
-      <p className="text-lg mb-2">Santorini, Greece</p>
+      <p className="text-lg mb-2">Santonin, Greece</p>
       <p className="text-sm mb-4">Departure: August 15, 2024</p>
       <Button variant="secondary" className="mt-4 bg-white text-teal-500 hover:bg-gray-100">
         View Itinerary
@@ -102,19 +108,55 @@ const UpcomingTrip = () => (
   </>
 );
 
+interface WeatherData {
+  success: boolean;
+  message: string;
+  data: {
+    base: string;
+    clouds: {
+      all: number;
+    };
+    cod: number;
+    coord: {
+      lon: number;
+      lat: number;
+    };
+    dt: number;
+    id: number;
+    main: {
+      temp: number;
+      feels_like: number;
+      temp_min: number;
+      temp_max: number;
+    };
+    name: string;
+    sys: {
+      type: number;
+      id: number;
+      country: string;
+      sunrise: number;
+      sunset: number;
+    };
+    timezone: number;
+    visibility: number;
+    weather: {
+      id: number;
+      main: string;
+      description: string;
+      icon: string;
+    }[];
+    wind: {
+      speed: number;
+      deg: number;
+    };
+  };
+}
 
-type WeatherData = {
-  main: { temp: number };
-  weather: { description: string }[];
-  name: string;
-  sys: { country: string };
-};
 
 const Dashboard = () => {
   const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [imageUrl, setImageUrl] = useState("");
 
-  useEffect(() => {
+  const handleWeatherReport = async () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -123,7 +165,7 @@ const Dashboard = () => {
             `/api/weather-report?lat=${latitude}&lon=${longitude}`
           );
           const data = await response.json();
-          console.log("data : ", data);
+          console.log("data in dashboard : ", data);
           setWeather(data);
         },
         (error) => {
@@ -131,10 +173,14 @@ const Dashboard = () => {
         }
       );
     }
+  }
+
+  useEffect(() => {
+    handleWeatherReport();
   }, []);
 
   return (
-    <div className="min-h-screen max-auto bg-gradient-to-br from-teal-100 to-green-100 p-8 overflow-y-scroll">
+    <ScrollArea className="min-h-screen max-auto bg-gradient-to-br from-teal-100 to-green-100 py-4">
       <div className="max-w-7xl mx-auto space-y-8">
         <div className="flex justify-between items-center">
           <h1 className="text-4xl font-bold text-gray-800">
@@ -142,16 +188,7 @@ const Dashboard = () => {
           </h1>
         </div>
 
-        <div
-          className="
-          bg-white
-          rounded-lg
-          shadow
-          flex
-          flex-row
-          items-center
-          justify-between
-        "
+        <div className="bg-white rounded-lg shadow flex flex-row items-center justify-between"
         >
           <Image
             src="/assets/dashboard-bg.jpg"
@@ -162,23 +199,41 @@ const Dashboard = () => {
           />
         </div>
 
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white rounded-lg shadow p-6 relative">
           <h2 className="text-2xl font-semibold mb-4">Weather Report</h2>
-          {weather && weather.weather && weather.weather.length > 0 ? (
+          <p> Here is the current weather report for your location.
+            <Button
+              variant="outline"
+              onClick={handleWeatherReport}
+              className="absolute right-4 top-4"
+            >
+              <Image
+                src="https://img.icons8.com/ios-filled/100/update-left-rotation.png"
+                alt="refresh"
+                width={20}
+                height={20}
+                className="w-4 h-4 object-cover"
+              />
+            </Button>
+          </p>
+          {weather?.success ? (
             <div className="flex flex-col items-center space-y-4">
               <p className="text-4xl font-bold">
-                {Math.round(weather.main.temp - 273.15)}°C
+                {typeof weather.data?.main?.temp === "number"
+                  ? `${Math.round(weather.data.main.temp)}°C`
+                  : "N/A"}
               </p>
               <p className="text-lg text-muted-foreground">
-                {weather.weather[0].description}
+                {weather.data?.weather?.[0]?.description || "No description available"}
               </p>
               <p className="text-sm text-muted-foreground">
-                {weather.name}, {weather.sys.country}
+                {weather.data?.name || "Unknown location"}, {weather.data?.sys?.country || "Unknown country"}
               </p>
             </div>
           ) : (
             <p>Loading weather...</p>
           )}
+
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -229,7 +284,7 @@ const Dashboard = () => {
           </div>
         </div> */}
       </div>
-    </div>
+    </ScrollArea>
   );
 };
 

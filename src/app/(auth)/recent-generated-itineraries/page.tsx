@@ -15,7 +15,10 @@ const RecentItinerariesPage = () => {
         {
             itinerary: string[];
             destination: string;
-            days: Object;
+            days: {
+                from: string;
+                to: string;
+            };
             activities: string[];
             budget: string;
             travelStyle: string;

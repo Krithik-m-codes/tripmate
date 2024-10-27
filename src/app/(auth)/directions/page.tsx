@@ -208,76 +208,82 @@ const DirectionsPage: React.FC = () => {
   }, [map, directions]);
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
-      {/* Search form */}
-      <div className="bg-gradient-to-r from-purple-600 to-indigo-600 p-4 md:p-8 shadow-lg rounded-b-lg flex flex-col md:flex-row gap-4 md:gap-6 relative">
-        <div className="relative flex-grow">
-          <input
-            className="border p-1 md:p-2 rounded w-full pl-10 md:pl-14"
-            type="text"
-            placeholder="From (e.g. San Francisco)"
-            value={from}
-            onChange={(e) =>
-              handleInputChange(e.target.value, setFrom, setFromSuggestions)
-            }
-          />
-          <MapPin
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500"
-            size={20}
-          />
-          {fromSuggestions.length > 0 && (
-            <Suggestions
-              suggestions={fromSuggestions}
-              onSelect={(suggestion) =>
-                handleSuggestionSelect(
-                  suggestion,
-                  setFromCoords,
-                  setFromSuggestions,
-                  setFrom
-                )
+    <div className="flex h-screen w-full overflow-hidden relative">
+      {/* Floating Search Form */}
+
+      <div className="absolute z-50 top-20 left-20 p-4 md:p-8 shadow-lg rounded-lg flex flex-col gap-6 bg-white/60 backdrop-blur-md border border-gray-200 w-full max-w-md">
+        <h2 className=" text-xl md:text-2xl font-bold mb-2">Plan Your Route</h2>
+
+        {/* From Input */}
+        <div className="relative flex flex-col gap-2">
+          <label className="text-sm  font-medium" htmlFor="fromLocation">
+            Starting Location
+          </label>
+          <div className="relative">
+            <input
+              id="fromLocation"
+              className="border-gray-300 p-2 md:p-3 rounded w-full pl-10 md:pl-14 bg-white focus:ring-2 focus:ring-purple-500"
+              type="text"
+              value={from}
+              onChange={(e) =>
+                handleInputChange(e.target.value, setFrom, setFromSuggestions)
               }
             />
-          )}
+            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500" size={20} />
+            {fromSuggestions.length > 0 && (
+              <Suggestions
+                suggestions={fromSuggestions}
+                onSelect={(suggestion) =>
+                  handleSuggestionSelect(suggestion, setFromCoords, setFromSuggestions, setFrom)
+                }
+              />
+            )}
+          </div>
+          <small className="text-xs text-gray-900">Select your starting location</small>
         </div>
-        <div className="relative flex-grow">
-          <input
-            className="border p-1 md:p-2 rounded w-full pl-10 md:pl-14"
-            type="text"
-            placeholder="To (e.g. Washington, D.C.)"
-            value={to}
-            onChange={(e) =>
-              handleInputChange(e.target.value, setTo, setToSuggestions)
-            }
-          />
-          <MapPin
-            className="absolute left-3 top-1/2 transform -translate-y-1/2 text-red-500"
-            size={20}
-          />
-          {toSuggestions.length > 0 && (
-            <Suggestions
-              suggestions={toSuggestions}
-              onSelect={(suggestion) =>
-                handleSuggestionSelect(
-                  suggestion,
-                  setToCoords,
-                  setToSuggestions,
-                  setTo
-                )
+
+        {/* To Input */}
+        <div className="relative flex flex-col gap-2 mt-4">
+          <label className="text-sm  font-medium" htmlFor="toLocation">
+            Destination
+          </label>
+          <div className="relative">
+            <input
+              id="toLocation"
+              className="border-gray-300 p-2 md:p-3 rounded w-full pl-10 md:pl-14 bg-white focus:ring-2 focus:ring-indigo-500"
+              type="text"
+              value={to}
+              onChange={(e) =>
+                handleInputChange(e.target.value, setTo, setToSuggestions)
               }
             />
-          )}
+            <MapPin className="absolute left-3 top-1/2 transform -translate-y-1/2 text-red-500" size={20} />
+            {toSuggestions.length > 0 && (
+              <Suggestions
+                suggestions={toSuggestions}
+                onSelect={(suggestion) =>
+                  handleSuggestionSelect(suggestion, setToCoords, setToSuggestions, setTo)
+                }
+              />
+            )}
+          </div>
+          <small className="text-xs text-gray-900">Select your destination</small>
         </div>
+
+        {/* Get Directions Button */}
         <button
-          className="bg-[#000000] text-white hover:bg-slate-900 hover:text-white transition-all font-bold py-2 px-4 rounded"
+          className="bg-orange-400  hover:bg-orange-700 transition-all font-semibold py-3 rounded-lg w-full mt-4 text-white"
           onClick={fetchDirections}
         >
           Get Directions
         </button>
       </div>
+
+
       {/* Error message */}
       {error && (
         <div
-          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+          className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded absolute top-4 right-4 z-10 shadow-lg"
           role="alert"
         >
           <span className="block sm:inline">{error}</span>
@@ -297,7 +303,8 @@ const DirectionsPage: React.FC = () => {
           </span>
         </div>
       )}
-      <div ref={mapContainerRef} className="flex-grow w-full bg-gray-200 rounded-lg mt-4"></div>
+      {/* Map */}
+      <div ref={mapContainerRef} className=" flex-1 h-screen w-full bg-gray-200 rounded-lg "></div>
     </div>
   );
 };

@@ -2,6 +2,7 @@
   "name": "tripmate",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -30,6 +31,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "date-fns": "^3.6.0",
+    "dayjs": "^1.11.13",
     "debounce": "^2.1.0",
     "framer-motion": "^11.3.21",
     "jsonwebtoken": "^9.0.2",

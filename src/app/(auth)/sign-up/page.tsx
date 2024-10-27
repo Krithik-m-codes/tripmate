@@ -87,9 +87,10 @@ const SignUpPage: React.FC = () => {
   return (
     <>
       <ToastContainer />
-      <div className="min-h-screen bg-gray-100 bg-bg-sign-up bg-cover bg-center flex justify-center items-center text-black shadow">
+      <div className="min-h-screen bg-gray-100 bg-bg-sign-in bg-cover bg-center flex justify-center items-center text-black shadow relative">
+        <div className="absolute inset-0 bg-black opacity-40"></div> {/* Overlay */}
         <motion.div
-          className="flex flex-col-reverse gap-4 md:gap-0 md:flex-row justify-center items-center m-auto md:m-0 h-2/4 md:min-h-[69%] bg-gray-500 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 md:px-6 md:py-4 rounded-md"
+          className="flex flex-col-reverse gap-6 md:gap-0 md:flex-row justify-center items-center m-auto md:m-0 h-2/4 md:min-h-[70%] bg-gray-600 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-20 md:px-8 md:py-6 rounded-lg shadow-xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{
@@ -98,56 +99,58 @@ const SignUpPage: React.FC = () => {
             damping: 20,
           }}
         >
-          <div className="bg-transparent rounded p-4 md:p-10 max-w-md md:w-full">
-            <div className="flex justify-center items-center mb-8 gap-2">
-              <Image
-                src="/tripmate-logo.png"
-                alt="TripMate logo"
-                width={60}
-                height={60}
-                className="rounded-full"
-              />
-              <h1 className="text-3xl md:text-4xl font-bold text-center">
+          <div className="bg-transparent rounded p-6 md:p-12 max-w-md md:w-full">
+            <div className="flex justify-center items-center mb-8 gap-3">
+              <div className="bg-gradient-to-r from-[#292929] to-[#000000] p-2 rounded-full">
+                <Image
+                  src="/tripmate-logo.png"
+                  alt="TripMate logo"
+                  width={60}
+                  height={60}
+                  className="rounded-full shadow-lg"
+                />
+              </div>
+              <h1 className="text-3xl md:text-4xl font-extrabold text-center bg-clip-text text-transparent bg-gradient-to-r from-[#E9FA58] to-[#A1FF33]">
                 TripMate
               </h1>
             </div>
             <form
               onSubmit={handleSignUp}
-              className="border border-gray-200 p-4 md:p-8 rounded-md bg-white shadow-md"
+              className="border border-gray-300 p-5 md:p-10 rounded-lg bg-white shadow-lg"
             >
-              <div className="mb-4">
-                <label className="block text-gray-700">Full Name</label>
+              <div className="mb-5">
+                <label className="block text-gray-800 font-semibold">Full Name</label>
                 <input
                   type="text"
                   placeholder="Eg. Surya Alexander"
-                  className="w-[90%] md:w-full px-2 py-1 md:px-3 md:py-2 border rounded focus:outline-none focus:border-black"
+                  className="w-full px-3 py-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-black"
                   value={formData.fullName}
                   onChange={(e) =>
                     setFormData({ ...formData, fullName: e.target.value })
                   }
                 />
               </div>
-              <div className="mb-4">
-                <label className="block text-gray-700">Username</label>
+              <div className="mb-5">
+                <label className="block text-gray-800 font-semibold">Username</label>
                 <input
                   type="text"
                   placeholder="Eg. SuryaAlexander234"
-                  className="w-[90%] md:w-full px-2 py-1 md:px-3 md:py-2  border rounded focus:outline-none focus:border-black"
+                  className="w-full px-3 py-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-black"
                   value={formData.username}
                   onChange={(e) =>
                     setFormData({ ...formData, username: e.target.value })
                   }
                 />
               </div>
-              <div className="mb-3 md:mb-6">
-                <label className="block text-gray-700">Email</label>
-                <label className=" block my-2 text-xs text-red-700">
+              <div className="mb-5">
+                <label className="block text-gray-800 font-semibold">Email</label>
+                <label className="block mt-1 text-xs text-red-600">
                   Please enter a valid email id, use the OTP to verify
                 </label>
                 <input
                   type="email"
                   placeholder="Eg. 0UqoK@example.com"
-                  className="w-[90%] md:w-full px-2 py-1 md:px-3 md:py-2  border rounded focus:outline-none focus:border-black"
+                  className="w-full px-3 py-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-black"
                   value={formData.email}
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
@@ -155,22 +158,22 @@ const SignUpPage: React.FC = () => {
                 />
               </div>
 
-              <div className="mb-3 md:mb-6">
-                <label className="block text-gray-700">Password</label>
+              <div className="mb-6">
+                <label className="block text-gray-800 font-semibold">Password</label>
                 <input
                   type="password"
                   placeholder="Password"
-                  className="w-[90%] md:w-full px-2 py-1 md:px-3 md:py-2  border rounded focus:outline-none focus:border-black"
+                  className="w-full px-3 py-2 mt-1 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-black"
                   value={formData.password}
                   onChange={(e) =>
                     setFormData({ ...formData, password: e.target.value })
                   }
                 />
               </div>
-              <div className="flex justify-around md:justify-between mt-6 md:mt-0">
+              <div className="flex justify-between mt-6">
                 <button
                   type="button"
-                  className="px-3 py-1 md:px-6 md:py-2 bg-primary hover:bg-[#153831] text-white font-semibold rounded-lg"
+                  className="px-4 py-2 bg-gray-700 hover:bg-gray-900 text-white font-semibold rounded-lg transition duration-200 ease-in-out"
                   onClick={() => router.back()}
                   disabled={loading}
                 >
@@ -178,7 +181,7 @@ const SignUpPage: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-3 py-1 md:px-6 md:py-2 bg-primary hover:bg-[#153831] text-white font-semibold rounded-lg"
+                  className="px-4 py-2 bg-[#006400] hover:bg-[#153831] text-white font-semibold rounded-lg transition duration-200 ease-in-out"
                   disabled={loading}
                 >
                   {loading ? "Signing Up..." : "Sign Up"}
@@ -187,7 +190,7 @@ const SignUpPage: React.FC = () => {
             </form>
           </div>
           <motion.div
-            className="md:block md:w-1/2 mx-4 md:mx-0 md:ml-4 md:mr-0 transition duration-500 ease-in-out transform hover:scale-105 filter drop-shadow-lg md:filter-none md:drop-shadow-none"
+            className="hidden md:block w-1/2 mx-6 transition duration-500 ease-in-out transform hover:scale-105 filter drop-shadow-lg"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{
@@ -201,7 +204,7 @@ const SignUpPage: React.FC = () => {
               alt="Illustration"
               width={700}
               height={650}
-              className="bg-transparent bg-center bg-cover"
+              className="bg-transparent bg-center bg-cover rounded-lg contrast-200"
             />
           </motion.div>
         </motion.div>

@@ -9,6 +9,7 @@ import {
   IconHistory,
   IconHeart,
   IconUserBolt,
+  IconHistoryToggle,
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -62,6 +63,13 @@ export function MainSideBar({ children }: React.PropsWithChildren<{}>) {
       ),
     },
     {
+      label: "Recent Itineraries",
+      href: "/recent-generated-itineraries",
+      icon: (
+        <IconHistoryToggle className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
       label: "Recent Trips",
       href: "/recents-history",
       icon: (
@@ -70,7 +78,7 @@ export function MainSideBar({ children }: React.PropsWithChildren<{}>) {
     },
     {
       label: "Sign Out",
-      href: "/", // This is a dummy href
+      href: "/", // sign out will be handled by the signOut function
       onclick: () => signOut({ callbackUrl: "/" }),
       icon: (
         <IconLogout2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />

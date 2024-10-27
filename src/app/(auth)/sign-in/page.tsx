@@ -3,6 +3,7 @@ import { signIn } from "next-auth/react";
 import { useState } from "react";
 import Image from "next/image";
 import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
@@ -50,12 +51,12 @@ export default function SignInPage() {
   return (
     <>
       <ToastContainer />
-      <div className="flex items-center justify-around md:justify-center min-h-screen bg-bg-sign-in bg-cover bg-no-repeat bg-center ">
+      <div className="flex items-center justify-center min-h-screen bg-green-200 bg-bg-sign-in bg-cover bg-no-repeat bg-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="flex flex-col md:flex-row items-center justify-around md:justify-center bg-white text-black rounded-lg w-11/12 md:w-5/6 lg:w-2/3 h-auto 2xl:h-[70%] overflow-hidden backdrop-blur-md shadow-lg"
+          className="flex flex-col md:flex-row items-center justify-around bg-white text-black rounded-xl w-11/12 md:w-4/5 lg:w-2/3 xl:w-1/2 p-6 md:p-8 backdrop-blur-md shadow-lg"
         >
           {/* Image */}
           <div className="w-full md:w-1/2 h-48 md:h-full">
@@ -64,22 +65,23 @@ export default function SignInPage() {
               alt="Sign in image"
               width={500}
               height={500}
-              className="object-cover object-center w-full h-full"
+              className="object-cover object-center w-full h-full rounded-lg shadow-sm"
             />
           </div>
+
           {/* Form */}
           <motion.div
             initial={{ x: 50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="flex flex-col gap-4 md:gap-6 lg:gap-8 text-left w-full md:w-1/2 h-full md:max-h-full items-center justify-center p-6 md:p-8"
+            className="flex flex-col gap-6 text-left w-full md:w-1/2 items-center justify-center p-6"
           >
             {/* Logo */}
             <motion.div
               initial={{ y: -20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="flex justify-center items-center gap-2"
+              className="flex items-center gap-3 mb-4"
             >
               <Image
                 src="/tripmate-logo.png"
@@ -88,94 +90,63 @@ export default function SignInPage() {
                 height={60}
                 className="rounded-full"
               />
-              <h1 className="text-3xl md:text-4xl font-bold text-center">
+              <h1 className="text-3xl font-bold text-center text-gray-800">
                 TripMate
               </h1>
             </motion.div>
-            <form
-              onSubmit={handleFormSubmit}
-              className="flex flex-col justify-center items-center w-full space-y-4"
-            >
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-                className="w-full"
-              >
-                <label
-                  htmlFor="email"
-                  className="block text-gray-700 font-bold mb-2"
-                >
+            <form onSubmit={handleFormSubmit} className="w-full space-y-4">
+              <div>
+                <label htmlFor="email" className="block text-gray-700 font-semibold">
                   Email
                 </label>
                 <input
                   type="email"
                   id="email"
-                  className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="w-full p-3 border rounded-lg text-gray-800 shadow-sm focus:outline-none focus:border-primary"
                   placeholder="Enter your email"
                   value={formData.email}
                   onChange={(event) =>
                     setFormData({ ...formData, email: event.target.value })
                   }
                 />
-              </motion.div>
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.8, duration: 0.5 }}
-                className="w-full"
-              >
-                <label
-                  htmlFor="password"
-                  className="block text-gray-700 font-bold mb-2"
-                >
+              </div>
+              <div>
+                <label htmlFor="password" className="block text-gray-700 font-semibold">
                   Password
                 </label>
                 <input
                   type="password"
                   id="password"
-                  className="shadow appearance-none border rounded w-full p-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="w-full p-3 border rounded-lg text-gray-800 shadow-sm focus:outline-none focus:border-primary"
                   placeholder="Enter your password"
                   value={formData.password}
                   onChange={(event) =>
                     setFormData({ ...formData, password: event.target.value })
                   }
                 />
-              </motion.div>
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 1, duration: 0.5 }}
-                className="flex flex-col items-center gap-4 w-full"
-              >
-                <a
-                  href="/forgot-password"
-                  className="text-primary-400 hover:underline"
-                >
+              </div>
+              <div className="flex flex-col items-center gap-4">
+                <a href="/forgot-password" className="text-primary-500 hover:underline">
                   Forgot password?
                 </a>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   type="submit"
-                  className="bg-orange-400 px-6 py-2 rounded-full text-white font-semibold shadow-md hover:bg-orange-500 transition-colors duration-300"
+                  className="w-full bg-primary-500 px-6 py-2 rounded-lg bg-orange-400 text-white font-semibold shadow-md hover:bg-primary-600 transition-colors duration-300"
                   disabled={loading}
                 >
                   {loading ? "Signing in..." : "Sign in"}
                 </motion.button>
-              </motion.div>
+              </div>
             </form>
-            <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 1.2, duration: 0.5 }}
-              className="flex justify-center items-center gap-2"
-            >
+
+            <div className="flex items-center justify-center gap-2">
               <p>Don&apos;t have an account?</p>
-              <a href="/sign-up" className="text-primary-400 hover:underline">
+              <a href="/sign-up" className="text-primary-500 hover:underline">
                 Sign up
               </a>
-            </motion.div>
+            </div>
           </motion.div>
         </motion.div>
       </div>

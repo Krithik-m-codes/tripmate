@@ -12,7 +12,6 @@ export async function POST(request: Request) {
 
     // Check if the email already exists in the database
     const existingUser = await UserModel.findOne({ email });
-    console.log("Existing user : ", existingUser);
     if (!existingUser) {
       return Response.json(
         {

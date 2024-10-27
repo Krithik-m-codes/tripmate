@@ -1,6 +1,5 @@
 import { Header, Footer } from "@/components/website";
-
-// Code for the layout component
+import React from "react";
 
 export default function RootLayout({
   children,

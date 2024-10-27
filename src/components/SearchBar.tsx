@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Search as SearchIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 interface SearchProps {
   handleLocationSelect: (lat: number, lon: number, searchQuery: string) => void;
@@ -40,8 +41,7 @@ const Search: React.FC<SearchProps> = ({ handleLocationSelect }) => {
       const response = await fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
           searchQuery
-        )}.json?access_token=${
-          process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
+        )}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
         }&limit=5`
       );
       const data = await response.json();
@@ -66,28 +66,64 @@ const Search: React.FC<SearchProps> = ({ handleLocationSelect }) => {
   );
 
   return (
-    <div ref={searchContainerRef} className="absolute top-4 left-16 z-10 w-72 h-24">
-      <div className="relative">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-          placeholder="Search for a location"
-          className="w-full px-4 py-2 rounded-md border border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-700"
-        />
-        <button
-          onClick={handleSearch}
-          className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-        >
-          <SearchIcon size={20} />
-        </button>
-      </div>
-      {isLoading && (
-        <div className="mt-2 text-sm text-gray-500">Loading...</div>
-      )}
+    <div ref={searchContainerRef} className="absolute top-4 md:top-14 left-16 z-10 w-80">
+      <motion.div
+        className="p-4 bg-white bg-opacity-90 shadow-lg rounded-lg border border-gray-200"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+      >
+        {/* Label and Search Input */}
+        <div className="flex flex-col gap-2">
+          <label htmlFor="searchInput" className="text-sm font-medium text-gray-700">
+            Search for Places, Restaurants, or Attractions
+          </label>
+
+          <div className="relative">
+            <input
+              id="searchInput"
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyPress={(e) => e.key === "Enter" && handleSearch()}
+              placeholder="Type here..."
+              className="w-full px-4 py-2 rounded-md border border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-700"
+            />
+
+            <button
+              onClick={handleSearch}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-teal-500 hover:text-teal-700"
+            >
+              <SearchIcon size={20} />
+            </button>
+          </div>
+
+          <small className="text-xs text-gray-500">
+            Enter keywords for places, restaurants, or attractions.
+          </small>
+        </div>
+
+        {/* Loading Indicator */}
+        {isLoading && (
+          <motion.div
+            className="mt-2 text-sm text-gray-500"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            Loading...
+          </motion.div>
+        )}
+      </motion.div>
+
+      {/* Suggestions Dropdown */}
       {showSuggestions && suggestions.length > 0 && (
-        <ul className="mt-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto">
+        <motion.ul
+          className="mt-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
           {suggestions.map((suggestion) => (
             <li
               key={suggestion.id}
@@ -97,7 +133,7 @@ const Search: React.FC<SearchProps> = ({ handleLocationSelect }) => {
               {suggestion.place_name}
             </li>
           ))}
-        </ul>
+        </motion.ul>
       )}
     </div>
   );

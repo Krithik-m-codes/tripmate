@@ -1,6 +1,7 @@
 import mongoose, { Schema, Model, Document } from "mongoose";
-import { ISearchHistory, SearchHistorySchema } from "./SearchHistory.model";
-import { ISavedPlace, SavedPlacesSchema } from "./SavedPlace.model";
+import { ISearchHistory } from "./SearchHistory.model";
+import { ISavedPlace } from "./SavedPlace.model";
+import { IRecentItinerary } from "./SavedItinerary.model";
 
 // User Interface for Schema and Model type definitions in TypeScript with Mongoose types
 export interface IUser extends Document {
@@ -15,6 +16,7 @@ export interface IUser extends Document {
   isVerified: boolean;
   searchHistory: mongoose.Types.DocumentArray<ISearchHistory>;
   savedPlaces: mongoose.Types.DocumentArray<ISavedPlace>;
+  savedItineraries: mongoose.Types.DocumentArray<IRecentItinerary>;
 }
 
 // User Schema
@@ -70,6 +72,12 @@ const UserSchema: Schema<IUser> = new Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "SavedPlace",
+    },
+  ],
+  savedItineraries: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "SavedItinerary",
     },
   ],
 });

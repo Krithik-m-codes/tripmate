@@ -14,6 +14,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import DatePickerWithRange from "@/components/DateRangePicker";
 import { DateRange } from "react-day-picker";
+import { useSession } from "next-auth/react";
+import dbConnect from "@/lib/dbConnect";
 
 const TripPlanner = () => {
   const [destination, setDestination] = useState("");
@@ -23,10 +25,13 @@ const TripPlanner = () => {
   const [generatedItinerary, setGeneratedItinerary] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [date, setDate] = useState<DateRange | undefined>();
+  const { data: session } = useSession();
 
   const handleGenerateItinerary = async () => {
+    dbConnect();
     setIsLoading(true);
     try {
+      // Call the API to generate the itinerary
       const response = await fetch("/api/generate-trip-itinerary", {
         method: "POST",
         headers: {
@@ -46,7 +51,39 @@ const TripPlanner = () => {
       }
 
       const data = await response.json();
+      // console.log(data.data);
+
+      // Save the generated itinerary to the user's saved itineraries
       setGeneratedItinerary(data.data);
+
+      // Add itinerary to recent generated itineraries if user is logged in and the request was successful
+      if (response.ok && session?.user?._id) {
+        try {
+          const response = await fetch("/api/itinerary/add", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userId: session.user._id,
+              destination,
+              days: date,
+              activities: preferences.split(","),
+              budget,
+              travelStyle,
+              itinerary: data.data,
+            }),
+          });
+          console.log("Itinerary added to history:", response);
+          if (!response.ok) {
+            throw new Error("Failed to add itinerary to history");
+          }
+        } catch (error) {
+          console.error("Error adding itinerary to history:", error);
+        }
+      }
+
+
     } catch (error) {
       console.error("Error generating itinerary:", error);
       setGeneratedItinerary("Failed to generate itinerary. Please try again.");
@@ -61,7 +98,7 @@ const TripPlanner = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full md:w-1/2"
+        className="w full md:w-1/2"
       >
         <Card>
           <CardHeader>
@@ -71,22 +108,23 @@ const TripPlanner = () => {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <label className="block text-base ml-2">Destination name:</label>
+              <label className="block text-base ml-2 font-bold">Destination name:</label>
               <Input
                 placeholder="Europe"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value)}
                 className="w-full md:w-[300px] ml-2"
               />
-              <label className="block text-base mt-2 ml-2">Duration:</label>
+              <label className="block text-base mt-2 ml-2 font-bold">Duration: <span className=" block text-sm text-red-500"> ( Due to API constraints ,please keep the duration under to 10 days ) </span></label>
+
               <DatePickerWithRange date={date} setDate={setDate} />
-              <label className="block text-base mt-2 ml-2">Preferences:</label>
+              <label className="block text-base mt-2 ml-2 font-bold">Preferences:</label>
               <Textarea
                 placeholder="(e.g., museums, outdoor activities)"
                 value={preferences}
                 onChange={(e) => setPreferences(e.target.value)}
               />
-              <label className="block text-base mt-2 ml-2">Budget:</label>
+              <label className="block text-base mt-2 ml-2 font-bold">Budget:</label>
               <Select value={budget} onValueChange={setBudget}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select budget" />
@@ -97,7 +135,7 @@ const TripPlanner = () => {
                   <SelectItem value="luxury">Luxury</SelectItem>
                 </SelectContent>
               </Select>
-              <label className="block text-base mt-2 ml-2">Travel Style:</label>
+              <label className="block text-base mt-2 ml-2 font-bold">Travel Style:</label>
               <Select value={travelStyle} onValueChange={setTravelStyle}>
                 <SelectTrigger>
                   <SelectValue placeholder="Select travel style" />

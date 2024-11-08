@@ -15,7 +15,6 @@ import { Textarea } from "@/components/ui/textarea";
 import DatePickerWithRange from "@/components/DateRangePicker";
 import { DateRange } from "react-day-picker";
 import { useSession } from "next-auth/react";
-import dbConnect from "@/lib/dbConnect";
 
 const TripPlanner = () => {
   const [destination, setDestination] = useState("");
@@ -28,7 +27,6 @@ const TripPlanner = () => {
   const { data: session } = useSession();
 
   const handleGenerateItinerary = async () => {
-    dbConnect();
     setIsLoading(true);
     try {
       // Call the API to generate the itinerary
@@ -51,7 +49,6 @@ const TripPlanner = () => {
       }
 
       const data = await response.json();
-      // console.log(data.data);
 
       // Save the generated itinerary to the user's saved itineraries
       setGeneratedItinerary(data.data);

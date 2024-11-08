@@ -119,6 +119,7 @@ Feel free to add further details and local insights where necessary to ensure th
       }
     );
   } catch (error: any) {
+    console.error("Error generating itinerary:", error);
     return Response.json(
       {
         success: false,

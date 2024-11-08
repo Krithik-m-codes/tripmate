@@ -53,7 +53,7 @@ const VerifyCodePage: React.FC = () => {
   return (
     <>
       <ToastContainer />
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-teal-500 via-green-500 to-emerald-500">
+      <div className="flex justify-center items-center min-h-screen bg-bg-sign-in">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}

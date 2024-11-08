@@ -99,25 +99,23 @@ const SignUpPage: React.FC = () => {
             damping: 20,
           }}
         >
-          <div className="bg-transparent rounded p-6 md:p-12 max-w-md md:w-full">
-            <div className="flex justify-center items-center mb-8 gap-3">
-              <div className="bg-gradient-to-r from-[#292929] to-[#000000] p-2 rounded-full">
+          <div className="bg-transparent rounded p-6 max-w-md md:w-full">
+
+            <form
+              onSubmit={handleSignUp}
+              className="border border-gray-300 p-5 md:p-10 rounded-lg bg-white shadow-lg"
+            >
+              <h1 className="text-2xl flex gap-2 justify-center items-center font-semibold text-gray-800 mb-5">
+                Sign Up to{" "}
+                <span className="text-[#006400]">TripMate</span>
                 <Image
                   src="/tripmate-logo.png"
                   alt="TripMate logo"
                   width={60}
                   height={60}
-                  className="rounded-full shadow-lg"
+                  className="rounded-full shadow-lg animate-bounce"
                 />
-              </div>
-              <h1 className="text-3xl md:text-4xl font-extrabold text-center bg-clip-text text-transparent bg-gradient-to-r from-[#E9FA58] to-[#A1FF33]">
-                TripMate
               </h1>
-            </div>
-            <form
-              onSubmit={handleSignUp}
-              className="border border-gray-300 p-5 md:p-10 rounded-lg bg-white shadow-lg"
-            >
               <div className="mb-5">
                 <label className="block text-gray-800 font-semibold">Full Name</label>
                 <input
@@ -200,11 +198,11 @@ const SignUpPage: React.FC = () => {
             }}
           >
             <Image
-              src="/sign-up-illustration.png"
+              src="/sign-up-illustration.svg"
               alt="Illustration"
-              width={700}
+              width={600}
               height={650}
-              className="bg-transparent bg-center bg-cover rounded-lg contrast-200"
+              className="bg-transparent bg-center bg-cover rounded-lg"
             />
           </motion.div>
         </motion.div>

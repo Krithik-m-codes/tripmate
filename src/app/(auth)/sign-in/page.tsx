@@ -61,7 +61,7 @@ export default function SignInPage() {
           {/* Image */}
           <div className="w-full md:w-1/2 h-48 md:h-full">
             <Image
-              src="/assets/sign-in-image.jpg"
+              src="/assets/sign-in-image.png"
               alt="Sign in image"
               width={500}
               height={500}

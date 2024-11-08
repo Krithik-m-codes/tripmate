@@ -12,13 +12,14 @@ const ForgotPasswordPage: React.FC = () => {
     e.preventDefault();
     // TODO: Implement password reset logic
 
+
     // Display success message
     alert("Password reset link sent to your email");
   };
 
   return (
     <div
-      className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-teal-500 to-emerald-600
+      className="flex flex-col items-center justify-center min-h-screen bg-bg-sign-in
     backdrop-filter backdrop-blur-sm 
     bg-opacity-50 px-4 sm:px-6 lg:px-8 py-12 sm:py-24 lg:py-32
     "

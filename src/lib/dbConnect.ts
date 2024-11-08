@@ -18,7 +18,7 @@ async function dbConnect(): Promise<void> {
   }
   // Connect to the database
   try {
-    const db = await mongoose.connect(process.env.MONGODB_URI || "", {
+    const db = await mongoose.connect(process.env.NEXT_PUBLIC_MONGODB_URI || "", {
       dbName: "tripmate",
     });
     connection.isConnected = db.connections[0].readyState;

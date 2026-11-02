@@ -15,6 +15,8 @@ TripMate is free to start: 10 AI itinerary generations per month, 25 saved place
 ## Key pages
 
 - [Home](https://tripmate.xride-labs.in/): product overview, live tool demo, and FAQ.
+- [MCP server](https://tripmate.xride-labs.in/mcp-server): the five tools, install steps, and client configuration for Claude Desktop, Cursor, and Claude Code.
+- [Self-hosting](https://tripmate.xride-labs.in/self-hosting): requirements, environment variables, MongoDB, auth, email, and production notes.
 - [About](https://tripmate.xride-labs.in/about): why TripMate exists and how it is built.
 - [Services](https://tripmate.xride-labs.in/services): what each part of the product does.
 - [Request a feature](https://tripmate.xride-labs.in/request-feature): how to suggest work.
@@ -22,6 +24,7 @@ TripMate is free to start: 10 AI itinerary generations per month, 25 saved place
 ## Developer resources
 
 - [GitHub repository](https://github.com/Krithik-m-codes/tripmate): web app and MCP server in one repository.
+- [MCP server page](https://tripmate.xride-labs.in/mcp-server): tool reference, install commands, and client config.
 - [MCP server docs](https://github.com/Krithik-m-codes/tripmate/blob/main/mcp/README.md): install and configure the server for Claude Desktop, Cursor, and Claude Code.
 - [MIT license](https://github.com/Krithik-m-codes/tripmate/blob/main/LICENSE): license terms.
 - [Roadmap](https://github.com/Krithik-m-codes/tripmate/blob/main/ROADMAP.md): public work in progress.

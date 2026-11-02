@@ -1,7 +1,8 @@
+import type { Metadata } from "next";
+
 export const SITE_URL = "https://tripmate.xride-labs.in";
 export const SITE_NAME = "TripMate";
-export const SITE_TITLE =
-  "TripMate — Open-source, MCP-native AI trip planner";
+export const SITE_TITLE = "TripMate — Open-source, MCP-native AI trip planner";
 export const SITE_DESCRIPTION =
   "Open-source, MCP-native AI trip planner. Give Claude Desktop, Cursor, or Claude Code live travel tools and get structured, editable itineraries.";
 
@@ -13,13 +14,49 @@ export const ROADMAP_URL = `${GITHUB_URL}/blob/main/ROADMAP.md`;
 export const ISSUES_URL = `${GITHUB_URL}/issues`;
 export const RELEASES_URL = `${GITHUB_URL}/releases`;
 
-export const OG_ALT =
-  "TripMate — open-source, MCP-native trip planning for AI agents";
+export const OG_ALT = "TripMate — open-source, MCP-native trip planning for AI agents";
+
+/**
+ * Shared metadata for marketing pages. `path` is the canonical route, so the
+ * canonical URL, Open Graph URL, and social image stay in sync.
+ */
+export function pageMetadata({
+  title,
+  description,
+  path,
+  type = "website",
+  imageAlt = OG_ALT,
+}: {
+  title: string;
+  description: string;
+  path: `/${string}`;
+  type?: "website" | "article";
+  imageAlt?: string;
+}): Metadata {
+  return {
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      type,
+      url: path,
+      title: `${title} · ${SITE_NAME}`,
+      description,
+      images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: imageAlt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} · ${SITE_NAME}`,
+      description,
+      images: [{ url: "/twitter-image", width: 1200, height: 630, alt: imageAlt }],
+    },
+  };
+}
 
 export const NAV_LINKS = [
   { label: "How it works", href: "/#how-it-works" },
   { label: "Features", href: "/#features" },
-  { label: "Proof", href: "/#proof" },
+  { label: "MCP server", href: "/mcp-server" },
   { label: "FAQ", href: "/#faq" },
 ] as const;
 
@@ -31,8 +68,9 @@ export const FOOTER_LINKS = {
     { label: "Start free", href: "/sign-up" },
   ],
   developers: [
+    { label: "MCP server", href: "/mcp-server" },
+    { label: "Self-hosting", href: "/self-hosting" },
     { label: "GitHub", href: GITHUB_URL, external: true },
-    { label: "MCP server", href: MCP_DOCS_URL, external: true },
     { label: "MIT license", href: LICENSE_URL, external: true },
     { label: "Roadmap", href: ROADMAP_URL, external: true },
   ],

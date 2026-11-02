@@ -35,6 +35,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
+      url: `${SITE_URL}/mcp-server`,
+      lastModified: latestMtime([
+        "src/app/(marketing)/mcp-server/page.tsx",
+        "mcp/server.mjs",
+        "mcp/lib/travel.mjs",
+        "mcp/lib/plan.mjs",
+      ]),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/self-hosting`,
+      lastModified: latestMtime([
+        "src/app/(marketing)/self-hosting/page.tsx",
+        "package.json",
+        ".env.example",
+      ]),
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
       url: `${SITE_URL}/about`,
       lastModified: latestMtime(["src/app/(marketing)/about/page.tsx"]),
       changeFrequency: "monthly",

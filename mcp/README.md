@@ -27,13 +27,13 @@ npm run smoke   # starts the server, lists tools, calls the public APIs
 
 ## Tools
 
-| Tool | What it does | Key required |
-| --- | --- | --- |
-| `geocode_place` | Resolve a city, address, or landmark to coordinates (OpenStreetMap Nominatim). | No |
-| `search_places` | Find attractions, restaurants, cafes, hotels, or nightlife within a radius, using OpenStreetMap data. | No |
-| `get_weather` | Daily forecast for a coordinate, up to 16 days ahead (Open-Meteo). | No |
-| `get_directions` | Driving distance and duration between two places (OSRM). | No |
-| `plan_trip` | Geocode, fetch live weather and nearby places, then return a schema-validated day-by-day itinerary (Google Gemini). | Yes |
+| Tool             | What it does                                                                                                  | Key required |
+| ---------------- | ------------------------------------------------------------------------------------------------------------- | ------------ |
+| `geocode_place`  | Resolve a city, address, or landmark to coordinates (OpenStreetMap Nominatim).                                | No           |
+| `search_places`  | Find attractions, restaurants, cafes, hotels, or nightlife within a radius, using OpenStreetMap data.         | No           |
+| `get_weather`    | Daily forecast for a coordinate, up to 16 days ahead (Open-Meteo).                                            | No           |
+| `get_directions` | Driving distance and duration between two places (OSRM).                                                      | No           |
+| `plan_trip`      | Geocode, fetch live weather and nearby places, then return a structured day-by-day itinerary (Google Gemini). | Yes          |
 
 All tools are read-only. Costs returned by `plan_trip` are planning
 estimates, not live quotes. Opening hours and availability should be
@@ -107,11 +107,11 @@ The agent will call `geocode_place`, `get_weather`, and `search_places`, then
 
 ## Environment variables
 
-| Variable | Required | Purpose |
-| --- | --- | --- |
-| `GEMINI_API_KEY` | For `plan_trip` | Google AI Studio key. |
-| `GEMINI_MODEL` | No | Override the model, default `gemini-1.5-flash`. |
-| `TRIPMATE_USER_AGENT` | No | Contact string sent to Nominatim. Set this if you deploy your own instance. |
+| Variable              | Required        | Purpose                                                                     |
+| --------------------- | --------------- | --------------------------------------------------------------------------- |
+| `GEMINI_API_KEY`      | For `plan_trip` | Google AI Studio key.                                                       |
+| `GEMINI_MODEL`        | No              | Override the model, default `gemini-1.5-flash`.                             |
+| `TRIPMATE_USER_AGENT` | No              | Contact string sent to Nominatim. Set this if you deploy your own instance. |
 
 Copy `.env.example` as a starting point. The server reads variables from the
 process environment, not from a `.env` file, so your MCP client must pass them
@@ -128,12 +128,12 @@ through its `env` block.
 
 ## Troubleshooting
 
-| Symptom | Fix |
-| --- | --- |
-| Client shows no tools | Use an absolute path to `server.mjs` and restart the client. |
-| `plan_trip` returns a `GEMINI_API_KEY` error | Add the key to the client's `env` block. |
-| Geocoding returns nothing | Try a more specific query, e.g. `Lisbon, Portugal` instead of `Lisbon`. |
-| Weather is missing for your dates | The trip is outside the 16-day forecast window; use seasonal norms. |
+| Symptom                                      | Fix                                                                     |
+| -------------------------------------------- | ----------------------------------------------------------------------- |
+| Client shows no tools                        | Use an absolute path to `server.mjs` and restart the client.            |
+| `plan_trip` returns a `GEMINI_API_KEY` error | Add the key to the client's `env` block.                                |
+| Geocoding returns nothing                    | Try a more specific query, e.g. `Lisbon, Portugal` instead of `Lisbon`. |
+| Weather is missing for your dates            | The trip is outside the 16-day forecast window; use seasonal norms.     |
 
 ## License
 

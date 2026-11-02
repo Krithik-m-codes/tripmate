@@ -2,12 +2,7 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
-import {
-  geocodePlace,
-  getDirections,
-  getWeather,
-  searchPlaces,
-} from "./lib/travel.mjs";
+import { geocodePlace, getDirections, getWeather, searchPlaces } from "./lib/travel.mjs";
 import { planTrip } from "./lib/plan.mjs";
 
 const VERSION = "0.1.0";
@@ -57,7 +52,7 @@ server.registerTool(
   {
     title: "Search nearby places",
     description:
-      "Find attractions, restaurants, cafes, hotels, or nightlife within a radius using OpenStreetMap Overpass. Returns names, coordinates, addresses, websites, and opening hours when tagged.",
+      "Find attractions, restaurants, cafes, hotels, or nightlife within a radius using OpenStreetMap Nominatim. Returns names, coordinates, addresses, websites, and opening hours when tagged.",
     inputSchema: {
       latitude: z.number().min(-90).max(90).describe("Latitude"),
       longitude: z.number().min(-180).max(180).describe("Longitude"),
@@ -145,7 +140,7 @@ server.registerTool(
   {
     title: "Plan a trip",
     description:
-      "Build a structured day-by-day itinerary. Geocodes the destination, fetches live weather and nearby places, then asks Gemini for a schema-validated plan. Requires GEMINI_API_KEY.",
+      "Build a structured day-by-day itinerary. Geocodes the destination, fetches live weather and nearby places, then asks Gemini for a JSON plan. Requires GEMINI_API_KEY.",
     inputSchema: {
       destination: z.string().min(1).describe("City or region, e.g. 'Lisbon, Portugal'"),
       start_date: z.string().describe("Start date, YYYY-MM-DD"),

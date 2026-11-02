@@ -1,12 +1,5 @@
 import type { FaqItem } from "@/lib/faq";
-import {
-  GITHUB_URL,
-  LICENSE_URL,
-  OG_ALT,
-  SITE_DESCRIPTION,
-  SITE_NAME,
-  SITE_URL,
-} from "@/lib/site";
+import { GITHUB_URL, LICENSE_URL, OG_ALT, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
 export function websiteSchema() {
   return {
@@ -57,8 +50,7 @@ export function softwareApplicationSchema() {
       "@type": "Offer",
       price: "0",
       priceCurrency: "USD",
-      description:
-        "Free tier with 10 AI itinerary generations per month. No credit card required.",
+      description: "Free tier with 10 AI itinerary generations per month. No credit card required.",
     },
     featureList: [
       "MCP server for Claude Desktop, Cursor, and Claude Code",
@@ -81,11 +73,15 @@ export function softwareApplicationSchema() {
   };
 }
 
-export function faqPageSchema(faqs: FaqItem[]) {
+export function faqPageSchema(faqs: FaqItem[], path = "/") {
+  const url = path === "/" ? `${SITE_URL}/` : `${SITE_URL}${path}`;
+
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "@id": `${SITE_URL}/#faq`,
+    "@id": `${url}#faq`,
+    url,
+    isPartOf: { "@id": `${url}#webpage` },
     mainEntity: faqs.map((faq) => ({
       "@type": "Question",
       name: faq.question,
@@ -93,6 +89,85 @@ export function faqPageSchema(faqs: FaqItem[]) {
         "@type": "Answer",
         text: faq.answer,
       },
+    })),
+  };
+}
+
+export function breadcrumbSchema(items: Array<{ name: string; path: `/${string}` }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.path === "/" ? SITE_URL : `${SITE_URL}${item.path}`,
+    })),
+  };
+}
+
+export function techArticleSchema({
+  path,
+  headline,
+  description,
+  dependencies,
+  keywords,
+}: {
+  path: `/${string}`;
+  headline: string;
+  description: string;
+  dependencies?: string;
+  keywords?: string[];
+}) {
+  const url = `${SITE_URL}${path}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "@id": `${url}#article`,
+    headline,
+    description,
+    url,
+    mainEntityOfPage: { "@id": `${url}#webpage` },
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: { "@id": `${SITE_URL}/#software` },
+    inLanguage: "en",
+    proficiencyLevel: "Beginner",
+    ...(dependencies ? { dependencies } : {}),
+    ...(keywords ? { keywords: keywords.join(", ") } : {}),
+    author: { "@id": `${SITE_URL}/#organization` },
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    license: LICENSE_URL,
+  };
+}
+
+export function howToSchema({
+  path,
+  name,
+  description,
+  steps,
+}: {
+  path: `/${string}`;
+  name: string;
+  description: string;
+  steps: Array<{ name: string; text: string }>;
+}) {
+  const url = `${SITE_URL}${path}`;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "@id": `${url}#howto`,
+    name,
+    description,
+    url,
+    mainEntityOfPage: { "@id": `${url}#webpage` },
+    inLanguage: "en",
+    step: steps.map((step, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: step.name,
+      text: step.text,
     })),
   };
 }

@@ -1,28 +1,13 @@
-import type { Metadata } from "next";
 import React from "react";
 import { MessageSquarePlus, Clock, CheckCircle } from "lucide-react";
-import { SITE_NAME } from "@/lib/site";
+import { pageMetadata } from "@/lib/site";
 
-const OG_IMAGE = {
-  url: "/opengraph-image",
-  width: 1200,
-  height: 630,
-  alt: "TripMate — open-source, MCP-native trip planning for AI agents",
-};
-
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Request a feature",
   description:
     "Suggest a feature for TripMate. Requests are read, grouped by theme, and considered against the public roadmap.",
-  alternates: { canonical: "/request-feature" },
-  openGraph: {
-    url: "/request-feature",
-    title: `Request a feature · ${SITE_NAME}`,
-    description:
-      "Suggest a feature for TripMate. Requests are read, grouped by theme, and considered against the public roadmap.",
-    images: [OG_IMAGE],
-  },
-};
+  path: "/request-feature",
+});
 
 const HOW_IT_WORKS = [
   { icon: MessageSquarePlus, title: "Submit your idea", desc: "Fill in the Google Form below with as much detail as you like." },

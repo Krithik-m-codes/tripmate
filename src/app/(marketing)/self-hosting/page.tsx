@@ -9,6 +9,7 @@ import {
   Server,
   Terminal,
 } from "lucide-react";
+import { CodeBlock } from "@/components/marketing/CodeBlock";
 import { JsonLd } from "@/components/seo/JsonLd";
 import {
   breadcrumbSchema,
@@ -136,19 +137,6 @@ const HOW_TO_STEPS = [
     text: "Run npm install inside mcp, then add mcp/server.mjs to your MCP client with an absolute path. The MCP server is separate from the web process.",
   },
 ];
-
-function CodeBlock({ label, children }: { label: string; children: string }) {
-  return (
-    <div className="mt-4 overflow-hidden rounded-xl border border-[var(--border-primary)] bg-[var(--bg-secondary)]">
-      <div className="border-b border-[var(--border-primary)] px-4 py-2 font-mono text-[10px] tracking-[0.14em] text-[var(--text-muted)] uppercase">
-        {label}
-      </div>
-      <pre className="overflow-x-auto p-4 text-[12.5px] leading-relaxed">
-        <code className="font-mono text-[var(--text-primary)]">{children}</code>
-      </pre>
-    </div>
-  );
-}
 
 function SectionHeading({
   eyebrow,

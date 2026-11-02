@@ -1,30 +1,15 @@
-import type { Metadata } from "next";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Bot, MapPin, BarChart3, Map, Shield, RefreshCw, ArrowRight } from "lucide-react";
-import { SITE_NAME } from "@/lib/site";
+import { pageMetadata } from "@/lib/site";
 
-const OG_IMAGE = {
-  url: "/opengraph-image",
-  width: 1200,
-  height: 630,
-  alt: "TripMate — open-source, MCP-native trip planning for AI agents",
-};
-
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "Services",
   description:
     "What TripMate does: schema-validated AI itineraries, nearby place search, seasonal context, interactive maps, secure auth, and an open roadmap.",
-  alternates: { canonical: "/services" },
-  openGraph: {
-    url: "/services",
-    title: `Services · ${SITE_NAME}`,
-    description:
-      "What TripMate does: schema-validated AI itineraries, nearby place search, seasonal context, interactive maps, secure auth, and an open roadmap.",
-    images: [OG_IMAGE],
-  },
-};
+  path: "/services",
+});
 
 interface Service {
   icon: React.ElementType;

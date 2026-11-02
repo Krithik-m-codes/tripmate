@@ -1,29 +1,14 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Map, Bot, Heart } from "lucide-react";
-import { SITE_NAME } from "@/lib/site";
+import { pageMetadata } from "@/lib/site";
 
-const OG_IMAGE = {
-  url: "/opengraph-image",
-  width: 1200,
-  height: 630,
-  alt: "TripMate — open-source, MCP-native trip planning for AI agents",
-};
-
-export const metadata: Metadata = {
+export const metadata = pageMetadata({
   title: "About",
   description:
     "Why TripMate exists: one calm workspace for AI itineraries, maps, saved places, and trip history — now open source and MCP-native.",
-  alternates: { canonical: "/about" },
-  openGraph: {
-    url: "/about",
-    title: `About · ${SITE_NAME}`,
-    description:
-      "Why TripMate exists: one calm workspace for AI itineraries, maps, saved places, and trip history — now open source and MCP-native.",
-    images: [OG_IMAGE],
-  },
-};
+  path: "/about",
+});
 
 const VALUES = [
   {

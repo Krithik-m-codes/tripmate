@@ -1,0 +1,40 @@
+# TripMate
+
+> TripMate is an open-source (MIT), MCP-native AI trip planner. It runs as a web app and as a Model Context Protocol server that gives Claude Desktop, Cursor, and Claude Code live geocoding, nearby-place search, weather, and driving-route tools, then returns a structured, editable day-by-day itinerary.
+
+TripMate is free to start: 10 AI itinerary generations per month, 25 saved places, and 10 saved itineraries, with no credit card. It is self-hostable with Node.js 20+ and MongoDB. It does not book flights, hotels, or activities, and the costs it shows are AI planning estimates rather than live prices.
+
+## What it does
+
+- Generates day-by-day itineraries validated against a schema (days, time slots, categories, estimated costs, tips), so the output can be edited like data rather than read like chat.
+- Exposes five MCP tools: `geocode_place`, `search_places`, `get_weather`, `get_directions`, and `plan_trip`.
+- Uses OpenStreetMap Nominatim for geocoding and place search, Open-Meteo for forecasts, and OSRM for driving routes.
+- Supports multiple AI providers: Google Gemini, NVIDIA NIM, and OpenRouter.
+- Includes a web workspace with maps, saved places, itinerary history, share links, and PDF export.
+
+## Key pages
+
+- [Home](https://tripmate.xride-labs.in/): product overview, live tool demo, and FAQ.
+- [About](https://tripmate.xride-labs.in/about): why TripMate exists and how it is built.
+- [Services](https://tripmate.xride-labs.in/services): what each part of the product does.
+- [Request a feature](https://tripmate.xride-labs.in/request-feature): how to suggest work.
+
+## Developer resources
+
+- [GitHub repository](https://github.com/Krithik-m-codes/tripmate): web app and MCP server in one repository.
+- [MCP server docs](https://github.com/Krithik-m-codes/tripmate/blob/main/mcp/README.md): install and configure the server for Claude Desktop, Cursor, and Claude Code.
+- [MIT license](https://github.com/Krithik-m-codes/tripmate/blob/main/LICENSE): license terms.
+- [Roadmap](https://github.com/Krithik-m-codes/tripmate/blob/main/ROADMAP.md): public work in progress.
+
+## Common questions
+
+- **Is TripMate free?** Yes. The free tier includes 10 AI itinerary generations per month, 25 saved places, and 10 saved itineraries. Pro removes those limits.
+- **Does TripMate work with Claude Desktop?** Yes, through its MCP server over stdio. Set `GEMINI_API_KEY` to enable `plan_trip`; the other four tools need no key.
+- **Can I self-host TripMate?** Yes. It is MIT-licensed and runs on Node.js 20+ with MongoDB.
+- **How is it different from ChatGPT travel planning?** TripMate returns a schema-validated, editable itinerary and calls live travel tools through MCP instead of producing a chat transcript.
+- **Does TripMate book travel?** No. It plans and estimates; bookings are completed with the provider.
+
+## Contact
+
+- Source and issues: https://github.com/Krithik-m-codes/tripmate/issues
+- Canonical site: https://tripmate.xride-labs.in

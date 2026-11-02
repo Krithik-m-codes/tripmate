@@ -1,102 +1,113 @@
 import Image from "next/image";
+import Link from "next/link";
+import { Github } from "lucide-react";
+import { FOOTER_LINKS, GITHUB_URL, LICENSE_URL } from "@/lib/site";
 
-const Footer = () => {
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: ReadonlyArray<{ label: string; href: string; external?: boolean }>;
+}) {
   return (
-    <footer className=" bg-primary-foreground">
-      <div className="relative mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8 lg:pt-24">
-        <div className="absolute end-4 top-4 sm:end-6 sm:top-6 lg:end-8 lg:top-8">
-          <a
-            className="inline-block rounded-full bg-teal-600 p-2 text-white shadow transition hover:bg-teal-500 sm:p-3 lg:p-4"
-            href="#MainContent"
-          >
-            <span className="sr-only">Back to top</span>
+    <div>
+      <p className="font-mono text-[10px] uppercase tracking-[0.16em] text-[var(--text-muted)]">
+        {title}
+      </p>
+      <ul className="mt-3 space-y-2">
+        {links.map((link) => (
+          <li key={link.label}>
+            {link.external ? (
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[13px] text-[var(--text-secondary)] transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                href={link.href}
+                className="text-[13px] text-[var(--text-secondary)] transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
+              >
+                {link.label}
+              </Link>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </a>
-        </div>
-
-        <div className="lg:flex lg:items-end lg:justify-between">
-          <div>
-            <div className="flex justify-center items-center space-x-4  text-teal-600 lg:justify-start">
+export default function Footer() {
+  return (
+    <footer className="bg-[var(--bg-primary)]">
+      <div className="mx-auto w-full max-w-[1180px] px-5 py-12 sm:px-8 lg:px-10 lg:py-16">
+        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+          <div className="max-w-xs">
+            <Link href="/" className="flex items-center gap-2.5 transition-opacity hover:opacity-80">
               <Image
                 src="/tripmate-logo.png"
-                alt="tripmate logo"
-                width={100}
-                height={100}
-                className="w-24 h-24 rounded-full"
+                alt=""
+                width={32}
+                height={32}
+                className="rounded-full ring-1 ring-emerald-500/30"
               />
-              <h2 className="ml-3 text-xl md:text-3xl font-bold ">Tripmate</h2>
-            </div>
-
-            <p className="mx-auto mt-6 max-w-md text-center leading-relaxed text-gray-500 lg:text-left">
-              TripMate is a travel app that helps you plan your trips, save your
-              favorite places and share them with your friends. and much more !
+              <span className="font-heading text-lg font-extrabold tracking-tight text-[var(--text-primary)]">
+                TripMate
+              </span>
+            </Link>
+            <p className="mt-4 text-[13px] leading-relaxed text-[var(--text-secondary)]">
+              Open-source, MCP-native trip planning for AI agents and the people who
+              use them.
             </p>
+            <a
+              href={GITHUB_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
+            >
+              <Github className="h-4 w-4" />
+              Krithik-m-codes/tripmate
+            </a>
           </div>
 
-          <ul className="mt-12 flex flex-wrap justify-center gap-6 md:gap-8 lg:mt-0 lg:justify-end lg:gap-12">
-            <li>
-              <a
-                className="text-gray-700 transition hover:text-gray-700/75"
-                href="/about"
-              >
-                {" "}
-                About{" "}
-              </a>
-            </li>
-
-            <li>
-              <a
-                className="text-gray-700 transition hover:text-gray-700/75"
-                href="/services"
-              >
-                {" "}
-                Services{" "}
-              </a>
-            </li>
-
-            <li>
-              <a
-                className="text-gray-700 transition hover:text-gray-700/75"
-                href="/request-feature"
-              >
-                {" "}
-                Feature request{" "}
-              </a>
-            </li>
-
-            <li>
-              <a
-                className="text-gray-700 transition hover:text-gray-700/75"
-                href="/sign-in"
-              >
-                {" "}
-                Get started{" "}
-              </a>
-            </li>
-          </ul>
+          <FooterColumn title="Product" links={FOOTER_LINKS.product} />
+          <FooterColumn title="Developers" links={FOOTER_LINKS.developers} />
+          <FooterColumn title="Company" links={FOOTER_LINKS.company} />
         </div>
 
-        <p className="mt-12 text-center text-sm text-gray-500 lg:text-right">
-          Copyright &copy; 2024. All rights reserved. By {"  "}
-          <a href="#" className="text-primary hover:text-[#46ff77]">
-            Krithik M
-          </a>
-        </p>
+        <div className="mt-10 flex flex-col items-start justify-between gap-3 border-t border-[var(--border-primary)] pt-6 sm:flex-row sm:items-center">
+          <p className="text-[11px] text-[var(--text-muted)]">
+            © {new Date().getFullYear()} TripMate contributors. Source available
+            under the{" "}
+            <a
+              href={LICENSE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-emerald-600 hover:underline dark:text-emerald-400"
+            >
+              MIT license
+            </a>
+            .
+          </p>
+          <p className="text-[11px] text-[var(--text-muted)]">
+            Built by{" "}
+            <a
+              href="https://github.com/Krithik-m-codes"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-medium text-emerald-600 hover:underline dark:text-emerald-400"
+            >
+              Krithik M
+            </a>
+            . Costs shown in the app are planning estimates, not live quotes.
+          </p>
+        </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

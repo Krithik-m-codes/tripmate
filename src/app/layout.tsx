@@ -2,7 +2,14 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import Script from "next/script";
 import AuthProvider from "../context/AuthProvider";
+
+// Pinwren feedback widget: rendered only when a public project key is set.
+const pinwrenUrl = (
+  process.env.NEXT_PUBLIC_PINWREN_URL || "https://bug.shubpy.com"
+).replace(/\/+$/, "");
+const pinwrenKey = process.env.NEXT_PUBLIC_PINWREN_KEY;
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -28,6 +35,13 @@ export default function RootLayout({
           })}
         >
           {children}
+          {pinwrenKey ? (
+            <Script
+              src={`${pinwrenUrl}/widget.js`}
+              data-project={pinwrenKey}
+              strategy="afterInteractive"
+            />
+          ) : null}
         </body>
       </AuthProvider>
     </html>

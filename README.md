@@ -174,6 +174,8 @@ export default UserModel
 * `MONGODB_URI`: Connection string for MongoDB.
 * `OPENWEATHER_API_KEY`: API key for OpenWeatherMap.
 * `GOOGLE_MAPS_API_KEY`: API key for Google Maps.
+* `NEXT_PUBLIC_PINWREN_KEY` (optional): public `pk_...` project key for the Pinwren feedback widget. Empty or unset = widget off.
+* `NEXT_PUBLIC_PINWREN_URL` (optional): Pinwren server origin, default `https://bug.shubpy.com`.
 
 ## Routes and API Endpoints
 

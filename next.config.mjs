@@ -50,6 +50,25 @@ const nextConfig = {
   },
   transpilePackages: ["@react-pdf/renderer"],
   serverExternalPackages: ["@react-email/render", "@react-email/components", "prettier"],
+  async redirects() {
+    return [
+      { source: "/map", destination: "/explore/map", permanent: true },
+      { source: "/directions", destination: "/explore/directions", permanent: true },
+      { source: "/saved-places", destination: "/explore/saved", permanent: true },
+      {
+        source: "/recent-generated-itineraries",
+        destination: "/planner/recent",
+        permanent: true,
+      },
+      { source: "/recents-history", destination: "/history/search", permanent: true },
+      {
+        source: "/ai-trip-planner",
+        destination: "/planner/ai-generator",
+        permanent: true,
+      },
+      { source: "/profile", destination: "/settings/profile", permanent: true },
+    ];
+  },
 };
 
 export default withSerwist(nextConfig);

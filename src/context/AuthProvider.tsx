@@ -1,13 +1,11 @@
 "use client";
-import { SessionProvider } from "next-auth/react";
+import React from "react";
 
-// AuthProvider component to wrap the application with the SessionProvider
-// to provide the session object to all components
-
+// AuthProvider now acts as a clean boundary/wrapper for Better Auth client components
 export default function AuthProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <SessionProvider>{children}</SessionProvider>;
+  return <>{children}</>;
 }

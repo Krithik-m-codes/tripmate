@@ -6,22 +6,13 @@ interface Suggestion {
   lon: string;
 }
 
-export const fetchSuggestions = async (
-  query: string
-): Promise<Suggestion[]> => {
-  const locationAPI = process.env.NEXT_PUBLIC_LOCATIONIQ_API_KEY;
-
-  if (!query || !locationAPI) {
-    console.warn("Query is empty or API key is missing");
+export const fetchSuggestions = async (query: string): Promise<Suggestion[]> => {
+  if (!query) {
     return [];
   }
 
   try {
-    const response = await fetch(
-      `https://us1.locationiq.com/v1/autocomplete.php?key=${locationAPI}&q=${encodeURIComponent(
-        query
-      )}&limit=10&dedupe=1&format=json`
-    );
+    const response = await fetch(`/api/services/geocode?q=${encodeURIComponent(query)}`);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -29,20 +20,14 @@ export const fetchSuggestions = async (
 
     const data = await response.json();
 
-    if (!Array.isArray(data)) {
-      // LocationIQ might return an error object instead of an array
-      if (data.error) {
-        console.error("LocationIQ API error:", data.error);
-        return [];
-      }
-      console.warn("Unexpected API response format:", data);
+    if (!data.success || !Array.isArray(data.data)) {
       return [];
     }
 
-    return data.map((item: any) => ({
-      display_name: item.display_name || "",
-      lat: item.lat || "",
-      lon: item.lon || "",
+    return data.data.map((item: any) => ({
+      display_name: item.place_name || item.name || item.display_name || "",
+      lat: String(item.center?.[1] ?? item.lat ?? ""),
+      lon: String(item.center?.[0] ?? item.lon ?? ""),
     }));
   } catch (error) {
     console.error("Error fetching suggestions:", error);

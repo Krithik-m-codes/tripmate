@@ -16,16 +16,20 @@ async function dbConnect(): Promise<void> {
     console.log("Using existing Database connection");
     return;
   }
+  const mongoUri = process.env.MONGODB_URI || process.env.NEXT_PUBLIC_MONGODB_URI;
+  if (!mongoUri) {
+    console.error("Missing MONGODB_URI environment variable");
+    return;
+  }
   // Connect to the database
   try {
-    const db = await mongoose.connect(process.env.NEXT_PUBLIC_MONGODB_URI || "", {
+    const db = await mongoose.connect(mongoUri, {
       dbName: "tripmate",
     });
     connection.isConnected = db.connections[0].readyState;
     console.log("Database connected successfully");
   } catch (error) {
     console.error("Error connecting to database : ", error);
- 
   }
 }
 

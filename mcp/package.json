@@ -1,0 +1,29 @@
+{
+  "name": "tripmate-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "TripMate MCP server — live geocoding, nearby places, weather, driving routes, and AI itinerary planning for Claude Desktop, Cursor, and Claude Code.",
+  "bin": {
+    "tripmate-mcp": "./server.mjs"
+  },
+  "files": [
+    "server.mjs",
+    "lib",
+    "README.md",
+    ".env.example"
+  ],
+  "scripts": {
+    "start": "node server.mjs",
+    "smoke": "node test/client-smoke.mjs",
+    "check": "node --check server.mjs && node --check lib/travel.mjs && node --check lib/plan.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.32.2",
+    "zod": "^3.25.51"
+  },
+  "license": "MIT"
+}

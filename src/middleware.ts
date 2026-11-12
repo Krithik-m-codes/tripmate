@@ -1,54 +1,48 @@
 import { NextRequest, NextResponse } from "next/server";
-export { default } from "next-auth/middleware";
-import { getToken } from "next-auth/jwt";
-// Middleware for Authentication
-// Middleware to check if a user is authenticated
-// and if not, redirect them to the sign-in page
+
+const AUTH_ONLY_PREFIXES = [
+  "/dashboard",
+  "/planner",
+  "/explore",
+  "/history",
+  "/settings",
+];
+
+const isProtectedPath = (pathname: string) =>
+  AUTH_ONLY_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+
 export async function middleware(request: NextRequest) {
-  const token = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
-  // console.log("Token [middleware] : ", token);
-  const url = request.nextUrl;
-  console.log("URL access [middleware]: ", url.pathname);
-  if (
-    token &&
-    (url.pathname === "/sign-in" ||
-      url.pathname === "/sign-up" ||
-      url.pathname === "/verify-email" ||
-      url.pathname === "/")
-  ) {
-    return NextResponse.redirect(new URL("/map", request.url));
-  } else {
-    if (
-      !token &&
-      (url.pathname === "/dashboard" ||
-        url.pathname === "/map" ||
-        url.pathname === "/verify-email" ||
-        url.pathname === "/saved-places" ||
-        url.pathname === "/search-history" ||
-        url.pathname === "/api/profile" ||
-        url.pathname === "/api/check-username-unique" ||
-        url.pathname === "/api/weather-report" ||
-        url.pathname === "/api/verify-code" ||
-        url.pathname === "/api/resend-verify-code" ||
-        url.pathname === "/api/saved-places" ||
-        url.pathname === "/api/logout" ||
-        url.pathname === "/api/search-history" ||
-        url.pathname === "/api/search-history/[userId]" ||
-        url.pathname === "/api/search-history/add" ||
-        url.pathname === "/api/saved-places/[userId]" ||
-        url.pathname === "/api/saved-places/add")
-    ) {
-      return NextResponse.redirect(new URL("/sign-in", request.url));
-    }
+  const { pathname } = request.nextUrl;
+
+  const sessionToken =
+    request.cookies.get("better-auth.session_token") ||
+    request.cookies.get("__Secure-better-auth.session_token");
+
+  const isAuthenticated = !!sessionToken;
+
+  if (isAuthenticated && (pathname === "/sign-in" || pathname === "/sign-up")) {
+    return NextResponse.redirect(new URL("/explore/map", request.url));
+  }
+
+  if (!isAuthenticated && isProtectedPath(pathname)) {
+    return NextResponse.redirect(new URL("/sign-in", request.url));
   }
 
   return NextResponse.next();
 }
 
-// Configuration for the middleware to run on the below paths
 export const config = {
-  matcher: ["/sign-in", "/sign-up", "/", "/verify/:path*", "/dashboard/:path*"],
+  matcher: [
+    "/",
+    "/sign-in",
+    "/sign-up",
+    "/verify-email",
+    "/forgot-password",
+    "/reset-password",
+    "/dashboard/:path*",
+    "/planner/:path*",
+    "/explore/:path*",
+    "/history/:path*",
+    "/settings/:path*",
+  ],
 };

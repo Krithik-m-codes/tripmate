@@ -38,14 +38,13 @@ const Search: React.FC<SearchProps> = ({ handleLocationSelect }) => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-          searchQuery
-        )}.json?access_token=${process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN
-        }&limit=5`
-      );
+      const response = await fetch(`/api/services/geocode?q=${encodeURIComponent(searchQuery)}`);
       const data = await response.json();
-      setSuggestions(data.features);
+      if (response.ok) {
+        setSuggestions(data.data || []);
+      } else {
+        setSuggestions([]);
+      }
       setShowSuggestions(true);
     } catch (error) {
       console.error("Error fetching suggestions:", error);
@@ -66,9 +65,9 @@ const Search: React.FC<SearchProps> = ({ handleLocationSelect }) => {
   );
 
   return (
-    <div ref={searchContainerRef} className="absolute top-4 md:top-14 left-16 z-10 w-80">
+    <div ref={searchContainerRef} className="absolute top-4 left-16 z-10 w-80 md:top-14">
       <motion.div
-        className="p-4 bg-white bg-opacity-90 shadow-lg rounded-lg border border-gray-200"
+        className="bg-opacity-90 rounded-lg border border-gray-200 bg-white p-4 shadow-lg"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: "easeInOut" }}
@@ -87,12 +86,12 @@ const Search: React.FC<SearchProps> = ({ handleLocationSelect }) => {
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && handleSearch()}
               placeholder="Type here..."
-              className="w-full px-4 py-2 rounded-md border border-teal-300 focus:outline-none focus:ring-2 focus:ring-teal-700"
+              className="w-full rounded-md border border-teal-300 px-4 py-2 focus:ring-2 focus:ring-teal-700 focus:outline-none"
             />
 
             <button
               onClick={handleSearch}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-teal-500 hover:text-teal-700"
+              className="absolute top-1/2 right-2 -translate-y-1/2 transform text-teal-500 hover:text-teal-700"
             >
               <SearchIcon size={20} />
             </button>
@@ -119,7 +118,7 @@ const Search: React.FC<SearchProps> = ({ handleLocationSelect }) => {
       {/* Suggestions Dropdown */}
       {showSuggestions && suggestions.length > 0 && (
         <motion.ul
-          className="mt-2 bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-y-auto"
+          className="mt-2 max-h-60 overflow-y-auto rounded-md border border-gray-300 bg-white shadow-lg"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
@@ -128,7 +127,7 @@ const Search: React.FC<SearchProps> = ({ handleLocationSelect }) => {
             <li
               key={suggestion.id}
               onClick={() => handleSuggestionClick(suggestion)}
-              className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+              className="cursor-pointer px-4 py-2 hover:bg-gray-100"
             >
               {suggestion.place_name}
             </li>

@@ -1,170 +1,114 @@
-"use client";
-import { useState } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import Link from "next/link";
+import { Github, Menu } from "lucide-react";
+import ThemeToggle from "@/components/ThemeToggle";
+import { GITHUB_URL, NAV_LINKS } from "@/lib/site";
 
-// Desc: Header component for website
 export default function Header() {
-  const [open, setOpen] = useState(false);
-
-  const router = useRouter();
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleLinkClick = () => {
-    handleClose();
-  };
-
-  const handleLoginClick = () => {
-    handleClose();
-    // redirect to login
-    router.push("/sign-in");
-  };
-
-  const handleSignupClick = () => {
-    handleClose();
-    // redirect to signup
-    router.push("/sign-up");
-  };
   return (
-    <header className="flex justify-between p-5 items-center bg-[#FFFFFF] text-[#000000] text-md md:text-xl md:px-[4rem]  lg:px-[12rem] ">
-      <div
-        className="flex items-center flex-grow-1 gap-3 cursor-pointer "
-        onClick={() => router.push("/")}
-      >
-        <Image
-          src="/tripmate-logo.png"
-          alt="tripmate"
-          width={50}
-          height={50}
-          className="w-10 h-10 rounded-full object-cover"
-        />
-        <h2 className="font-bold">TripMate</h2>
-      </div>
-      <div className="flex space-x-5 items-center flex-grow-2">
-        <ul className="hidden md:inline-flex space-x-5 mx-5">
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="/about">About</a>
-          </li>
-          <li>
-            <a href="/services">Services</a>
-          </li>
-        </ul>
-        <button
-          className="bg-primary px-2 py-1 hidden md:block md:px-4 md:py-1 rounded-md text-white hover:bg-black transition delay-150 duration-300 ease-in-out "
-          onClick={handleSignupClick}
+    <header className="sticky top-0 z-50 border-b border-[var(--border-primary)] bg-[var(--bg-primary)]/90 backdrop-blur-md">
+      <div className="mx-auto flex w-full max-w-[1180px] items-center justify-between gap-4 px-5 py-3.5 sm:px-8 lg:px-10">
+        <Link
+          href="/"
+          className="flex shrink-0 items-center gap-2.5 transition-opacity hover:opacity-80"
+          aria-label="TripMate home"
         >
-          Sign Up
-        </button>
-        <button
-          className="bg-primary px-2 py-1 hidden md:block  mr-2 md:mr-0 md:px-4 md:py-1 rounded-md text-white hover:bg-black transition delay-150 duration-300 ease-in-out "
-          onClick={handleLoginClick}
-        >
-          Login
-        </button>
-      </div>
+          <Image
+            src="/tripmate-logo.png"
+            alt=""
+            width={32}
+            height={32}
+            className="rounded-full ring-1 ring-emerald-500/30"
+            priority
+          />
+          <span className="font-heading text-lg font-extrabold tracking-tight text-[var(--text-primary)]">
+            TripMate
+          </span>
+          <span className="hidden rounded-full border border-emerald-500/25 bg-emerald-500/10 px-2 py-0.5 font-mono text-[9px] uppercase tracking-wider text-emerald-700 sm:inline dark:text-emerald-300">
+            MIT
+          </span>
+        </Link>
 
-      {/* burger menu icon  */}
-      <div className="md:hidden flex items-center">
-        <button onClick={handleClick}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
+        <nav aria-label="Primary" className="hidden items-center gap-6 md:flex">
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className="text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
+            >
+              {link.label}
+            </Link>
+          ))}
+          <a
+            href={GITHUB_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:text-emerald-600 dark:hover:text-emerald-400"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
+            <Github className="h-4 w-4" />
+            GitHub
+          </a>
+        </nav>
+
+        <div className="hidden items-center gap-2 md:flex">
+          <ThemeToggle />
+          <Link
+            href="/sign-in"
+            className="rounded-lg px-3 py-2 text-[13px] font-medium text-[var(--text-secondary)] transition-colors hover:bg-[var(--bg-secondary)]"
+          >
+            Sign in
+          </Link>
+          <Link
+            href="/sign-up"
+            className="rounded-lg bg-emerald-600 px-3.5 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-emerald-700"
+          >
+            Start free
+          </Link>
+        </div>
+
+        <details className="group relative md:hidden">
+          <summary
+            aria-label="Open menu"
+            className="flex h-9 w-9 cursor-pointer list-none items-center justify-center rounded-lg border border-[var(--border-primary)] text-[var(--text-secondary)] [&::-webkit-details-marker]:hidden"
+          >
+            <Menu className="h-4 w-4" />
+          </summary>
+          <div className="absolute right-0 top-full z-50 mt-2 w-56 rounded-xl border border-[var(--border-primary)] bg-[var(--bg-card)] p-2 shadow-xl">
+            <nav aria-label="Mobile" className="flex flex-col">
+              {NAV_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="rounded-lg px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)]"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <a
+                href={GITHUB_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)]"
+              >
+                <Github className="h-4 w-4" /> GitHub
+              </a>
+              <div className="my-2 h-px bg-[var(--border-primary)]" />
+              <Link
+                href="/sign-in"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)]"
+              >
+                Sign in
+              </Link>
+              <Link
+                href="/sign-up"
+                className="mt-1 rounded-lg bg-emerald-600 px-3 py-2 text-center text-sm font-semibold text-white"
+              >
+                Start free
+              </Link>
+            </nav>
+          </div>
+        </details>
       </div>
-      {/* small screen nav menu */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: open ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
-        className={`md:hidden absolute top-0 left-0 w-full h-full bg-gray-700 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-30 text-[#000000] ${
-          open ? "block" : "hidden"
-        }`}
-      >
-        <button
-          className="absolute top-5 right-5 text-5xl"
-          onClick={handleClose}
-        >
-          x
-        </button>
-        <ul className="flex flex-col items-center justify-center h-full text-black">
-          <li className="py-1 flex items-center justify-center gap-2">
-            <Image
-              src="/tripmate-logo.png"
-              alt="alt"
-              width={60}
-              height={80}
-              className=" rounded-full"
-            />
-            <h2 className="text-3xl font-bold text-black">TripMate</h2>
-          </li>
-          <li className="pb-10 text-center">
-            <p>Travel begins within oneself</p>
-          </li>
-          <li className="py-4 rounded-sm">
-            <a
-              href="/"
-              onClick={handleLinkClick}
-              className="border-b-4 font-bold border-yellow-400 p-2 rounded-md hover:bg-yellow-200 hover:text-black"
-            >
-              Home
-            </a>
-          </li>
-          <li className="py-4 rounded-sm">
-            <a
-              href="/about"
-              onClick={handleLinkClick}
-              className=" border-b-4 font-bold border-yellow-400 p-2 rounded-md hover:bg-yellow-200 hover:text-black"
-            >
-              About
-            </a>
-          </li>
-          <li className="py-4 rounded-sm">
-            <a
-              href="/services"
-              onClick={handleLinkClick}
-              className=" border-b-4 font-bold border-yellow-400 p-2 rounded-md hover:bg-yellow-200 hover:text-black"
-            >
-              Services
-            </a>
-          </li>
-          <li className="py-4 w-full flex gap-4 justify-center items-center m-3">
-            <button
-              className="bg-primary px-2 py-1 w-[85px] rounded-md text-white hover:bg-black"
-              onClick={handleSignupClick}
-            >
-              Sign Up
-            </button>
-            <button
-              className="bg-primary px-2 py-1 w-[85px] rounded-md text-white hover:bg-black"
-              onClick={handleLoginClick}
-            >
-              Login
-            </button>
-          </li>
-        </ul>
-      </motion.div>
     </header>
   );
 }

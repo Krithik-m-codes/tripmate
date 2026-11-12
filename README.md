@@ -1,211 +1,174 @@
 # TripMate
 
+Open-source, MCP-native trip planning. TripMate is a Next.js web app **and** a
+Model Context Protocol server, so Claude Desktop, Cursor, and Claude Code can
+call real travel tools and return a structured, editable itinerary.
+
+- **Web app** — generate day-by-day itineraries, save places, explore maps,
+  check weather, and keep trip history in one workspace.
+- **MCP server** — five tools for geocoding, place search, weather, driving
+  routes, and itinerary generation. Four of them need no API key.
+- **MIT licensed** — inspect it, self-host it, change it.
+
+Live site: <https://tripmate.xride-labs.in>
+MCP docs: [`mcp/README.md`](mcp/README.md)
+
 ---
-
-## More About tripmate
-
-This project is a Trip advisory and utility Web Application built with Next.js, MongoDB, Gemini and various APIs to provide users with information about weather, maps, itinerary , restaurants and attractions. Users can sign up, log in, and store their favorite places. The application also allows users to access and interact with a web-based platform.
-
-### Table of Contents
-
-* [TripMate](#tripmate)
-  + [More About tripmate](#more-about-tripmate)
-    - [Table of Contents](#table-of-contents)
-  + [Project Overview](#project-overview)
-  + [Features](#features)
-  + [Technologies Used](#technologies-used)
-  + [Project Structure](#project-structure)
-  + [Installation and Setup](#installation-and-setup)
-  + [Database Schema](#database-schema)
-    - [User Model](#user-model)
-  + [Environment Variables](#environment-variables)
-  + [Routes and API Endpoints](#routes-and-api-endpoints)
-  + [Future Improvements](#future-improvements)
-  + [Contributing](#contributing)
-  + [License](#license)
-
-## Project Overview
-
-The Tourist Planner Web Application provides users with a platform to explore tourist attractions, get weather updates, view maps, and save their favorite places. Users can create accounts, log in, and manage their profile and saved places. The application uses various APIs to fetch real-time data for weather, maps, and attractions.
 
 ## Features
 
-* **User Authentication**: Sign up, log in, and log out functionality.
-* **User Profile Management**: Manage user profile and avatar.
-* **Favorite Places**: Save and view favorite tourist places.
-* **Weather Updates**: Get real-time weather information for selected places.
-* **Maps Integration**: View maps and directions.
-* **Attractions Information**: Browse and explore tourist attractions.
+- **AI trip planner** — structured itineraries validated against a Zod schema,
+  with Gemini, NVIDIA NIM, and OpenRouter providers.
+- **MCP tools** — `geocode_place`, `search_places`, `get_weather`,
+  `get_directions`, and `plan_trip`.
+- **Live data, not guesses** — OpenStreetMap Nominatim for geocoding and places,
+  Open-Meteo for forecasts, OSRM for driving routes.
+- **Interactive maps** — Mapbox-powered search and a saved-places layer.
+- **Share and export** — public itinerary links and PDF export.
+- **Passwordless auth** — email OTP with optional password, via better-auth.
+- **Itinerary history** — re-open any previously generated trip.
+- **Self-hostable** — Node.js 20+ and MongoDB. No hosted dependency required.
 
-## Technologies Used
-
-* **Frontend**: Next.js, React
-* **Backend**: Typescript
-* **Database**: MongoDB
-* **Authentication**: NextAuth 
-* **APIs**: GEMINI API, MapBox API, Trip Advisory API, Attractions , Pixaby API
-* **Styling**: Tailwind CSS or CSS Modules
-
-## Project Structure
-
-```bash
-.
-├── src/
-│   ├── app/
-│   │   ├── (auth)/
-│   │   │   ├── sign-in/
-│   │   │   │   ├── page.tsx
-│   │   │   ├── sign-up/
-│   │   │   │   ├── page.tsx
-│   │   │   ├── dashboard/
-│   │   │   │   ├── page.tsx
-│   │   │   ├── profile/
-│   │   │   │   ├── page.tsx
-│   │   │   ├── map/
-│   │   │   │   ├── page.tsx
-│   │   ├── (auth)/
-│   │   │   ├── verify/
-│   │   │   │   ├── [token]/
-│   │   │   │       ├── route.ts
-│   │   ├── about/
-│   │   │   ├── page.tsx
-│   │   ├── services/
-│   │   │   ├── page.tsx
-│   │   ├── request-feature/
-│   │   │   ├── page.tsx
-│   │   ├── layout.ts
-│   │   ├── page.tsx
-│   ├── components/
-│   │   ├── Navbar.tsx
-│   │   ├── Footer.tsx
-│   ├── lib/
-│   │   ├── dbConnect.ts
-│   ├── models/
-│   │   ├── User.model.ts
-│   ├── pages/
-│   │   ├── api/
-│   │   │   ├── sign-up.ts
-│   │   │   ├── login.ts
-│   ├── styles/
-│   │   ├── globals.css
-│   ├── utils/
-│   │   ├── sendVerificationEmail.ts
-├── .env.local
-├── README.md
-```
-
-## Installation and Setup
-
-01. **Clone the repository:**
-
-```bash
-   git clone https://github.com/Krithik-m-codes/tripmate.git
-   cd tripmate
-   ```
-
-02.**Install dependencies:**
-
-```bash
-   npm install
-   # or
-   yarn install
-   ```
-
-03.**Set up environment variables:**
-
-   Create a `.env.local` file in the root of your project and add the necessary environment variables:
-
-```env
-   NEXTAUTH_URL=http://localhost:3000
-   NEXTAUTH_SECRET=your_nextauth_secret
-   MONGODB_URI=your_mongodb_connection_string
-   OPENWEATHER_API_KEY=your_openweather_api_key
-   GOOGLE_MAPS_API_KEY=your_google_maps_api_key
-   GEMINI_API_KEY=your_gemini_api_key
-   ```
-
-04.**Run the development server:**
-
-```bash
-   npm run dev
-   # or
-   yarn dev
-   ```
-
-   Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
-
-## Database Schema
-
-### User Model
-
-```javascript
-const mongoose = require('mongoose');
-const {
-    Schema
-} = mongoose;
-
-const userSchema = new Schema({
-    name: String,
-    email: {
-        type: String,
-        unique: true
-    },
-    password: String,
-    username: {
-        type: String,
-        unique: true
-    },
-    avatar: String,
-    verifyCode: String,
-    verifyCodeExpires: Date,
-    isVerified: Boolean,
-    searchHistory: [String],
-    savedPlaces: [String],
-});
-
-const UserModel = mongoose.model('User', userSchema);
-export default UserModel
-```
-
-## Environment Variables
-
-* `NEXTAUTH_URL`: The base URL of your application.
-* `NEXTAUTH_SECRET`: Secret key for NextAuth.ts.
-* `MONGODB_URI`: Connection string for MongoDB.
-* `OPENWEATHER_API_KEY`: API key for OpenWeatherMap.
-* `GOOGLE_MAPS_API_KEY`: API key for Google Maps.
-* `NEXT_PUBLIC_PINWREN_KEY` (optional): public `pk_...` project key for the Pinwren feedback widget. Empty or unset = widget off.
-* `NEXT_PUBLIC_PINWREN_URL` (optional): Pinwren server origin, default `https://bug.shubpy.com`.
-
-## Routes and API Endpoints
-
-* **Frontend Pages:**
-  + `/`: Home page
-  + `/sign-in`: Sign-in page
-  + `/sign-up`: Sign-up page
-  + `/dashboard`: User dashboard
-  + `/verify/[token]`: Email verification page
-
-* **API Endpoints:**
-  + `POST /api/sign-up`: Sign-up API
-  + `POST /api/login` : Login API
-
-## Future Improvements
-
-* Add more detailed user profiles.
-* Integrate more APIs for additional data (e.g., news, events).
-* Implement better error handling and user feedback.
-* Add unit and integration tests.
-  
-
-## Contributing
-
-Contributions are welcome! Please open an issue or submit a pull request.
-
-## License
-
-This project is licensed under the MIT License.
+TripMate does **not** book flights, hotels, or activities, and the costs it
+shows are AI planning estimates rather than live prices.
 
 ---
 
-Feel free to modify the content to better fit your project specifics. This README provides a comprehensive overview and detailed instructions to help users and contributors understand and work with your project.
+## Tech stack
+
+| Layer | Technology |
+| --- | --- |
+| Frontend | Next.js 15 (App Router), React 19, TypeScript |
+| Styling | Tailwind CSS v4 + `tw-animate-css` |
+| UI primitives | Radix UI / shadcn/ui (`src/components/ui`) |
+| Maps | Mapbox GL JS / `react-map-gl`, MapLibre |
+| Backend | Next.js route handlers |
+| Database | MongoDB via Mongoose |
+| Auth | better-auth (email OTP + password) |
+| AI | Gemini, NVIDIA NIM, OpenRouter |
+| MCP | `@modelcontextprotocol/sdk`, stdio transport |
+| Email | React Email + Brevo |
+| Media | Cloudinary |
+
+---
+
+## MCP server
+
+The server lives in [`mcp/`](mcp/) and is a standalone package.
+
+```bash
+cd mcp
+npm install
+npm run smoke   # starts the server, lists tools, calls the public APIs
+```
+
+Claude Desktop, add this to `claude_desktop_config.json`:
+
+```json
+{
+  "mcpServers": {
+    "tripmate": {
+      "command": "node",
+      "args": ["/absolute/path/to/tripmate/mcp/server.mjs"],
+      "env": { "GEMINI_API_KEY": "your-key-here" }
+    }
+  }
+}
+```
+
+Claude Code:
+
+```bash
+claude mcp add tripmate -- node /absolute/path/to/tripmate/mcp/server.mjs
+```
+
+`GEMINI_API_KEY` is only needed for `plan_trip`. Full setup, Cursor config, and
+troubleshooting are in [`mcp/README.md`](mcp/README.md).
+
+---
+
+## Local setup
+
+Requirements: Node.js 26+, pnpm 12+, and a MongoDB connection string.
+
+```bash
+pnpm install
+cp .env.example .env
+pnpm dev
+```
+
+The app runs at <http://localhost:3001>.
+
+### Key environment variables
+
+| Variable | Purpose |
+| --- | --- |
+| `MONGODB_URI` | MongoDB connection string |
+| `BETTER_AUTH_SECRET` / `NEXTAUTH_SECRET` | Session signing key |
+| `BETTER_AUTH_URL` | Public app URL, e.g. `http://localhost:3001` |
+| `NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN` | Mapbox GL JS token |
+| `GEMINI_API_KEY` | Gemini itineraries and the MCP `plan_trip` tool |
+| `NVIDIA_API_KEY` | Optional NVIDIA NIM provider |
+| `OPENROUTER_API_KEY` | Optional OpenRouter provider |
+| `BREVO_API_KEY` | Transactional email (OTP) |
+| `NEXT_PUBLIC_WEATHER_API_KEY` | OpenWeatherMap widget |
+
+See [`.env.example`](.env.example) for the full list.
+
+---
+
+## Scripts
+
+| Command | Description |
+| --- | --- |
+| `pnpm dev` | Development server with Turbopack on port 3001 |
+| `pnpm build` | Production build |
+| `pnpm start` | Start the production server |
+| `pnpm lint` | ESLint |
+| `pnpm typecheck` | TypeScript check |
+| `pnpm test` | Vitest |
+| `pnpm format` | Prettier |
+
+---
+
+## Project structure
+
+```text
+src/
+├── app/
+│   ├── (app)/            # Authenticated workspace: planner, explore, history
+│   ├── (auth-pages)/     # Sign-in, sign-up, verify, reset
+│   ├── (marketing)/      # About, services, request a feature
+│   ├── api/              # Route handlers
+│   ├── page.tsx          # Marketing homepage
+│   ├── robots.ts         # Crawler rules, including AI bots
+│   └── sitemap.ts        # Sitemap with real file mtimes
+├── components/
+│   ├── marketing/        # Homepage sections
+│   ├── seo/              # JSON-LD renderer
+│   └── website/          # Header, footer
+├── lib/
+│   ├── ai/               # Provider abstraction and RAG agent
+│   ├── faq.ts            # Single source of truth for FAQ copy and schema
+│   ├── schema.ts         # JSON-LD builders
+│   └── site.ts           # Canonical URL and link constants
+└── schemas/              # Zod itinerary schema
+
+mcp/
+├── server.mjs            # stdio MCP server
+├── lib/travel.mjs        # Geocoding, places, weather, routes
+├── lib/plan.mjs          # Gemini itinerary generation
+└── test/client-smoke.mjs # End-to-end smoke test
+```
+
+---
+
+## Contributing
+
+Contributions are welcome. Read [`CONTRIBUTING.md`](CONTRIBUTING.md) before
+opening a PR, and check [`ROADMAP.md`](ROADMAP.md) for planned work. Security
+issues should go through [`SECURITY.md`](SECURITY.md), not public issues.
+
+## License
+
+MIT — see [`LICENSE`](LICENSE).

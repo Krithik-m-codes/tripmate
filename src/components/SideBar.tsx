@@ -10,114 +10,112 @@ import {
   IconHeart,
   IconUserBolt,
   IconHistoryToggle,
+  IconCompass,
+  IconWallet,
+  IconChecklist,
+  IconCpu,
+  IconBrain,
 } from "@tabler/icons-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { signOut, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useSession } from "@/lib/authClient";
+import ThemeToggle from "./ThemeToggle";
 
-export function MainSideBar({ children }: React.PropsWithChildren<{}>) {
+const ICON = "h-5 w-5 shrink-0";
+
+export function MainSideBar({ children }: React.PropsWithChildren<object>) {
   const links = [
     {
       label: "Dashboard",
       href: "/dashboard",
-      icon: (
-        <IconLayoutDashboard className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
+      icon: <IconLayoutDashboard className={ICON} />,
     },
     {
-      label: "Map",
-      href: "/map",
-      icon: (
-        <IconMap2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
+      label: "AI Trip Planner",
+      href: "/planner/ai-generator",
+      icon: <IconBrandTabler className={ICON} />,
     },
     {
-      label: "Directions",
-      href: "/directions",
-      icon: (
-        <IconMap2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
+      label: "Explore Map",
+      href: "/explore/map",
+      icon: <IconMap2 className={ICON} />,
     },
     {
-      label: "AI Planner",
-      href: "/ai-trip-planner",
-      icon: (
-        <IconBrandTabler className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
-    },
-    {
-      label: "Profile",
-      href: "/profile",
-      icon: (
-        <IconUserBolt className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
+      label: "Saved Itineraries",
+      href: "/planner/recent",
+      icon: <IconHistoryToggle className={ICON} />,
     },
     {
       label: "Saved Places",
-      href: "/saved-places",
-      icon: (
-        <IconHeart className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
+      href: "/explore/saved",
+      icon: <IconHeart className={ICON} />,
     },
     {
-      label: "Recent Itineraries",
-      href: "/recent-generated-itineraries",
-      icon: (
-        <IconHistoryToggle className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
+      label: "Travel Notes & Tips",
+      href: "/planner/brain",
+      icon: <IconBrain className={ICON} />,
     },
     {
-      label: "Recent Trips",
-      href: "/recents-history",
-      icon: (
-        <IconHistory className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
+      label: "Budget Tracker",
+      href: "/planner/budget",
+      icon: <IconWallet className={ICON} />,
+    },
+    {
+      label: "Packing Checklists",
+      href: "/planner/checklist",
+      icon: <IconChecklist className={ICON} />,
+    },
+    {
+      label: "Profile",
+      href: "/settings/profile",
+      icon: <IconUserBolt className={ICON} />,
     },
     {
       label: "Sign Out",
-      href: "/", // sign out will be handled by the signOut function
-      onclick: () => signOut({ callbackUrl: "/" }),
-      icon: (
-        <IconLogout2 className="text-neutral-700 dark:text-neutral-200 h-5 w-5 flex-shrink-0" />
-      ),
+      href: "/",
+      icon: <IconLogout2 className={ICON} />,
     },
   ];
+
   const [open, setOpen] = useState(false);
   const { data: session } = useSession();
+
   return (
     <div
       className={cn(
-        "rounded-md flex flex-col md:flex-row bg-gray-100 dark:bg-neutral-800 w-full flex-1 border border-neutral-200 dark:border-neutral-700 overflow-hidden",
-        "h-screen"
+        "flex h-screen w-full flex-col overflow-hidden md:flex-row transition-colors duration-300",
+        "bg-zinc-50 dark:bg-[#050505] text-zinc-900 dark:text-zinc-100"
       )}
     >
       <Sidebar open={open} setOpen={setOpen}>
         <SidebarBody className="justify-between gap-10">
-          <div className="flex flex-col flex-1 overflow-y-auto overflow-x-hidden">
+          <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
             {open ? <Logo /> : <LogoIcon />}
-            <div
-              className="mt-8 flex flex-col gap-2"
-              onClick={() => setOpen(false)}
-            >
+            <div className="relative mt-8 flex flex-col gap-1">
               {links.map((link, idx) => (
                 <SidebarLink key={idx} link={link} />
               ))}
             </div>
           </div>
-          <div>
+
+          {/* Bottom user link & theme toggle */}
+          <div className="border-t border-zinc-200/80 dark:border-white/10 pt-3 flex flex-col gap-2">
+            <div className="flex items-center justify-between px-2">
+              {open && <span className="text-xs font-heading font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider">Theme</span>}
+              <ThemeToggle />
+            </div>
             <SidebarLink
               link={{
-                label: `${session?.user?.name}`,
-                href: "/profile",
+                label: session?.user?.name ?? "Account",
+                href: "/settings/profile",
                 icon: (
                   <Image
-                    src={`https://eu.ui-avatars.com/api/?name=${session?.user?.name}`}
-                    className="h-7 w-7 flex-shrink-0 rounded-full"
-                    width={50}
-                    height={50}
+                    src={`https://eu.ui-avatars.com/api/?name=${encodeURIComponent(session?.user?.name ?? "U")}&background=059669&color=fff`}
+                    className="h-7 w-7 shrink-0 rounded-full ring-2 ring-emerald-500/20"
+                    width={28}
+                    height={28}
                     alt="Avatar"
                   />
                 ),
@@ -126,52 +124,44 @@ export function MainSideBar({ children }: React.PropsWithChildren<{}>) {
           </div>
         </SidebarBody>
       </Sidebar>
-      <div className="w-full h-full">{children}</div>
+
+      <div className="flex h-full w-full flex-1 overflow-y-auto overflow-x-hidden bg-zinc-50 dark:bg-[#050505] transition-colors duration-300">
+        {children}
+      </div>
     </div>
   );
 }
 
-// Logo component
-export const Logo = () => {
-  const router = useRouter();
-  return (
-    <Link
-      href="/"
-      onClick={() => router.push("/")}
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
+export const Logo = () => (
+  <Link
+    href="/"
+    className="relative z-20 flex items-center gap-2.5 py-1 text-sm font-normal text-zinc-900 dark:text-white hover:opacity-80 transition-opacity"
+  >
+    <Image
+      src="/tripmate-logo.png"
+      alt="Logo"
+      width={36}
+      height={36}
+      className="rounded-full ring-2 ring-emerald-500/20"
+    />
+    <motion.span
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="whitespace-pre font-heading font-extrabold tracking-tight text-gradient text-xl"
     >
-      <Image
-        src="/tripmate-logo.png"
-        alt="Logo"
-        width={40}
-        height={40}
-        className="rounded-full"
-      />
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="font-medium text-black dark:text-white whitespace-pre"
-      >
-        TripMate
-      </motion.span>
-    </Link>
-  );
-};
+      TripMate
+    </motion.span>
+  </Link>
+);
 
-// LogoIcon component
-export const LogoIcon = () => {
-  return (
-    <Link
-      href="#"
-      className="font-normal flex space-x-2 items-center text-sm text-black py-1 relative z-20"
-    >
-      <Image
-        src="/tripmate-logo.png"
-        alt="Logo"
-        width={40}
-        height={40}
-        className="rounded-full"
-      />
-    </Link>
-  );
-};
+export const LogoIcon = () => (
+  <Link href="/" className="relative z-20 flex items-center gap-2 py-1">
+    <Image
+      src="/tripmate-logo.png"
+      alt="Logo"
+      width={36}
+      height={36}
+      className="rounded-full"
+    />
+  </Link>
+);

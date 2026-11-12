@@ -1,3 +1,11 @@
+import withSerwistInit from "@serwist/next";
+
+const withSerwist = withSerwistInit({
+  swSrc: "src/app/sw.ts",
+  swDest: "public/sw.js",
+  disable: process.env.NODE_ENV === "development",
+});
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -40,6 +48,8 @@ const nextConfig = {
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
   },
+  transpilePackages: ["@react-pdf/renderer"],
+  serverExternalPackages: ["@react-email/render", "@react-email/components", "prettier"],
 };
 
-export default nextConfig;
+export default withSerwist(nextConfig);

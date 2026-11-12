@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import AuthProvider from "../context/AuthProvider";
 import StoreProvider from "@/store/StoreProvider";
 import { ThemeProvider } from "@/context/ThemeProvider";
+import { Telemetry } from "@/components/analytics/Telemetry";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { OG_ALT, SITE_DESCRIPTION, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/site";
@@ -110,6 +111,7 @@ export default function RootLayout({
     >
       <body className={cn("font-sans antialiased", jakarta.className)}>
         <JsonLd data={[websiteSchema(), organizationSchema()]} />
+        <Telemetry />
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-emerald-600 focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white"

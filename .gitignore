@@ -20,3 +20,16 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/.claude/
+
+CLAUDE.md
+PRD.md
+ROADMAP.md
+
+# Build artifacts
+tsconfig.tsbuildinfo
+public/sw.js
+
+# Local scratch scripts
+/scratch/

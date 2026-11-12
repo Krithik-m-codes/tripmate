@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { JetBrains_Mono, Outfit, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import Script from "next/script";
 import AuthProvider from "../context/AuthProvider";
 import StoreProvider from "@/store/StoreProvider";
 import { ThemeProvider } from "@/context/ThemeProvider";
@@ -27,6 +28,12 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
   display: "swap",
 });
+
+// Pinwren feedback widget: rendered only when a public project key is set.
+const pinwrenUrl = (
+  process.env.NEXT_PUBLIC_PINWREN_URL || "https://bug.shubpy.com"
+).replace(/\/+$/, "");
+const pinwrenKey = process.env.NEXT_PUBLIC_PINWREN_KEY;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -123,6 +130,13 @@ export default function RootLayout({
             <ThemeProvider>{children}</ThemeProvider>
           </StoreProvider>
         </AuthProvider>
+        {pinwrenKey ? (
+          <Script
+            src={`${pinwrenUrl}/widget.js`}
+            data-project={pinwrenKey}
+            strategy="afterInteractive"
+          />
+        ) : null}
       </body>
     </html>
   );

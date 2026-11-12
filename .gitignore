@@ -25,7 +25,6 @@ yarn-error.log*
 
 CLAUDE.md
 PRD.md
-ROADMAP.md
 
 # Build artifacts
 tsconfig.tsbuildinfo

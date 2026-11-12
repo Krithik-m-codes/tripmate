@@ -89,7 +89,7 @@ troubleshooting are in [`mcp/README.md`](mcp/README.md).
 
 ## Local setup
 
-Requirements: Node.js 20+, pnpm 9+, and a MongoDB connection string.
+Requirements: Node.js 26+, pnpm 12+, and a MongoDB connection string.
 
 ```bash
 pnpm install

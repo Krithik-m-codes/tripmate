@@ -33,3 +33,5 @@ public/sw.js
 
 # Local scratch scripts
 /scratch/
+.vercel
+.env*
